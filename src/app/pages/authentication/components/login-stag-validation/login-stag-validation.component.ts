@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StagLoginQueryParamsModel } from 'src/app/core/models/stag/stag-login-query-params.model';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
+import { NotificationToastrService } from 'src/app/core/services/notification/notification-toastr.service';
 import { Base64Service } from 'src/app/core/services/utils/base64.service';
 
 @Component({
@@ -13,8 +14,10 @@ export class LoginStagValidationComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private base64Service: Base64Service,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private notificationToastrService: NotificationToastrService
   ) {
     this.processQueryParams();
   }
@@ -33,8 +36,9 @@ export class LoginStagValidationComponent implements OnInit {
     const isAnonymous = this.authenticationService.stagAuthentication.isAnonymous(loginParams);
 
     if (isAnonymous) {
-      // TODO TOASTER - nepovolujeme anonymni prihlaseni
-    }else{
+      this.notificationToastrService.loginStagNoAnonymousUsers();
+      this.router.navigateByUrl('/login');
+    } else {
       this.authenticationService.stagAuthentication.authorize(loginParams);
     }
   }

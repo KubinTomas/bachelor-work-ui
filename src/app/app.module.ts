@@ -16,6 +16,7 @@ import en from '@angular/common/locales/en';
 import { AuthenticationModule } from './pages/authentication/authentication.module';
 import { NgZorroModule } from './shared/modules/ng-zorro.module';
 import { RouterModule } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
 
 registerLocaleData(en);
 
@@ -31,7 +32,8 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     AuthenticationModule,
     NgZorroModule,
-    RouterModule
+    RouterModule,
+    ToastrModule.forRoot()
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
