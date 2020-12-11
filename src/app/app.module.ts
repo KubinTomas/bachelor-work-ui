@@ -17,6 +17,11 @@ import { AuthenticationModule } from './pages/authentication/authentication.modu
 import { NgZorroModule } from './shared/modules/ng-zorro.module';
 import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './store/app.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { environment } from 'src/environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 registerLocaleData(en);
 
@@ -33,7 +38,16 @@ registerLocaleData(en);
     AuthenticationModule,
     NgZorroModule,
     RouterModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      // runtimeChecks: {
+      //   strictStateImmutability: true,
+      //   strictActionImmutability: true
+      // }
+    }),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

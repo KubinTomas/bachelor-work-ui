@@ -12,6 +12,6 @@ export class Base64Service {
   }
 
   decode(input: string): string {
-    return atob(input);
+    return decodeURIComponent(escape(window.atob(input)));
   }
 }
