@@ -27,12 +27,18 @@
                 </div>
             </div>
             <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Přihlásit se</button>
-            <a nz-button class="login-form-button login-form-margin login-stag-btn" [nzType]="'primary'" (click) = "onStagLoginClick()">STAG přihlášení</a>
+            <a nz-button class="login-form-button login-form-margin login-stag-btn" [nzType]="'primary'"
+                (click)="onStagLoginClick()">STAG přihlášení</a>
 
             <div class="text-center">
                 <a [routerLink]="['']">MAIN</a>
             </div>
         </form>
+
+        <div>
+            <span>Heslo:</span> <span>demo</span>
+            <img src="assets/images/stag/accounts.png" alt="">
+        </div>
     </div>
 
 </div>

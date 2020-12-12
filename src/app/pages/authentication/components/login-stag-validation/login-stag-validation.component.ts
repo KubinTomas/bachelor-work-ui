@@ -20,6 +20,8 @@ export class LoginStagValidationComponent implements OnInit {
     private notificationToastrService: NotificationToastrService
   ) {
     this.processQueryParams();
+
+    console.log(this.authenticationService.isAuthenticated());
   }
 
   ngOnInit(): void {
@@ -41,7 +43,12 @@ export class LoginStagValidationComponent implements OnInit {
       this.notificationToastrService.loginStagNoAnonymousUsers();
       this.router.navigateByUrl('/login');
     } else {
-      this.authenticationService.stagAuthentication.authorize(loginParams);
+      this.authenticationService.login({}).subscribe(loginResponse => {
+        this.authenticationService.saveCredentials(loginResponse.token, loginParams.stagUserTicket);
+
+        console.log(this.authenticationService.isAuthenticated());
+
+      });
     }
   }
 }

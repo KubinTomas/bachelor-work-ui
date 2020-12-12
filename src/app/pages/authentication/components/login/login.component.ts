@@ -21,7 +21,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService
-  ) { }
+  ) {
+    console.log(this.authenticationService.isAuthenticated());
+  }
 
   ngOnInit(): void {
     this.buildForm();

@@ -22,8 +22,14 @@ import { reducers, metaReducers } from './store/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { JwtModule } from '@auth0/angular-jwt';
+import { apiUrl } from './core/models/url.model';
 
 registerLocaleData(en);
+
+export function tokenGetter(): string {
+  return localStorage.getItem('jwt');
+}
 
 @NgModule({
   declarations: [
@@ -48,6 +54,12 @@ registerLocaleData(en);
     }),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        allowedDomains: [apiUrl],
+      }
+    })
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
