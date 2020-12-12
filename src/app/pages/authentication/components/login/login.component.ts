@@ -41,4 +41,11 @@ export class LoginComponent implements OnInit {
     this.authenticationService.stagAuthentication.redirectToStagAuthorization();
   }
 
+  getUser(): void {
+    this.authenticationService.getUser().subscribe(res => {
+      console.log(res);
+      console.log(res);
+      console.log(res);
+    });
+  }
 }

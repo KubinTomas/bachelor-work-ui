@@ -57,14 +57,18 @@ export class AuthenticationService {
 
     return this.jwtHelper.isTokenExpired(token);
   }
-
-  login(loginModel: LoginModel): Observable<LoginResponseModel> {
-    return this.httpClient.post<LoginResponseModel>(apiUrl + '/authentication/login', loginModel);
-  }
-
   saveCredentials(token: string, stagUserTicket: string): void {
     localStorage.setItem('jwt', token);
 
     this.stagAuthenticationService.saveCredentials(stagUserTicket);
   }
+
+  login(loginModel: LoginModel): Observable<LoginResponseModel> {
+    return this.httpClient.post<LoginResponseModel>(apiUrl + '/authentication/login', loginModel);
+  }
+
+  getUser(): Observable<any> {
+    return this.httpClient.get<any>(apiUrl + '/authentication/user', { withCredentials: true });
+  }
+
 }
