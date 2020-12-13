@@ -47,7 +47,11 @@ export class AuthEffects {
                     map(user => {
                         return AuthActions.saveUser({ user });
                     }),
-                    catchError(() => EMPTY)
+                    catchError(error => {
+                        return concat(
+                            of(AuthActions.logout())
+                        );
+                    })
                 ))
             ),
         { dispatch: true }
