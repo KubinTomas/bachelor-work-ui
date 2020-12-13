@@ -37,7 +37,7 @@
                     <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
                 </span>
 
-                <span class="about-user">
+                <span class="about-user" nz-dropdown [nzDropdownMenu]="userActionsDropDownMenu">
                     <span class="user-name">
                         <i nz-icon nzType="user" nzTheme="outline"></i>
                         <span>
@@ -51,13 +51,22 @@
                         </span>
                     </span>
                 </span>
+
+                <nz-dropdown-menu #userActionsDropDownMenu="nzDropdownMenu">
+                    <ul nz-menu>
+                        <li nz-menu-item (click) = "logout()"><i nz-icon nzType="logout" nzTheme="outline"></i> Odhlásit</li>
+                        <li nz-menu-item *ngIf="user.stagUserInfo.length > 1"><i nz-icon nzType="eye"
+                                nzTheme="outline"></i> Změnit roli</li>
+                    </ul>
+                </nz-dropdown-menu>
             </div>
         </nz-header>
         <nz-content>
             <div class="inner-content">
                 <router-outlet></router-outlet>
+                <nz-page-header class="site-page-header" nzBackIcon nzTitle="Title" nzSubtitle="This is a subtitle">
+                </nz-page-header>
             </div>
         </nz-content>
     </nz-layout>
 </nz-layout>
-

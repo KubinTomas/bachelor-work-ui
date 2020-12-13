@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { UserModel } from 'src/app/core/models/authentication/user.model';
+import { AuthActions } from 'src/app/pages/authentication/store/auth-action-types';
 import { user } from 'src/app/pages/authentication/store/auth.selectors';
 import { AppState } from 'src/app/store/app.reducer';
 
@@ -30,4 +31,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
+  logout(){
+    this.store.dispatch(AuthActions.logout());
+  }
 }

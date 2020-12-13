@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { LoginResponseModel } from '../../models/authentication/login-response.model';
@@ -20,13 +21,16 @@ export class AuthenticationService {
   constructor(
     private readonly stagAuthenticationService: StagAuthenticationService,
     private jwtHelper: JwtHelperService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private router: Router
   ) { }
 
   logout(): void {
     localStorage.removeItem('jwt');
 
     this.stagAuthenticationService.logout();
+
+    this.router.navigateByUrl('login');
   }
   // kontrola pokud mam token -> doslo k prihlaseni
   // kontrola zda token je stale platny

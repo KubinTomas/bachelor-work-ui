@@ -33,8 +33,7 @@ export class AuthEffects {
             .pipe(
                 ofType(AuthActions.logout),
                 tap(action => {
-                    localStorage.removeItem('user');
-                    this.router.navigateByUrl('/auth/login');
+                    this.authenticationService.logout();
                 })
             ),
         { dispatch: false }
