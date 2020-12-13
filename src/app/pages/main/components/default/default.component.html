@@ -8,23 +8,26 @@
             </a>
         </div>
         <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-            <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+            <li nz-submenu nzOpen nzTitle="Události" nzIcon="dashboard">
                 <ul>
                     <li nz-menu-item nzMatchRouter>
                         <a routerLink="/login">Login</a>
                     </li>
                     <li nz-menu-item nzMatchRouter>
-                        <a>Monitor</a>
+                        <a>Kalendář</a>
                     </li>
                     <li nz-menu-item nzMatchRouter>
-                        <a>Workplace</a>
+                        <a>Moje události</a>
+                    </li>
+                    <li nz-menu-item nzMatchRouter>
+                        <a>Plánované události</a>
                     </li>
                 </ul>
             </li>
-            <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
+            <li nz-submenu nzOpen nzTitle="Správa událostí" nzIcon="form">
                 <ul>
                     <li nz-menu-item nzMatchRouter>
-                        <a>Basic Form</a>
+                        <a>Vytvořit událost</a>
                     </li>
                 </ul>
             </li>

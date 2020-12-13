@@ -25,6 +25,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { JwtModule } from '@auth0/angular-jwt';
 import { apiUrl } from './core/models/url.model';
 import { DefaultInterceptor } from './core/interceptors/default.interceptor';
+import { AuthGuard } from './core/guards/auth.guard';
 
 registerLocaleData(en);
 
@@ -63,6 +64,7 @@ export function tokenGetter(): string {
     })
   ],
   providers: [
+    AuthGuard,
     { provide: NZ_I18N, useValue: en_US },
     // {
     //   provide: HTTP_INTERCEPTORS,
