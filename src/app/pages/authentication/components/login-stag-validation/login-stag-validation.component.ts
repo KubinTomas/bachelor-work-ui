@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { StagLoginQueryParamsModel } from 'src/app/core/models/stag/stag-login-query-params.model';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { NotificationToastrService } from 'src/app/core/services/notification/notification-toastr.service';
 import { Base64Service } from 'src/app/core/services/utils/base64.service';
+import { AppState } from 'src/app/store/app.reducer';
+import { AuthActions } from '../../store/auth-action-types';
 
 @Component({
   selector: 'app-login-stag-validation',
@@ -17,7 +20,8 @@ export class LoginStagValidationComponent implements OnInit {
     private router: Router,
     private base64Service: Base64Service,
     private authenticationService: AuthenticationService,
-    private notificationToastrService: NotificationToastrService
+    private notificationToastrService: NotificationToastrService,
+    private store: Store<AppState>
   ) {
     this.processQueryParams();
 
@@ -47,8 +51,16 @@ export class LoginStagValidationComponent implements OnInit {
         this.authenticationService.saveCredentials(loginResponse.token, loginParams.stagUserTicket);
 
         console.log(this.authenticationService.isAuthenticated());
-
+        this.getUser();
       });
     }
+  }
+  getUser(): void {
+    this.store.dispatch(AuthActions.getUser());
+
+    // this.authenticationService.getUser().subscribe(user => {
+    //   console.log(res);
+
+    // });
   }
 }

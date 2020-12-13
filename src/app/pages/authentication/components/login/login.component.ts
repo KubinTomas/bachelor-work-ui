@@ -44,8 +44,7 @@ export class LoginComponent implements OnInit {
   getUser(): void {
     this.authenticationService.getUser().subscribe(res => {
       console.log(res);
-      console.log(res);
-      console.log(res);
+
     });
   }
 }

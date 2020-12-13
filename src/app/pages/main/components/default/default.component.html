@@ -1,4 +1,4 @@
-<nz-layout class="app-layout">
+<nz-layout class="app-layout" *ngIf="user">
     <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
         [nzTrigger]="null">
         <div class="sidebar-logo">
@@ -36,6 +36,21 @@
                 <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
                     <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
                 </span>
+
+                <span class="about-user">
+                    <span class="user-name">
+                        <i nz-icon nzType="user" nzTheme="outline"></i>
+                        <span>
+                            {{user.name}}
+                        </span>
+                    </span>
+                    <span class="user-role">
+                        <i nz-icon nzType="eye" nzTheme="outline"></i>
+                        <span>
+                            {{user.activeStagUserInfo.roleNazev}}
+                        </span>
+                    </span>
+                </span>
             </div>
         </nz-header>
         <nz-content>
@@ -45,3 +60,4 @@
         </nz-content>
     </nz-layout>
 </nz-layout>
+

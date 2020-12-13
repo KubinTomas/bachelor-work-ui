@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType, act } from '@ngrx/effects';
 import { Router } from '@angular/router';
 import { AuthActions } from './auth-action-types';
-import { tap, concatMap, map, catchError, switchMap } from 'rxjs/operators';
+import { tap, concatMap, map, catchError, switchMap, mergeMap } from 'rxjs/operators';
 
-import { concat, of } from 'rxjs';
+import { concat, EMPTY, of } from 'rxjs';
+import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 
 
 @Injectable()
@@ -13,7 +14,9 @@ export class AuthEffects {
     constructor(
         private actions$: Actions,
         private router: Router,
+        private authenticationService: AuthenticationService
     ) { }
+
 
     login$ = createEffect(() =>
         this.actions$.pipe(
@@ -31,19 +34,49 @@ export class AuthEffects {
                 ofType(AuthActions.logout),
                 tap(action => {
                     localStorage.removeItem('user');
-
                     this.router.navigateByUrl('/auth/login');
                 })
             ),
         { dispatch: false }
     );
 
+    getUser$ = createEffect(() =>
+        this.actions$
+            .pipe(
+                ofType(AuthActions.getUser),
+                concatMap(() => this.authenticationService.getUser().pipe(
+                    map(user => {
+                        return AuthActions.saveUser({ user });
+                    }),
+                    catchError(() => EMPTY)
+                ))
+            ),
+        { dispatch: true }
+    );
 
-    // joinCompanyAsAdmin$ = createEffect(() =>
+    saveUser$ = createEffect(() =>
+        this.actions$
+            .pipe(
+                ofType(AuthActions.getUser),
+                tap(() => this.router.navigateByUrl(''))
+            ),
+        { dispatch: false }
+    );
+
+    // getUser$ = createEffect(() => this.actions$.pipe(
+    //     ofType('[Movies Page] Load Movies'),
+    //     mergeMap(() => this.moviesService.getAll()
+    //       .pipe(
+    //         map(movies => ({ type: '[Movies API] Movies Loaded Success', payload: movies })),
+    //         catchError(() => EMPTY)
+    //       ))
+    //     )
+    //   ));
+
+    // getUser$ = createEffect(() =>
     //     this.actions$.pipe(
-    //         ofType(AuthActions.joinCompanyAsAdmin),
+    //         ofType(AuthActions.getUser),
     //         concatMap(action => {
-    //             console.log(action);
     //             return concat(
     //                 of(PageLoaderActions.enablePageLoader({ pageLoaderType: PageLoaderTypeEnum.OverlayLoader })),
 

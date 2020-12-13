@@ -4,6 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { LoginResponseModel } from '../../models/authentication/login-response.model';
 import { LoginModel } from '../../models/authentication/login.model';
+import { UserModel } from '../../models/authentication/user.model';
 import { apiUrl } from '../../models/url.model';
 import { StagAuthenticationService } from './stag-authentication.service';
 
@@ -67,8 +68,8 @@ export class AuthenticationService {
     return this.httpClient.post<LoginResponseModel>(apiUrl + '/authentication/login', loginModel);
   }
 
-  getUser(): Observable<any> {
-    return this.httpClient.get<any>(apiUrl + '/authentication/user', { withCredentials: true });
+  getUser(): Observable<UserModel> {
+    return this.httpClient.get<UserModel>(apiUrl + '/authentication/user', { withCredentials: true });
   }
 
 }
