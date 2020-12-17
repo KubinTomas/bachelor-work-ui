@@ -14,7 +14,10 @@
                         <a routerLink="/login">Login</a>
                     </li>
                     <li nz-menu-item nzMatchRouter>
-                        <a>Kalendář</a>
+                        <a routerLink="">Default</a>
+                    </li>
+                    <li nz-menu-item nzMatchRouter>
+                        <a routerLink="subject-events/calendar">Kalendář</a>
                     </li>
                     <li nz-menu-item nzMatchRouter>
                         <a>Moje události</a>
@@ -57,7 +60,8 @@
 
                 <nz-dropdown-menu #userActionsDropDownMenu="nzDropdownMenu">
                     <ul nz-menu>
-                        <li nz-menu-item (click) = "logout()"><i nz-icon nzType="logout" nzTheme="outline"></i> Odhlásit</li>
+                        <li nz-menu-item (click)="logout()"><i nz-icon nzType="logout" nzTheme="outline"></i> Odhlásit
+                        </li>
                         <li nz-menu-item *ngIf="user.stagUserInfo.length > 1"><i nz-icon nzType="eye"
                                 nzTheme="outline"></i> Změnit roli</li>
                     </ul>

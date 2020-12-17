@@ -4,6 +4,7 @@ import { DefaultComponent } from './components/default/default.component';
 import { RouterModule } from '@angular/router';
 import { NgZorroModule } from 'src/app/shared/modules/ng-zorro.module';
 import { MainRoutingModule } from './main.routing.module';
+import { SubjectEventsModule } from '../subject-events/subject-events.module';
 
 
 
@@ -13,7 +14,8 @@ import { MainRoutingModule } from './main.routing.module';
     CommonModule,
     NgZorroModule,
     RouterModule,
-    MainRoutingModule
+    MainRoutingModule,
+    SubjectEventsModule
   ]
 })
 export class MainModule { }
