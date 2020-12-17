@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthActions } from './auth-action-types';
 import { tap, concatMap, map, catchError, switchMap, mergeMap } from 'rxjs/operators';
 
-import { concat, EMPTY, of } from 'rxjs';
+import { concat, empty, EMPTY, of } from 'rxjs';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 
 
@@ -14,7 +14,7 @@ export class AuthEffects {
     constructor(
         private actions$: Actions,
         private router: Router,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService,
     ) { }
 
 
@@ -28,15 +28,33 @@ export class AuthEffects {
         { dispatch: false }
     );
 
+    // logout$ = createEffect(() =>
+    //     this.actions$
+    //         .pipe(
+    //             ofType(AuthActions.logout),
+    //             tap(action => {
+    //                 this.authenticationService.logout();
+    //             })
+    //         ),
+    //     { dispatch: false }
+    // );
+
     logout$ = createEffect(() =>
         this.actions$
             .pipe(
                 ofType(AuthActions.logout),
-                tap(action => {
-                    this.authenticationService.logout();
-                })
+                concatMap(() => this.authenticationService.logout().pipe(
+                    map(user => {
+                        return AuthActions.deleteUser();
+                    }),
+                    catchError(error => {
+                        return concat(
+                            of(AuthActions.deleteUser())
+                        );
+                    })
+                ))
             ),
-        { dispatch: false }
+        { dispatch: true }
     );
 
     getUser$ = createEffect(() =>
@@ -65,6 +83,23 @@ export class AuthEffects {
             ),
         { dispatch: false }
     );
+
+
+    deleteUser$ = createEffect(() =>
+        this.actions$
+            .pipe(
+                ofType(AuthActions.deleteUser),
+                tap(() => {
+                    console.log("HERererer");
+                    this.authenticationService.stagAuthentication.logout();
+
+                    this.router.navigateByUrl('login');
+                })
+            ),
+        { dispatch: false }
+    );
+
+
 
     // getUser$ = createEffect(() => this.actions$.pipe(
     //     ofType('[Movies Page] Load Movies'),

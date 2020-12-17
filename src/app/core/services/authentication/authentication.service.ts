@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { LoginResponseModel } from '../../models/authentication/login-response.model';
 import { LoginModel } from '../../models/authentication/login.model';
@@ -22,34 +23,32 @@ export class AuthenticationService {
     private readonly stagAuthenticationService: StagAuthenticationService,
     private jwtHelper: JwtHelperService,
     private httpClient: HttpClient,
-    private router: Router
+    private router: Router,
+    private cookieService: CookieService
   ) { }
 
-  logout(): void {
-    localStorage.removeItem('jwt');
-
-    this.stagAuthenticationService.logout();
-
-    this.router.navigateByUrl('login');
-  }
   // kontrola pokud mam token -> doslo k prihlaseni
   // kontrola zda token je stale platny
   // kontrola pokud token patri stag uzivateli, tak overujeme ze ma platnou cookie pro autorizaci oproti stag api
   isAuthenticated(): boolean {
-    const token: string = localStorage.getItem('jwt');
+    // asp cookie je http only, takze ji neprectu
+    return false;
 
-    if (!token || this.jwtHelper.isTokenExpired(token)) {
-      return false;
-    }
+    // old jwt auth
+    // const token: string = localStorage.getItem('jwt');
 
-    const decodedToken = this.jwtHelper.decodeToken(token);
-    const isStagToken = decodedToken.StagToken === 'true';
+    // if (!token || this.jwtHelper.isTokenExpired(token)) {
+    //   return false;
+    // }
 
-    if (isStagToken && !this.stagAuthenticationService.isAuthenticated()) {
-      return false;
-    }
+    // const decodedToken = this.jwtHelper.decodeToken(token);
+    // const isStagToken = decodedToken.StagToken === 'true';
 
-    return true;
+    // if (isStagToken && !this.stagAuthenticationService.isAuthenticated()) {
+    //   return false;
+    // }
+
+    // return true;
   }
 
 
@@ -72,8 +71,16 @@ export class AuthenticationService {
     return this.httpClient.post<LoginResponseModel>(apiUrl + '/authentication/login', loginModel);
   }
 
+  logout(): Observable<any> {
+    return this.httpClient.post<any>(apiUrl + '/authentication/logout', null);
+  }
+
   getUser(): Observable<UserModel> {
-    return this.httpClient.get<UserModel>(apiUrl + '/authentication/user', { withCredentials: true });
+    return this.httpClient.get<UserModel>(apiUrl + '/authentication/user');
+  }
+
+  isAuthorize(): Observable<boolean> {
+    return this.httpClient.get<boolean>(apiUrl + '/authentication/authorize');
   }
 
 }

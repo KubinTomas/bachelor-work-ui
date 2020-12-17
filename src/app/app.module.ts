@@ -66,11 +66,11 @@ export function tokenGetter(): string {
   providers: [
     AuthGuard,
     { provide: NZ_I18N, useValue: en_US },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: DefaultInterceptor,
-    //   multi: true,
-    // }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: DefaultInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

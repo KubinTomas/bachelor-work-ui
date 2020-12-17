@@ -6,6 +6,7 @@ export enum ActionTypes {
     GetUser = '[On Success Login Or App Load] Get User',
     SaveUser = '[On Get User Success] Save User To Store',
     Logout = '[Navbar Dropdown Menu] User Logout',
+    DeleteUser = '[After User Logout] Delete User And Redirect To Login'
 }
 
 export const getUser = createAction(
@@ -24,4 +25,8 @@ export const login = createAction(
 
 export const logout = createAction(
     ActionTypes.Logout,
+);
+
+export const deleteUser = createAction(
+    ActionTypes.DeleteUser,
 );

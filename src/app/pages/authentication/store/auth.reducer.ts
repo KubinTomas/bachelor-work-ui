@@ -11,7 +11,7 @@ export interface AuthState {
 
 export const initialAuthState: AuthState = {
     user: null,
-    isLoading: false
+    isLoading: false,
 };
 
 export const lReducer = createReducer(
@@ -43,6 +43,14 @@ export const lReducer = createReducer(
         return {
             ...state,
             user: action.user,
+            isLoading: false
+        };
+    }),
+
+    on(AuthActions.deleteUser, (state, action) => {
+        return {
+            ...state,
+            user: null,
             isLoading: false
         };
     }),

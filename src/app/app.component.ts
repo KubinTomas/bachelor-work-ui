@@ -14,8 +14,5 @@ export class AppComponent {
 
 
   constructor(private authenticationService: AuthenticationService, private store: Store<AppState>) {
-    if (this.authenticationService.isAuthenticated()) {
-      this.store.dispatch(AuthActions.getUser());
-    }
   }
 }

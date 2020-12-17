@@ -35,8 +35,6 @@ export class LoginStagValidationComponent implements OnInit {
     const params = { ...this.route.snapshot.queryParams as StagLoginQueryParamsModel };
     params.stagUserInfoEncoded = JSON.parse(this.base64Service.decode(params.stagUserInfo)).stagUserInfo;
 
-    console.log(params);
-
     this.handleLoginParams(params);
   }
 
@@ -50,7 +48,6 @@ export class LoginStagValidationComponent implements OnInit {
       this.authenticationService.login({}).subscribe(loginResponse => {
         this.authenticationService.saveCredentials(loginResponse.token, loginParams.stagUserTicket);
 
-        console.log(this.authenticationService.isAuthenticated());
         this.getUser();
       });
     }

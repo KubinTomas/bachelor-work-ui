@@ -19,7 +19,9 @@ export class DefaultComponent implements OnInit, OnDestroy {
 
   subs: Subscription = new Subscription();
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) {
+    this.store.dispatch(AuthActions.getUser());
+  }
 
   ngOnInit(): void {
     this.subs.add(this.store.select(user).subscribe(userInStore => {
@@ -31,7 +33,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
-  logout(){
+  logout(): void {
     this.store.dispatch(AuthActions.logout());
   }
 }
