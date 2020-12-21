@@ -1,0 +1,14 @@
+.card-subject-single {
+    width: 350px;
+    display: inline-block;
+    padding: 10px;
+
+    nz-card {
+        width: 100%;
+        background: #fbfbfb;
+
+        .icon-c {
+            color: #5a5a5a;
+        }
+    }
+}

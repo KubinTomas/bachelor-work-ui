@@ -1,5 +1,5 @@
 <section *ngIf="form">
-    <form nz-form nzLayout="vertical" [formGroup]="form" (ngSubmit)="submitForm()">
+    <form nz-form nzLayout="vertical" [formGroup]="form">
         <nz-form-item>
             <nz-form-label>Jméno předmětu</nz-form-label>
             <nz-form-control nzErrorTip="Prosím vyplňte jméno.">
@@ -7,10 +7,10 @@
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-            <nz-form-label>Katedra</nz-form-label>
+            <nz-form-label>Katedra a fakulta</nz-form-label>
             <nz-form-control nzErrorTip="Pro vytvoření je třeba mít zvolenou katedru">
-                <nz-select formControlName="katedra" nzPlaceHolder="vyberte katedru">
-                    <nz-option *ngFor="let katedra of (katedry$ | async)" [nzValue]="katedra" [nzLabel]="katedra">
+                <nz-select formControlName="katedraFakulta" nzPlaceHolder="vyberte katedru">
+                    <nz-option *ngFor="let katFak of (katedraFakulta$ | async)" [nzValue]="katFak" [nzLabel]="katFak">
                     </nz-option>
                 </nz-select>
             </nz-form-control>
@@ -25,8 +25,9 @@
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-            <nz-form-control>
-                <button nz-button nzType="primary">Vytvořit</button>
+            <nz-form-control class="form-control-wrapper">
+                <button nz-button nzType="secondary" class="form-back" (click)="back()">Zpět</button>
+                <button nz-button nzType="primary" (click)="submitForm()">Vytvořit</button>
             </nz-form-control>
         </nz-form-item>
     </form>

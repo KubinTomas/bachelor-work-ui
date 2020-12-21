@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~ngx-toastr/toastr';
+@import "~ngx-toastr/toastr";
 
 // @import '~ngx-toastr/toastr-bs4-alert';
 
@@ -9,4 +9,16 @@
 
 .site-page-header {
     border: 1px solid #ebedf0;
+}
+
+.form-control-wrapper {
+    text-align: right;
+
+    .form-back {
+        margin-right: 10px;
+    }
+}
+
+.ml-8{
+    margin-left: 8px;
 }

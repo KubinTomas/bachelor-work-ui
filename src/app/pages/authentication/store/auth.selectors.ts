@@ -15,10 +15,10 @@ export const user = createSelector(
     (authState) => authState.user
 );
 
-export const katedry = createSelector(
+export const katedraFakulta = createSelector(
     user,
     (userModel) => {
-        return [...new Set(userModel.stagUserInfo.map(c => c.katedra))];
+        return [...new Set(userModel.stagUserInfo.map(c => c.katedra + '/' + c.fakulta))];
     }
 );
 
