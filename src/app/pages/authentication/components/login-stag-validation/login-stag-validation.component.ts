@@ -54,10 +54,6 @@ export class LoginStagValidationComponent implements OnInit {
   }
   getUser(): void {
     this.store.dispatch(AuthActions.getUser());
-
-    // this.authenticationService.getUser().subscribe(user => {
-    //   console.log(res);
-
-    // });
+    this.router.navigateByUrl('');
   }
 }

@@ -79,7 +79,9 @@ export class AuthEffects {
         this.actions$
             .pipe(
                 ofType(AuthActions.getUser),
-                tap(() => this.router.navigateByUrl(''))
+                tap(() => {
+                    // this.router.navigateByUrl('');
+                })
             ),
         { dispatch: false }
     );

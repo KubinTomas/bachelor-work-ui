@@ -26,6 +26,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { apiUrl } from './core/models/url.model';
 import { DefaultInterceptor } from './core/interceptors/default.interceptor';
 import { AuthGuard } from './core/guards/auth.guard';
+import { MainModule } from './pages/main/main.module';
 
 registerLocaleData(en);
 
@@ -61,7 +62,8 @@ export function tokenGetter(): string {
         tokenGetter,
         allowedDomains: [apiUrl, "localhost:50466"],
       }
-    })
+    }),
+    MainModule
   ],
   providers: [
     AuthGuard,

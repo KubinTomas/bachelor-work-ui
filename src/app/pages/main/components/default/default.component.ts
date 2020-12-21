@@ -36,4 +36,8 @@ export class DefaultComponent implements OnInit, OnDestroy {
   logout(): void {
     this.store.dispatch(AuthActions.logout());
   }
+
+  consoleLogAboutMe(): void {
+    console.log(this.user);
+  }
 }

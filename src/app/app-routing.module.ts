@@ -4,6 +4,9 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { LoginStagValidationComponent } from './pages/authentication/components/login-stag-validation/login-stag-validation.component';
 import { LoginComponent } from './pages/authentication/components/login/login.component';
 import { RegisterComponent } from './pages/authentication/components/register/register.component';
+import { DefaultComponent } from './pages/main/components/default/default.component';
+import { SubjectEventsCalendarComponent } from './pages/subject-events/components/subject-events-calendar/subject-events-calendar.component';
+import { SubjectPageComponent } from './pages/subject-events/components/subject-page/subject-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -11,7 +14,6 @@ const routes: Routes = [
   { path: 'registration', component: RegisterComponent },
   { path: '', loadChildren: () => import('./pages/main/main.module').then(m => m.MainModule), canActivate: [AuthGuard] },
   { path: 'default', redirectTo: '' },
-  //  TODO GUARD NA LOGIN
 ];
 
 @NgModule({

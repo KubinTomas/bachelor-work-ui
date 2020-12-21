@@ -1,8 +1,9 @@
-<nz-layout class="app-layout" *ngIf="user">
+<!-- *ngIf="user" -->
+<nz-layout class="app-layout" >
     <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
         [nzTrigger]="null">
         <div class="sidebar-logo">
-            <a href="https://ng.ant.design/" target="_blank">
+            <a  routerLink="">
                 <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
                 <h1>Attend IT!</h1>
             </a>
@@ -12,9 +13,6 @@
                 <ul>
                     <li nz-menu-item nzMatchRouter>
                         <a routerLink="/login">Login</a>
-                    </li>
-                    <li nz-menu-item nzMatchRouter>
-                        <a routerLink="">Default</a>
                     </li>
                     <li nz-menu-item nzMatchRouter>
                         <a routerLink="subject-events/calendar">Kalendář</a>
@@ -27,10 +25,10 @@
                     </li>
                 </ul>
             </li>
-            <li nz-submenu nzOpen nzTitle="Správa událostí" nzIcon="form">
+            <li nz-submenu nzOpen nzTitle="Správa předmětů" nzIcon="form">
                 <ul>
                     <li nz-menu-item nzMatchRouter>
-                        <a>Vytvořit událost</a>
+                        <a routerLink="subjects">Předměty</a>
                     </li>
                 </ul>
             </li>
@@ -38,7 +36,7 @@
     </nz-sider>
     <nz-layout>
         <nz-header>
-            <div class="app-header">
+            <div class="app-header" *ngIf="user">
                 <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
                     <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
                 </span>
@@ -64,6 +62,8 @@
                         </li>
                         <li nz-menu-item *ngIf="user.stagUserInfo.length > 1"><i nz-icon nzType="eye"
                                 nzTheme="outline"></i> Změnit roli</li>
+                        <li nz-menu-item (click)="consoleLogAboutMe()"><i nz-icon nzType="info-circle"
+                                nzTheme="outline"></i> Vypsat usera do konzole</li>
                     </ul>
                 </nz-dropdown-menu>
             </div>
@@ -71,8 +71,6 @@
         <nz-content>
             <div class="inner-content">
                 <router-outlet></router-outlet>
-                <nz-page-header class="site-page-header" nzBackIcon nzTitle="Title" nzSubtitle="This is a subtitle">
-                </nz-page-header>
             </div>
         </nz-content>
     </nz-layout>
