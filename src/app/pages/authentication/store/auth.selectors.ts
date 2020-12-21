@@ -8,9 +8,18 @@ export const isLoggedIn = createSelector(
     (authState) => !!authState.user
 );
 
+
+
 export const user = createSelector(
     selectAuthState,
     (authState) => authState.user
+);
+
+export const katedry = createSelector(
+    user,
+    (userModel) => {
+        return [...new Set(userModel.stagUserInfo.map(c => c.katedra))];
+    }
 );
 
 

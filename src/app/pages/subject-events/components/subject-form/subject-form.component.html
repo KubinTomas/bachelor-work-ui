@@ -1,0 +1,33 @@
+<section *ngIf="form">
+    <form nz-form nzLayout="vertical" [formGroup]="form" (ngSubmit)="submitForm()">
+        <nz-form-item>
+            <nz-form-label>Jméno předmětu</nz-form-label>
+            <nz-form-control nzErrorTip="Prosím vyplňte jméno.">
+                <input nz-input formControlName="name" placeholder="zadejte jméno předmětu" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Katedra</nz-form-label>
+            <nz-form-control nzErrorTip="Pro vytvoření je třeba mít zvolenou katedru">
+                <nz-select formControlName="katedra" nzPlaceHolder="vyberte katedru">
+                    <nz-option *ngFor="let katedra of (katedry$ | async)" [nzValue]="katedra" [nzLabel]="katedra">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Popis</nz-form-label>
+            <nz-form-control nzErrorTip="Maximální počet znaků je 1000">
+                <nz-textarea-count [nzMaxCharacterCount]="1000">
+                    <textarea nz-input formControlName="description" placeholder="zadejte popis předmětu"
+                        [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                </nz-textarea-count>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control>
+                <button nz-button nzType="primary">Vytvořit</button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</section>

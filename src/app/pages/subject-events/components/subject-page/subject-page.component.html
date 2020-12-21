@@ -1,2 +1,16 @@
-<nz-page-header class="site-page-header" nzBackIcon nzTitle="Title" nzSubtitle="This is a subtitle">
-</nz-page-header>
+<section>
+    <section>
+        <nz-page-header [nzGhost]="false" class="site-page-header">
+            <nz-page-header-title>Předměty</nz-page-header-title>
+            <nz-page-header-subtitle></nz-page-header-subtitle>
+            <nz-page-header-extra>
+                <button nz-button nzType="primary" routerLink="create"><i nz-icon nzType="plus"
+                        nzTheme="outline"></i>Vytvořit nový
+                    předmět</button>
+            </nz-page-header-extra>
+        </nz-page-header>
+    </section>
+    <section>
+        <app-subjects-list></app-subjects-list>
+    </section>
+</section>
