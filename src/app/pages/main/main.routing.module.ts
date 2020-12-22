@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
+import { SubjectInYearDetailPageComponent } from '../subject-events/components/subject-in-year/subject-in-year-detail-page/subject-in-year-detail-page.component';
 import { SubjectInYearFormComponent } from '../subject-events/components/subject-in-year/subject-in-year-form/subject-in-year-form.component';
 import { SubjectDetailPageComponent } from '../subject-events/components/subject/subject-detail-page/subject-detail-page.component';
 import { SubjectFormComponent } from '../subject-events/components/subject/subject-form/subject-form.component';
@@ -15,6 +16,9 @@ const routes: Routes = [
             { path: 'subjects/detail/:subjectId/year/create', component: SubjectInYearFormComponent },
             { path: 'subjects/create', component: SubjectFormComponent },
             { path: 'subjects/edit', component: SubjectFormComponent },
+
+            { path: 'subjects/detail/:subjectId/in-year/:subjectInYearId', component: SubjectInYearDetailPageComponent },
+
         ],
     },
 ];

@@ -2,10 +2,10 @@
     <thead>
         <tr>
             <th>Jméno</th>
-            <th>Katedra / fakulta </th>
+            <th>Katedra/fakulta </th>
             <th>Uživatel</th>
             <th>Vytvořeno</th>
-            <th>Acke</th>
+            <th>Akce</th>
         </tr>
     </thead>
     <tbody>
@@ -13,8 +13,8 @@
             <td>{{ data.name }}</td>
             <td>{{ data.katedraFakulta }}</td>
             <td>{{ data.ucitelName }}</td>
-            <td>{{ data.dateIn | date: 'd.mm.yyyy' }}</td>
-            <td>{{ data.dateIn | date: 'd.mm.yyyy' }}</td>
+            <td>{{ data.dateIn | date: 'd.mm.yyyy' }} - FIX ME</td>
+            <td></td>
         </tr>
     </tbody>
 </nz-table>

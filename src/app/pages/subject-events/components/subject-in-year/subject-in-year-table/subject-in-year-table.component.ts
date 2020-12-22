@@ -18,10 +18,10 @@ export class SubjectInYearTableComponent implements OnInit {
   }
 
   onRowClick(data: SubjectInYearModel): void {
-  //  this.goToSubjectDetail(data.id);
+    this.goToSubjectInYearDetail(data.subjectId, data.id);
   }
 
-  goToSubjectDetail(id: number): void {
-    this.router.navigateByUrl('subjects/detail/' + id);
+  goToSubjectInYearDetail(subjectId: number, subjectInYearId: number): void {
+    this.router.navigateByUrl('subjects/detail/' + subjectId + '/in-year/' + subjectInYearId);
   }
 }

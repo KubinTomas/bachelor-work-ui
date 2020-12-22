@@ -39,6 +39,6 @@ export class SubjectInYearService {
   }
 
   getSingle(subjectInYearId: number): Observable<SubjectInYearModel> {
-    return this.httpClient.get<SubjectInYearModel>(apiUrl + '/teacher/SubjectInYear/' + subjectInYearId);
+    return this.httpClient.get<SubjectInYearModel>(apiUrl + '/teacher/SubjectInYear/detail/' + subjectInYearId);
   }
 }

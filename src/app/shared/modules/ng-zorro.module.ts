@@ -12,6 +12,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 @NgModule({
     declarations: [],
@@ -28,7 +29,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
         NzCardModule,
         NzTableModule,
         NzBreadCrumbModule,
-        NzSpinModule
+        NzSpinModule,
+        NzDividerModule
     ]
 })
 export class NgZorroModule { }
