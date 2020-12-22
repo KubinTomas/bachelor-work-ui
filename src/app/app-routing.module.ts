@@ -5,8 +5,6 @@ import { LoginStagValidationComponent } from './pages/authentication/components/
 import { LoginComponent } from './pages/authentication/components/login/login.component';
 import { RegisterComponent } from './pages/authentication/components/register/register.component';
 import { DefaultComponent } from './pages/main/components/default/default.component';
-import { SubjectEventsCalendarComponent } from './pages/subject-events/components/subject-events-calendar/subject-events-calendar.component';
-import { SubjectPageComponent } from './pages/subject-events/components/subject-page/subject-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

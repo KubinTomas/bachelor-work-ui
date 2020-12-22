@@ -9,7 +9,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { cs_CZ, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
@@ -67,7 +67,7 @@ export function tokenGetter(): string {
   ],
   providers: [
     AuthGuard,
-    { provide: NZ_I18N, useValue: en_US },
+    { provide: NZ_I18N, useValue: cs_CZ },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: DefaultInterceptor,
