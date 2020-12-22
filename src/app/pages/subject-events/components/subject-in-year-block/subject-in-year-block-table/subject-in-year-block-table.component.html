@@ -1,1 +1,16 @@
-<p>subject-in-year-block-table works!</p>
+<nz-table #basicTable [nzData]="blocks" [nzLoading]="dataLoading">
+    <thead>
+        <tr>
+            <th>Jméno </th>
+            <th>Uživatel</th>
+            <th>Akce</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)">
+            <td>{{ data.name }}</td>
+            <td>{{ data.ucitelName }}</td>
+            <td></td>
+        </tr>
+    </tbody>
+</nz-table>

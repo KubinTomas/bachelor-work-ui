@@ -1,0 +1,6 @@
+Routy nazvy
+http://localhost:4200/subjects/detail/1/in-year/4  vs http://localhost:4200/in-year/4
+http://localhost:4200/subjects/detail/1/in-year/4/block/8 vs http://localhost:4200/block/8
+
+delam par entit a sunu si hromadku..
+Toastr, Error handling, Url routes, Authorization, Update, Delete... 😃 :((((((((((((

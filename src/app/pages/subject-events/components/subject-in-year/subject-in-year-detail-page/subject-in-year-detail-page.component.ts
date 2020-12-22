@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BlockModel } from 'src/app/core/models/subject/block.model';
 import { SubjectInYearModel } from 'src/app/core/models/subject/subject-in-year.model';
+import { BlockService } from 'src/app/core/services/subject/block.service';
 import { SubjectInYearService } from 'src/app/core/services/subject/subject-in-year.service';
 
 @Component({
@@ -11,17 +13,22 @@ import { SubjectInYearService } from 'src/app/core/services/subject/subject-in-y
 export class SubjectInYearDetailPageComponent implements OnInit {
 
   subjectInYear: SubjectInYearModel;
-  subjectInYearsDataLoading = true;
+
+  blocks: BlockModel[] = [];
+  blocksDataLoading = true;
 
   constructor(
     private subjectInYearService: SubjectInYearService,
+    private blockService: BlockService,
     private route: ActivatedRoute
   ) {
     this.route.params.subscribe(params => {
       const subjectInYearId = params.subjectInYearId;
 
       this.subjectInYear = null;
-      this.subjectInYearsDataLoading = true;
+
+      this.blocks = [];
+      this.blocksDataLoading = true;
 
       this.getSubjectInYear(subjectInYearId);
     });
@@ -34,14 +41,15 @@ export class SubjectInYearDetailPageComponent implements OnInit {
     this.subjectInYearService.getSingle(subjectInYearId).subscribe(res => {
       this.subjectInYear = res;
 
+      this.getBlocks(subjectInYearId);
     });
   }
 
-  // getSubjectInYears(subjectId: number): void {
-  //   this.subjectInYearService.get(subjectId).subscribe(res => {
-  //     this.subjectInYears = res;
-  //     this.subjectInYearsDataLoading = false;
-  //   });
-  // }
+  getBlocks(subjectInYearId: number): void {
+    this.blockService.get(subjectInYearId).subscribe(res => {
+      this.blocks = res;
+      this.blocksDataLoading = false;
+    });
+  }
 
 }

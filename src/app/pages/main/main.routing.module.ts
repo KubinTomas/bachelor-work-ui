@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
+import { SubjectInYearBlockFormComponent } from '../subject-events/components/subject-in-year-block/subject-in-year-block-form/subject-in-year-block-form.component';
 import { SubjectInYearDetailPageComponent } from '../subject-events/components/subject-in-year/subject-in-year-detail-page/subject-in-year-detail-page.component';
 import { SubjectInYearFormComponent } from '../subject-events/components/subject-in-year/subject-in-year-form/subject-in-year-form.component';
 import { SubjectDetailPageComponent } from '../subject-events/components/subject/subject-detail-page/subject-detail-page.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
             { path: 'subjects/edit', component: SubjectFormComponent },
 
             { path: 'subjects/detail/:subjectId/in-year/:subjectInYearId', component: SubjectInYearDetailPageComponent },
+            { path: 'subjects/detail/:subjectId/in-year/:subjectInYearId/block/create', component: SubjectInYearBlockFormComponent },
 
         ],
     },

@@ -16,6 +16,7 @@ import { SubjectInYearFormComponent } from './components/subject-in-year/subject
 import { SubjectFormComponent } from './components/subject/subject-form/subject-form.component';
 import { SubjectInYearDetailPageComponent } from './components/subject-in-year/subject-in-year-detail-page/subject-in-year-detail-page.component';
 import { SubjectInYearBlockTableComponent } from './components/subject-in-year-block/subject-in-year-block-table/subject-in-year-block-table.component';
+import { SubjectInYearBlockFormComponent } from './components/subject-in-year-block/subject-in-year-block-form/subject-in-year-block-form.component';
 
 
 
@@ -32,7 +33,8 @@ import { SubjectInYearBlockTableComponent } from './components/subject-in-year-b
     SubjectInYearTableComponent,
     SubjectInYearFormComponent,
     SubjectInYearDetailPageComponent,
-    SubjectInYearBlockTableComponent],
+    SubjectInYearBlockTableComponent,
+    SubjectInYearBlockFormComponent],
   imports: [
     CommonModule,
     NgZorroModule,

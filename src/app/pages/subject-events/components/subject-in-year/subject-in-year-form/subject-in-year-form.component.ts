@@ -26,8 +26,6 @@ export class SubjectInYearFormComponent implements OnInit {
   form: FormGroup;
   subjectInYear: SubjectInYearModel = new SubjectInYearModel();
 
-  user: UserModel;
-
   isCollapsed = false;
 
   subs: Subscription = new Subscription();
