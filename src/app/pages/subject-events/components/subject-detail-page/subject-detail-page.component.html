@@ -1,4 +1,5 @@
-<section *ngIf="subject" @fadeIn>
+<!-- @fadeIn -->
+<section *ngIf="subject" >
     <section>
         <nz-page-header [nzGhost]="false" class="site-page-header">
             <nz-page-header-title>{{subject.name}}</nz-page-header-title>
@@ -19,7 +20,7 @@
         </nz-page-header>
     </section>
     <section class="subjects-wrapper">
-        <!-- <app-subject-table [subjects]="subjects" [dataLoading] = "dataLoading"></app-subject-table> -->
+        <app-subject-in-year-table [subjectInYears]="subjectInYears" [dataLoading] = "subjectInYearsDataLoading"></app-subject-in-year-table>
     </section>
 </section>
 

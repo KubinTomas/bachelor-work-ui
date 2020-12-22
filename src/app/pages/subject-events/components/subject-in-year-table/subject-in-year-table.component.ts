@@ -9,7 +9,7 @@ import { SubjectInYearModel } from 'src/app/core/models/subject/subject-in-year.
 })
 export class SubjectInYearTableComponent implements OnInit {
 
-  @Input() subjectsInYear: SubjectInYearModel[];
+  @Input() subjectInYears: SubjectInYearModel[];
   @Input() dataLoading: boolean;
 
   constructor(private router: Router) { }

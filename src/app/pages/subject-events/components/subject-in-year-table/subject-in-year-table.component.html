@@ -1,20 +1,20 @@
-<!-- <nz-table #basicTable [nzData]="subjects" [nzLoading]="dataLoading">
+<nz-table #basicTable [nzData]="subjectInYears" [nzLoading]="dataLoading">
     <thead>
         <tr>
-            <th>Jméno</th>
-            <th>Katedra / fakulta </th>
+            <th>Rok</th>
+            <th>Jméno </th>
             <th>Uživatel</th>
             <th>Vytvořeno</th>
             <th>Acke</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let data of basicTable.data" (click) = "onRowClick(data)">
+        <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)">
+            <td>{{ data.year }}</td>
             <td>{{ data.name }}</td>
-            <td>{{ data.katedraFakulta }}</td>
             <td>{{ data.ucitelName }}</td>
             <td>{{ data.dateIn | date: 'd.mm.yyyy' }}</td>
-            <td>{{ data.dateIn | date: 'd.mm.yyyy' }}</td>
+            <td></td>
         </tr>
     </tbody>
-</nz-table> -->
+</nz-table>

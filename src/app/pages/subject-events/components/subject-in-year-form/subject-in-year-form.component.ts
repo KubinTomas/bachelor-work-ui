@@ -9,6 +9,7 @@ import { StagAktualniObdobiInfoModel } from 'src/app/core/models/stag-api-kalend
 import { SubjectInYearModel } from 'src/app/core/models/subject/subject-in-year.model';
 import { SubjectModel } from 'src/app/core/models/subject/subject.model';
 import { StagKalendarService } from 'src/app/core/services/kalendar/stag-kalendar-service';
+import { SubjectInYearService } from 'src/app/core/services/subject/subject-in-year.service';
 import { SubjectService } from 'src/app/core/services/subject/subject.service';
 import { AuthActions } from 'src/app/pages/authentication/store/auth-action-types';
 import { user, katedraFakulta } from 'src/app/pages/authentication/store/auth.selectors';
@@ -42,7 +43,7 @@ export class SubjectInYearFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private location: Location,
     private router: Router,
-    private subjectService: SubjectService,
+    private subjectInYearService: SubjectInYearService,
     private stagKalendarService: StagKalendarService,
     private route: ActivatedRoute
   ) {
@@ -53,13 +54,13 @@ export class SubjectInYearFormComponent implements OnInit {
     this.stagKalendarService.get().subscribe(stagAktualniObdobiInfol => {
       this.akademRok = Number(stagAktualniObdobiInfol.akademRok);
 
-      this.years = this.subjectService.getYears(this.akademRok);
+      this.years = this.subjectInYearService.getYears(this.akademRok);
 
       this.buildForm();
     });
 
     this.route.params.subscribe(params => {
-      this.subjectId = params.subjectId;
+      this.subjectId = Number(params.subjectId);
     });
 
   }
@@ -69,7 +70,7 @@ export class SubjectInYearFormComponent implements OnInit {
     // todo validator ze rok je unikatni
     this.form = this.formBuilder.group({
       name: [this.subjectInYear.name, Validators.required],
-      year: [this.subjectInYear.id ? this.subjectInYear.year : this.subjectService.getFormattedYear(this.akademRok), Validators.required],
+      year: [this.subjectInYear.id ? this.subjectInYear.year : this.subjectInYearService.getFormattedYear(this.akademRok), Validators.required],
       description: [this.subjectInYear.description, [Validators.maxLength(1000)]],
     });
   }
@@ -87,9 +88,11 @@ export class SubjectInYearFormComponent implements OnInit {
   }
 
   createSubject(subjectInYear: SubjectInYearModel): void {
-    // this.subjectService.create(subject).subscribe(() => {
-    //   this.back();
-    // });
+    subjectInYear.subjectId = this.subjectId;
+
+    this.subjectInYearService.create(subjectInYear).subscribe(() => {
+      this.back();
+    });
   }
 
   back(): void {
