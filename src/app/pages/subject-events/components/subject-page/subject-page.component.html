@@ -5,12 +5,12 @@
             <nz-page-header-subtitle></nz-page-header-subtitle>
             <nz-page-header-extra>
                 <button nz-button nzType="primary" routerLink="create"><i nz-icon nzType="plus"
-                        nzTheme="outline"></i>Vytvořit nový
+                        nzTheme="outline"></i>Nový
                     předmět</button>
             </nz-page-header-extra>
         </nz-page-header>
     </section>
     <section class="subjects-wrapper">
-        <app-subject-list [subjects]="subjects"></app-subject-list>
+        <app-subject-table [subjects]="subjects" [dataLoading] = "dataLoading"></app-subject-table>
     </section>
 </section>

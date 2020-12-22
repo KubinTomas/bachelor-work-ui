@@ -13,12 +13,21 @@
 
 .form-control-wrapper {
     text-align: right;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: white;
 
     .form-back {
         margin-right: 10px;
     }
 }
 
-.ml-8{
+.ml-8 {
     margin-left: 8px;
+}
+
+.content-wrapper {
+    background: white;
+    padding: 20px;
+    margin-top: 25px;
 }

@@ -9,6 +9,9 @@ import { IconsProviderModule } from 'src/app/icons-provider.module';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @NgModule({
     declarations: [],
@@ -22,7 +25,10 @@ import { NzCardModule } from 'ng-zorro-antd/card';
         IconsProviderModule,
         NzPageHeaderModule,
         NzDropDownModule,
-        NzCardModule
+        NzCardModule,
+        NzTableModule,
+        NzBreadCrumbModule,
+        NzSpinModule
     ]
 })
 export class NgZorroModule { }

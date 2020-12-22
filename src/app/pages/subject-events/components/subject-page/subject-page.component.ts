@@ -10,6 +10,7 @@ import { SubjectService } from 'src/app/core/services/subject/subject.service';
 export class SubjectPageComponent implements OnInit {
 
   subjects: SubjectModel[] = [];
+  dataLoading = true;
 
   constructor(private subjectService: SubjectService) { }
 
@@ -20,7 +21,7 @@ export class SubjectPageComponent implements OnInit {
   getSubjects(): void {
     this.subjectService.get().subscribe(res => {
       this.subjects = res;
-      console.log(this.subjects);
+      this.dataLoading = false;
     });
   }
 
