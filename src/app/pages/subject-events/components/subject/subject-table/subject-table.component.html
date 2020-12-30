@@ -2,19 +2,29 @@
     <thead>
         <tr>
             <th>Jméno</th>
-            <th>Katedra/fakulta </th>
+            <th>Fakulta/katedra </th>
             <th>Uživatel</th>
             <th>Vytvořeno</th>
             <th>Akce</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let data of basicTable.data" (click) = "onRowClick(data)">
+        <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)">
             <td>{{ data.name }}</td>
-            <td>{{ data.katedraFakulta }}</td>
+            <td>{{ data.fakultaKatedra }}</td>
             <td>{{ data.ucitelName }}</td>
             <td>{{ data.dateIn | date: 'd.mm.yyyy' }} - FIX ME</td>
-            <td></td>
+            <td>
+                <span (click)="$event.stopPropagation();" [routerLink]="['edit/', data.id]">
+                    <app-edit-icon></app-edit-icon>
+                </span>
+                <span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                </span>
+                <span (click)="onDeleteClick(data);$event.stopPropagation();">
+                    <app-delete-icon></app-delete-icon>
+                </span>
+            </td>
         </tr>
     </tbody>
 </nz-table>

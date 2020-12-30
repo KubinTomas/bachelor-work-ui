@@ -1,13 +1,15 @@
 <!-- @fadeIn -->
-<section *ngIf="subjectInYear">
+<!-- <section *ngIf="subjectInYear">
     <section>
         <nz-page-header [nzGhost]="false" class="site-page-header">
             <nz-page-header-title>{{subjectInYear.year}} <nz-divider nzType="vertical"></nz-divider>
                 {{subjectInYear.name}}</nz-page-header-title>
             <nz-page-header-subtitle></nz-page-header-subtitle>
             <nz-page-header-extra>
-                <button nz-button nzType="primary" routerLink="/term/create"><i nz-icon nzType="plus"
-                        nzTheme="outline"></i>Nový semestr</button>
+                <button nz-button nzType="primary" routerLink="year/create" class="btn-stag"><i nz-icon nzType="link"
+                        nzTheme="outline"></i>Nové stag propojení</button>
+                <button nz-button nzType="primary" routerLink="block/create"><i nz-icon nzType="plus"
+                        nzTheme="outline"></i>Nový blok</button>
             </nz-page-header-extra>
             <nz-page-header-content>
                 <nz-breadcrumb>
@@ -32,4 +34,4 @@
 
 <div class="page-loader-wrapper" *ngIf="!subjectInYear">
     <app-page-loader></app-page-loader>
-</div>
+</div> -->

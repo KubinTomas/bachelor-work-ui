@@ -13,7 +13,8 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-
+import { NzTransButtonModule } from 'ng-zorro-antd/core/trans-button';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 @NgModule({
     declarations: [],
     exports: [
@@ -30,7 +31,9 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
         NzTableModule,
         NzBreadCrumbModule,
         NzSpinModule,
-        NzDividerModule
+        NzDividerModule,
+        NzTransButtonModule,
+        NzModalModule
     ]
 })
 export class NgZorroModule { }

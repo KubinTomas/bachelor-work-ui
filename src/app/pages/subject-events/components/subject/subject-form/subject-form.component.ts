@@ -1,14 +1,14 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { UserModel } from 'src/app/core/models/authentication/user.model';
 import { SubjectModel } from 'src/app/core/models/subject/subject.model';
 import { SubjectService } from 'src/app/core/services/subject/subject.service';
 import { AuthActions } from 'src/app/pages/authentication/store/auth-action-types';
-import { user, katedraFakulta } from 'src/app/pages/authentication/store/auth.selectors';
+import { user, fakultaKatedra } from 'src/app/pages/authentication/store/auth.selectors';
 import { AppState } from 'src/app/store/app.reducer';
 
 @Component({
@@ -19,37 +19,58 @@ import { AppState } from 'src/app/store/app.reducer';
 export class SubjectFormComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
-  subject: SubjectModel;
+  subject: SubjectModel = new SubjectModel();
 
   user: UserModel;
 
-  isCollapsed = false;
+  loaded = false;
 
   subs: Subscription = new Subscription();
 
-  katedraFakulta$: Observable<string[]>;
+  fakultaKatedra$: Observable<string[]>;
 
   constructor(
     private store: Store<AppState>,
     private formBuilder: FormBuilder,
     private location: Location,
     private router: Router,
-    private subjectService: SubjectService
+    private subjectService: SubjectService,
+    private route: ActivatedRoute
   ) {
-    this.subject = new SubjectModel();
+
   }
 
   ngOnInit(): void {
-    this.katedraFakulta$ = this.store.select(katedraFakulta);
+    this.fakultaKatedra$ = this.store.select(fakultaKatedra);
 
     this.subs.add(this.store.select(user).subscribe(userInStore => {
       this.user = userInStore;
+    }));
 
-      if (this.user) {
+    this.route.params.subscribe(params => {
+      const subjectId = params.subjectId;
+
+      if (subjectId != null) {
+        this.getSubject(subjectId);
+      } else {
+        this.loaded = true;
         this.buildForm();
       }
 
-    }));
+    });
+
+    // subjectId
+  }
+
+  getSubject(subjectId: number): void {
+    this.subjectService.getSingle(subjectId).subscribe(res => {
+      this.subject = res;
+      this.loaded = true;
+
+      if (this.user && this.loaded) {
+        this.buildForm();
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -57,9 +78,12 @@ export class SubjectFormComponent implements OnInit, OnDestroy {
   }
 
   buildForm(): void {
+    const fakKat = this.user ? this.subject.id ?
+      this.subject.fakultaKatedra : (this.user.activeStagUserInfo.fakulta + '/' + this.user.activeStagUserInfo.katedra) : '';
+
     this.form = this.formBuilder.group({
       name: [this.subject.name, Validators.required],
-      katedraFakulta: [this.subject.katedraFakulta, Validators.required],
+      fakultaKatedra: [fakKat, Validators.required],
       description: [this.subject.description, [Validators.maxLength(1000)]],
     });
   }
@@ -68,6 +92,8 @@ export class SubjectFormComponent implements OnInit, OnDestroy {
     this.triggerFormValidation();
 
     if (this.form.valid) {
+      this.loaded = false;
+
       if (this.subject.id) {
         this.updateSubject(this.form.value);
       } else {
@@ -77,8 +103,8 @@ export class SubjectFormComponent implements OnInit, OnDestroy {
   }
 
   createSubject(subject: SubjectModel): void {
-    subject.katedra = subject.katedraFakulta.split('/')[0];
-    subject.fakulta = subject.katedraFakulta.split('/')[1];
+    subject.fakulta = subject.fakultaKatedra.split('/')[0];
+    subject.katedra = subject.fakultaKatedra.split('/')[1];
 
     this.subjectService.create(subject).subscribe(() => {
       this.back();
@@ -89,7 +115,7 @@ export class SubjectFormComponent implements OnInit, OnDestroy {
     const navState: any = this.location.getState();
 
     if (navState.navigationId === 1) {
-      this.router.navigateByUrl('subjects');
+      this.router.navigateByUrl('admin/subjects');
     } else {
       this.location.back();
     }
@@ -97,8 +123,13 @@ export class SubjectFormComponent implements OnInit, OnDestroy {
 
   updateSubject(subject: SubjectModel): void {
     subject.id = this.subject.id;
-    subject.katedra = subject.katedraFakulta.split('/')[0];
-    subject.fakulta = subject.katedraFakulta.split('/')[1];
+    subject.fakulta = subject.fakultaKatedra.split('/')[0];
+    subject.katedra = subject.fakultaKatedra.split('/')[1];
+
+
+    this.subjectService.update(subject).subscribe(() => {
+      this.back();
+    });
   }
 
   triggerFormValidation(): void {

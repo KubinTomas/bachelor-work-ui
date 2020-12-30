@@ -15,8 +15,11 @@ import { SubjectInYearTableComponent } from './components/subject-in-year/subjec
 import { SubjectInYearFormComponent } from './components/subject-in-year/subject-in-year-form/subject-in-year-form.component';
 import { SubjectFormComponent } from './components/subject/subject-form/subject-form.component';
 import { SubjectInYearDetailPageComponent } from './components/subject-in-year/subject-in-year-detail-page/subject-in-year-detail-page.component';
-import { SubjectInYearBlockTableComponent } from './components/subject-in-year-block/subject-in-year-block-table/subject-in-year-block-table.component';
-import { SubjectInYearBlockFormComponent } from './components/subject-in-year-block/subject-in-year-block-form/subject-in-year-block-form.component';
+import { SubjectInYearBlockTableComponent } from './components/subject-in-year-term-block/subject-in-year-block-table/subject-in-year-block-table.component';
+import { SubjectInYearBlockFormComponent } from './components/subject-in-year-term-block/subject-in-year-block-form/subject-in-year-block-form.component';
+import { SubjectInYearTermTableComponent } from './components/subject-in-year-term/subject-in-year-term-table/subject-in-year-term-table.component';
+import { SubjectInYearTermDetailPageComponent } from './components/subject-in-year-term/subject-in-year-term-detail-page/subject-in-year-term-detail-page.component';
+import { SubjectInYearTermFormComponent } from './components/subject-in-year-term/subject-in-year-term-form/subject-in-year-term-form.component';
 
 
 
@@ -34,7 +37,11 @@ import { SubjectInYearBlockFormComponent } from './components/subject-in-year-bl
     SubjectInYearFormComponent,
     SubjectInYearDetailPageComponent,
     SubjectInYearBlockTableComponent,
-    SubjectInYearBlockFormComponent],
+    SubjectInYearBlockFormComponent,
+    SubjectInYearTermTableComponent,
+    SubjectInYearTermDetailPageComponent,
+    SubjectInYearTermFormComponent,
+  ],
   imports: [
     CommonModule,
     NgZorroModule,

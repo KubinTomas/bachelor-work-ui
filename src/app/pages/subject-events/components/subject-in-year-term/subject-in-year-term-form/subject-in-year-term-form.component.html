@@ -1,0 +1,42 @@
+<nz-page-header [nzGhost]="false" class="site-page-header">
+    <nz-page-header-title>Nový rok</nz-page-header-title>
+    <nz-page-header-subtitle></nz-page-header-subtitle>
+    <nz-page-header-extra>
+        <!-- <button nz-button nzType="secondary" class="form-back" (click)="back()">Zpět</button> -->
+    </nz-page-header-extra>
+    <nz-page-header-content>
+        <nz-breadcrumb>
+            <nz-breadcrumb-item><a routerLink="/subjects">Předměty</a></nz-breadcrumb-item>
+            <nz-breadcrumb-item>
+                <a [routerLink]="['/subjects/detail/', subjectInYearId]">Detail předmětu</a>
+            </nz-breadcrumb-item>
+            <nz-breadcrumb-item>
+                <a [routerLink]="['/subjects/detail/', subjectInYearId]">Rok</a>
+            </nz-breadcrumb-item>
+            <nz-breadcrumb-item>
+                <a>Formulář semestru</a>
+            </nz-breadcrumb-item>
+        </nz-breadcrumb>
+    </nz-page-header-content>
+</nz-page-header>
+
+<section *ngIf="form">
+    <section class="content-wrapper">
+        <form nz-form nzLayout="vertical" [formGroup]="form">
+            <nz-form-item>
+                <nz-form-label>Semestr</nz-form-label>
+                <nz-form-control nzErrorTip="Pro vytvoření je třeba mít zvolený semestr">
+                    <nz-select formControlName="year" nzPlaceHolder="vyberte semestr">
+                        <nz-option *ngFor="let term of terms" [nzValue]="term.value" [nzLabel]="term.name">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </section>
+
+    <section class="form-control-wrapper">
+        <button nz-button nzType="secondary" class="form-back" (click)="back()">Zpět</button>
+        <button nz-button nzType="primary" (click)="submitForm()">Vytvořit</button>
+    </section>
+</section>

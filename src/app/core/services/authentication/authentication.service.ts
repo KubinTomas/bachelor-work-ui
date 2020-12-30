@@ -62,8 +62,6 @@ export class AuthenticationService {
     return this.jwtHelper.isTokenExpired(token);
   }
   saveCredentials(token: string, stagUserTicket: string): void {
-    localStorage.setItem('jwt', token);
-
     this.stagAuthenticationService.saveCredentials(stagUserTicket);
   }
 

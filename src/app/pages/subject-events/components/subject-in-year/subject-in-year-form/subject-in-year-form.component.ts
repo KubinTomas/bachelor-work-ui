@@ -12,7 +12,7 @@ import { StagKalendarService } from 'src/app/core/services/kalendar/stag-kalenda
 import { SubjectInYearService } from 'src/app/core/services/subject/subject-in-year.service';
 import { SubjectService } from 'src/app/core/services/subject/subject.service';
 import { AuthActions } from 'src/app/pages/authentication/store/auth-action-types';
-import { user, katedraFakulta } from 'src/app/pages/authentication/store/auth.selectors';
+import { user, fakultaKatedra } from 'src/app/pages/authentication/store/auth.selectors';
 import { AppState } from 'src/app/store/app.reducer';
 
 

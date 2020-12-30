@@ -2,7 +2,7 @@ export class SubjectModel {
     id: number;
     name: string;
     description: string;
-    katedraFakulta: string;
+    fakultaKatedra: string;
     katedra: string;
     fakulta: string;
     ucitelName: string;

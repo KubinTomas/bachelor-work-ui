@@ -15,6 +15,14 @@ export class SubjectService {
     return this.httpClient.post<any>(apiUrl + '/teacher/subject/create', subject);
   }
 
+  update(subject: SubjectModel): Observable<any> {
+    return this.httpClient.put<any>(apiUrl + '/teacher/subject/update', subject);
+  }
+
+  delete(subjectId: number): Observable<any> {
+    return this.httpClient.delete<any>(apiUrl + '/teacher/subject/delete/' + subjectId);
+  }
+
   get(): Observable<SubjectModel[]> {
     return this.httpClient.get<SubjectModel[]>(apiUrl + '/teacher/subject');
   }
