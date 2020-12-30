@@ -79,3 +79,14 @@ $stag-btn-color-hover: rgba(255, 165, 0, 0.85);
         text-overflow: ellipsis;
     }
 }
+
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr > td,
+.ant-table tfoot > tr > th,
+.ant-table tfoot > tr > td {
+    padding: 16px 24px;
+}
+
+.ant-table-pagination.ant-pagination {
+    margin: 16px 16px;
+}
