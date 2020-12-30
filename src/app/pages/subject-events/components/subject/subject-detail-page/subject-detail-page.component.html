@@ -1,8 +1,8 @@
 <!-- @fadeIn -->
-<section *ngIf="subject" >
+<section *ngIf="subject">
     <section>
         <nz-page-header [nzGhost]="false" class="site-page-header">
-            <nz-page-header-title>{{subject.name}}</nz-page-header-title>
+            <nz-page-header-title>{{subject.fakultaKatedra}} {{subject.name}}</nz-page-header-title>
             <nz-page-header-subtitle></nz-page-header-subtitle>
             <nz-page-header-extra>
                 <button nz-button nzType="primary" routerLink="year/create"><i nz-icon nzType="plus"
@@ -10,7 +10,7 @@
             </nz-page-header-extra>
             <nz-page-header-content>
                 <nz-breadcrumb>
-                    <nz-breadcrumb-item><a routerLink="/subjects">Předměty</a></nz-breadcrumb-item>
+                    <nz-breadcrumb-item><a routerLink="/admin/subjects">Předměty</a></nz-breadcrumb-item>
                     <nz-breadcrumb-item>
                         <a>Detail předmětu</a>
                     </nz-breadcrumb-item>
@@ -19,8 +19,17 @@
 
         </nz-page-header>
     </section>
+    <section class="subjects-wrapper text-wrapper">
+        <div class="header">
+            Popis
+        </div>
+        <div [innerHTML]="subject.description">
+
+        </div>
+    </section>
     <section class="subjects-wrapper">
-        <app-subject-in-year-table [subjectInYears]="subjectInYears" [dataLoading] = "subjectInYearsDataLoading"></app-subject-in-year-table>
+        <app-subject-in-year-table [subjectInYears]="subjectInYears" [dataLoading]="subjectInYearsDataLoading">
+        </app-subject-in-year-table>
     </section>
 </section>
 

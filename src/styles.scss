@@ -60,4 +60,22 @@ $stag-btn-color-hover: rgba(255, 165, 0, 0.85);
 
 .subjects-wrapper {
     margin-top: 25px;
+    background-color: white;
+}
+
+.text-wrapper {
+    background-color: white;
+    padding: 16px 24px;
+
+    .header {
+        margin-right: 12px;
+        margin-bottom: 0;
+        color: rgba(0, 0, 0, 0.85);
+        font-weight: 600;
+        font-size: 1.2em;
+        line-height: 2em;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
 }
