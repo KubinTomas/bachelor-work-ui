@@ -24,12 +24,12 @@ export class SubjectInYearTermTableComponent implements OnInit {
   }
 
   onRowClick(data: SubjectInYearTermModel): void {
-    // this.goToSubjectInYearDetail(data.subjectId, data.id);
+     this.goToTermDetail(data.id);
   }
 
-  // goToBlockDetail(subjectId: number, subjectInYearId: number): void {
-  //   this.router.navigateByUrl('subjects/detail/' + subjectId + '/in-year/' + subjectInYearId);
-  // }
+  goToTermDetail(termId: number): void {
+    this.router.navigateByUrl('admin/term/detail/' + termId);
+  }
 
   onDeleteClick(term: SubjectInYearTermModel): void {
     this.showDeleteConfirm(term);

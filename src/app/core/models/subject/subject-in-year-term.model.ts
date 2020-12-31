@@ -3,4 +3,6 @@ export class SubjectInYearTermModel {
     subjectId: number;
     subjectInYearId: number;
     term: string;
+    subjectInYearName: string;
+    subjectInYearYear: string;
 }
