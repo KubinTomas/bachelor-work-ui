@@ -89,6 +89,10 @@ export class SubjectFormComponent implements OnInit, OnDestroy {
   }
 
   submitForm(): void {
+    if (!this.loaded) {
+      return;
+    }
+
     this.triggerFormValidation();
 
     if (this.form.valid) {

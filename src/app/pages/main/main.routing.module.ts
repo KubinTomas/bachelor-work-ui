@@ -17,14 +17,16 @@ const routes: Routes = [
             { path: 'admin/subjects', component: SubjectPageComponent },
             { path: 'admin/subjects/create', component: SubjectFormComponent },
             { path: 'admin/subjects/edit/:subjectId', component: SubjectFormComponent },
+            { path: 'admin/subjects/detail/:subjectId', component: SubjectDetailPageComponent },
 
-            { path: 'subjects/detail/:subjectId', component: SubjectDetailPageComponent },
-            { path: 'subjects/detail/:subjectId/year/create', component: SubjectInYearFormComponent },
+            { path: 'admin/subject/:subjectId/year/create', component: SubjectInYearFormComponent },
+            { path: 'admin/subject/:subjectId/year/edit/:subjectInYearId', component: SubjectInYearFormComponent },
 
-            { path: 'term/create', component: SubjectInYearTermFormComponent },
+            { path: 'term/create/:subjectInYearId', component: SubjectInYearTermFormComponent },
+            { path: 'term/edit/:subjectInYearId/:termId', component: SubjectInYearTermFormComponent },
 
 
-            { path: 'subjects/detail/:subjectId/in-year/:subjectInYearId', component: SubjectInYearDetailPageComponent },
+            { path: 'admin/subject-year/:subjectInYearId', component: SubjectInYearDetailPageComponent },
             { path: 'subjects/detail/:subjectId/in-year/:subjectInYearId/block/create', component: SubjectInYearBlockFormComponent },
 
         ],

@@ -36,6 +36,14 @@ export class SubjectInYearFormComponent implements OnInit {
 
   akademRok: number;
 
+  yearsLoaded = false;
+  subjectLoaded = false;
+  formSubmitting = false;
+
+  public get loaded(): boolean {
+    return this.yearsLoaded && this.subjectLoaded && !this.formSubmitting;
+  }
+
   constructor(
     private store: Store<AppState>,
     private formBuilder: FormBuilder,
@@ -53,14 +61,33 @@ export class SubjectInYearFormComponent implements OnInit {
       this.akademRok = Number(stagAktualniObdobiInfol.akademRok);
 
       this.years = this.subjectInYearService.getYears(this.akademRok);
+      this.yearsLoaded = true;
 
       this.buildForm();
     });
 
     this.route.params.subscribe(params => {
       this.subjectId = Number(params.subjectId);
+
+      const subjectInYearId = Number(params.subjectInYearId);
+
+      if (subjectInYearId) {
+        this.getSubjectInYear(subjectInYearId);
+      } else {
+        this.subjectLoaded = true;
+      }
+
     });
 
+  }
+
+  getSubjectInYear(subjectInYearId: number): void {
+    this.subjectInYearService.getSingle(subjectInYearId).subscribe(res => {
+      this.subjectInYear = res;
+      this.subjectLoaded = true;
+
+      this.buildForm();
+    });
   }
 
 
@@ -74,9 +101,15 @@ export class SubjectInYearFormComponent implements OnInit {
   }
 
   submitForm(): void {
+    if (!this.loaded) {
+      return;
+    }
+
     this.triggerFormValidation();
 
     if (this.form.valid) {
+      this.formSubmitting = true;
+
       if (this.subjectInYear.id) {
         this.updateSubject(this.form.value);
       } else {
@@ -97,7 +130,7 @@ export class SubjectInYearFormComponent implements OnInit {
     const navState: any = this.location.getState();
 
     if (navState.navigationId === 1) {
-      this.router.navigateByUrl('subjects/detail/' + this.subjectId);
+      this.router.navigateByUrl('admin/subjects/detail/' + this.subjectId);
     } else {
       this.location.back();
     }
@@ -105,6 +138,10 @@ export class SubjectInYearFormComponent implements OnInit {
 
   updateSubject(subjectInYear: SubjectInYearModel): void {
     subjectInYear.id = this.subjectInYear.id;
+
+    this.subjectInYearService.update(subjectInYear).subscribe(() => {
+      this.back();
+    });
   }
 
   triggerFormValidation(): void {

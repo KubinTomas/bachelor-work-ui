@@ -6,9 +6,9 @@
     </nz-page-header-extra>
     <nz-page-header-content>
         <nz-breadcrumb>
-            <nz-breadcrumb-item><a routerLink="/subjects">Předměty</a></nz-breadcrumb-item>
+            <nz-breadcrumb-item><a routerLink="/admin/subjects">Předměty</a></nz-breadcrumb-item>
             <nz-breadcrumb-item>
-                <a [routerLink]="['/subjects/detail/', subjectId]">Detail předmětu</a>
+                <a [routerLink]="['/admin/subjects/detail/', subjectId]">Detail předmětu</a>
             </nz-breadcrumb-item>
             <nz-breadcrumb-item>
                 <a>Formulář předmětu v roce</a>
@@ -17,39 +17,49 @@
     </nz-page-header-content>
 </nz-page-header>
 
-<section *ngIf="form">
-    <section class="content-wrapper">
-        <form nz-form nzLayout="vertical" [formGroup]="form">
-            <nz-form-item>
-                <nz-form-label>Jméno</nz-form-label>
-                <nz-form-control nzErrorTip="Prosím vyplňte jméno.">
-                    <input nz-input formControlName="name" placeholder="zadejte jméno" />
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-                <nz-form-label>Rok</nz-form-label>
-                <nz-form-control nzErrorTip="Pro vytvoření je třeba mít zvolený rok">
-                    <nz-select formControlName="year" nzPlaceHolder="vyberte rok">
-                        <nz-option *ngFor="let year of years" [nzValue]="year" [nzLabel]="year">
-                        </nz-option>
-                    </nz-select>
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-                <nz-form-label>Popis</nz-form-label>
-                <nz-form-control nzErrorTip="Maximální počet znaků je 1000">
-                    <nz-textarea-count [nzMaxCharacterCount]="1000">
-                        <textarea nz-input formControlName="description" placeholder="zadejte popis předmětu"
-                            [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
-                    </nz-textarea-count>
-                </nz-form-control>
-            </nz-form-item>
+<section>
+    <div *ngIf="loaded">
 
-        </form>
-    </section>
+        <section class="content-wrapper">
+            <form nz-form nzLayout="vertical" [formGroup]="form">
+                <nz-form-item>
+                    <nz-form-label>Jméno</nz-form-label>
+                    <nz-form-control nzErrorTip="Prosím vyplňte jméno.">
+                        <input nz-input formControlName="name" placeholder="zadejte jméno" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>Rok</nz-form-label>
+                    <nz-form-control nzErrorTip="Pro vytvoření je třeba mít zvolený rok">
+                        <nz-select formControlName="year" nzPlaceHolder="vyberte rok" [nzDisabled] = "subjectInYear.id">
+                            <nz-option *ngFor="let year of years" [nzValue]="year" [nzLabel]="year">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>Popis</nz-form-label>
+                    <nz-form-control nzErrorTip="Maximální počet znaků je 1000">
+                        <nz-textarea-count [nzMaxCharacterCount]="1000">
+                            <textarea nz-input formControlName="description" placeholder="zadejte popis předmětu"
+                                [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                        </nz-textarea-count>
+                    </nz-form-control>
+                </nz-form-item>
 
-    <section class="form-control-wrapper">
-        <button nz-button nzType="secondary" class="form-back" (click)="back()">Zpět</button>
-        <button nz-button nzType="primary" (click)="submitForm()">Vytvořit</button>
-    </section>
+            </form>
+        </section>
+
+        <section class="form-control-wrapper">
+            <button nz-button nzType="secondary" class="form-back" (click)="back()">Zpět</button>
+            <button nz-button nzType="primary" (click)="submitForm()">
+                <span *ngIf="!subjectInYear.id">Vytvořit</span>
+                <span *ngIf="subjectInYear.id">Upravit</span>
+            </button>
+        </section>
+    </div>
+
+    <div class="page-loader-wrapper" *ngIf="!loaded" style="height: 450px;">
+        <app-page-loader></app-page-loader>
+    </div>
 </section>

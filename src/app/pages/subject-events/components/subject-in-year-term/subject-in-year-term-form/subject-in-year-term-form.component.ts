@@ -4,7 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectOptionModel } from 'src/app/core/models/others/select-option.model';
 import { SubjectInYearTermModel } from 'src/app/core/models/subject/subject-in-year-term.model';
+import { SubjectInYearModel } from 'src/app/core/models/subject/subject-in-year.model';
 import { SubjectInYearTermService } from 'src/app/core/services/subject/subject-in-year-term.service';
+import { SubjectInYearService } from 'src/app/core/services/subject/subject-in-year.service';
 
 @Component({
   selector: 'app-subject-in-year-term-form',
@@ -16,9 +18,11 @@ export class SubjectInYearTermFormComponent implements OnInit {
   form: FormGroup;
   subjectInYearTerm: SubjectInYearTermModel = new SubjectInYearTermModel();
 
-  subjectInYearId: number;
-
   years: string[] = [];
+
+  subjectInYear: SubjectInYearModel;
+
+  loaded = false;
 
   terms: SelectOptionModel[] = [
     new SelectOptionModel('LS (letní semestr)', 'LS'),
@@ -29,20 +33,31 @@ export class SubjectInYearTermFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private location: Location,
     private router: Router,
-    private subjectInYearService: SubjectInYearTermService,
+    private subjectInYearTermService: SubjectInYearTermService,
+    private subjectInYearService: SubjectInYearService,
     private route: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
-    this.buildForm();
 
     this.route.params.subscribe(params => {
-      this.subjectInYearId = Number(params.subjectInYearId);
+      const subjectInYearId = Number(params.subjectInYearId);
+
+      this.getSubjectInYear(subjectInYearId);
     });
 
   }
 
+  getSubjectInYear(subjectInYearId: number): void {
+    this.subjectInYearService.getSingle(subjectInYearId).subscribe(res => {
+      this.subjectInYear = res;
+
+      this.loaded = true;
+
+      this.buildForm();
+    });
+  }
 
   buildForm(): void {
     // todo validator ze rok je unikatni
@@ -63,10 +78,11 @@ export class SubjectInYearTermFormComponent implements OnInit {
     }
   }
 
-  createSubject(subjectInYear: SubjectInYearTermModel): void {
-    subjectInYear.subjectId = this.subjectInYearId;
-
-    this.subjectInYearService.create(subjectInYear).subscribe(() => {
+  createSubject(subjectInYearTerm: SubjectInYearTermModel): void {
+    subjectInYearTerm.subjectId = this.subjectInYear.subjectId;
+    subjectInYearTerm.subjectInYearId = this.subjectInYear.id;
+    
+    this.subjectInYearTermService.create(subjectInYearTerm).subscribe(() => {
       this.back();
     });
   }
@@ -75,7 +91,7 @@ export class SubjectInYearTermFormComponent implements OnInit {
     const navState: any = this.location.getState();
 
     if (navState.navigationId === 1) {
-      this.router.navigateByUrl('subjects/detail/' + this.subjectInYearId);
+      this.router.navigateByUrl('/admin/subject-year/' + this.subjectInYear.id);
     } else {
       this.location.back();
     }

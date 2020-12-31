@@ -38,6 +38,14 @@ export class SubjectInYearService {
     return this.httpClient.get<SubjectInYearModel[]>(apiUrl + '/teacher/SubjectInYear/' + subjectId);
   }
 
+  update(subjectInYear: SubjectInYearModel): Observable<any> {
+    return this.httpClient.put<any>(apiUrl + '/teacher/SubjectInYear/update', subjectInYear);
+  }
+
+  delete(id: number): Observable<any> {
+    return this.httpClient.delete<any>(apiUrl + '/teacher/SubjectInYear/delete/' + id);
+  }
+
   getSingle(subjectInYearId: number): Observable<SubjectInYearModel> {
     return this.httpClient.get<SubjectInYearModel>(apiUrl + '/teacher/SubjectInYear/detail/' + subjectInYearId);
   }

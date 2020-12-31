@@ -1,1 +1,28 @@
-<p>subject-in-year-term-table works!</p>
+<nz-table #basicTable [nzData]="terms" [nzLoading]="dataLoading">
+    <thead>
+        <tr>
+            <th>Semestr</th>
+            <th>Uživatel</th>
+            <th>Vytvořeno</th>
+            <th>Akce</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)">
+            <td>{{ data.term }}</td>
+            <td>{{ data.ucitelName }}</td>
+            <td>{{ data.dateIn | date: 'd.M.yyyy' }}</td>
+            <td>
+                <!-- <span (click)="onEditClick(data);$event.stopPropagation();">
+                    <app-edit-icon></app-edit-icon>
+                </span>
+                <span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                </span> -->
+                <span (click)="onDeleteClick(data);$event.stopPropagation();">
+                    <app-delete-icon></app-delete-icon>
+                </span>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>

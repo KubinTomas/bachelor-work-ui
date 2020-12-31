@@ -31,15 +31,23 @@ export class SubjectInYearTermService {
     return year.toString() + ' - ' + year.toString() + '/' + (year + 1).toString();
   }
 
-  create(subjectInYear: SubjectInYearTermModel): Observable<any> {
-    return this.httpClient.post<any>(apiUrl + '/teacher/SubjectInYear/create', subjectInYear);
+  create(term: SubjectInYearTermModel): Observable<any> {
+    return this.httpClient.post<any>(apiUrl + '/teacher/SubjectInYearTerm/create', term);
   }
 
-  get(subjectId: number): Observable<SubjectInYearTermModel[]> {
-    return this.httpClient.get<SubjectInYearTermModel[]>(apiUrl + '/teacher/SubjectInYear/' + subjectId);
+  update(term: SubjectInYearTermModel): Observable<any> {
+    return this.httpClient.put<any>(apiUrl + '/teacher/SubjectInYearTerm/update', term);
   }
 
-  getSingle(subjectInYearId: number): Observable<SubjectInYearTermModel> {
-    return this.httpClient.get<SubjectInYearTermModel>(apiUrl + '/teacher/SubjectInYear/detail/' + subjectInYearId);
+  delete(id: number): Observable<any> {
+    return this.httpClient.delete<any>(apiUrl + '/teacher/SubjectInYearTerm/delete/' + id);
+  }
+
+  get(subjectInYearId: number): Observable<SubjectInYearTermModel[]> {
+    return this.httpClient.get<SubjectInYearTermModel[]>(apiUrl + '/teacher/SubjectInYearTerm/' + subjectInYearId);
+  }
+
+  getSingle(termId: number): Observable<SubjectInYearTermModel> {
+    return this.httpClient.get<SubjectInYearTermModel>(apiUrl + '/teacher/SubjectInYearTerm/detail/' + termId);
   }
 }

@@ -5,8 +5,8 @@
             <nz-page-header-title>{{subject.fakultaKatedra}} {{subject.name}}</nz-page-header-title>
             <nz-page-header-subtitle></nz-page-header-subtitle>
             <nz-page-header-extra>
-                <button nz-button nzType="primary" routerLink="year/create"><i nz-icon nzType="plus"
-                        nzTheme="outline"></i>Nový rok</button>
+                <button nz-button nzType="primary" (click) = "onNewYearClick()"><i
+                        nz-icon nzType="plus" nzTheme="outline"></i>Nový rok</button>
             </nz-page-header-extra>
             <nz-page-header-content>
                 <nz-breadcrumb>

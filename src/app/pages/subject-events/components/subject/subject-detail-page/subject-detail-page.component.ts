@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { fadeIn } from 'src/app/core/animations/fade-in.animation';
 import { SubjectInYearModel } from 'src/app/core/models/subject/subject-in-year.model';
 import { SubjectModel } from 'src/app/core/models/subject/subject.model';
@@ -21,7 +21,8 @@ export class SubjectDetailPageComponent implements OnInit {
   constructor(
     private subjectService: SubjectService,
     private subjectInYearService: SubjectInYearService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.route.params.subscribe(params => {
       const subjectId = params.subjectId;
@@ -34,6 +35,10 @@ export class SubjectDetailPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  onNewYearClick(): void {
+    this.router.navigateByUrl('/admin/subject/' + this.subject.id + '/year/create');
   }
 
   getSubject(subjectId: number): void {

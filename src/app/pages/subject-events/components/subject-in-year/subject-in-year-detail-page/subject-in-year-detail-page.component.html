@@ -6,15 +6,15 @@
                 {{subjectInYear.name}}</nz-page-header-title>
             <nz-page-header-subtitle></nz-page-header-subtitle>
             <nz-page-header-extra>
-                <button nz-button nzType="primary" routerLink="/term/create"><i nz-icon nzType="plus"
-                        nzTheme="outline"></i>Nový semestr</button>
+                <button nz-button nzType="primary" [routerLink]="['/term/create', subjectInYear.id]"><i nz-icon
+                        nzType="plus" nzTheme="outline"></i>Nový semestr</button>
             </nz-page-header-extra>
             <nz-page-header-content>
                 <nz-breadcrumb>
-                    <nz-breadcrumb-item><a routerLink="/subjects">Předměty</a>
+                    <nz-breadcrumb-item><a routerLink="/admin/subjects">Předměty</a>
                     </nz-breadcrumb-item>
                     <nz-breadcrumb-item>
-                        <a [routerLink]="['/subjects/detail', subjectInYear.subjectId]">Detail předmětu</a>
+                        <a [routerLink]="['/admin/subjects/detail', subjectInYear.subjectId]">Detail předmětu</a>
                     </nz-breadcrumb-item>
                     <nz-breadcrumb-item>
                         <a>Rok</a>
@@ -25,8 +25,8 @@
         </nz-page-header>
     </section>
     <section class="subjects-wrapper">
-        <app-subject-in-year-block-table [blocks]="blocks" [dataLoading]="blocksDataLoading">
-        </app-subject-in-year-block-table>
+        <app-subject-in-year-term-table [terms]="terms" [dataLoading]="termDataLoading">
+        </app-subject-in-year-term-table>
     </section>
 </section>
 

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BlockModel } from 'src/app/core/models/subject/block.model';
+import { SubjectInYearTermModel } from 'src/app/core/models/subject/subject-in-year-term.model';
 import { SubjectInYearModel } from 'src/app/core/models/subject/subject-in-year.model';
 import { BlockService } from 'src/app/core/services/subject/block.service';
+import { SubjectInYearTermService } from 'src/app/core/services/subject/subject-in-year-term.service';
 import { SubjectInYearService } from 'src/app/core/services/subject/subject-in-year.service';
 
 @Component({
@@ -14,11 +16,12 @@ export class SubjectInYearDetailPageComponent implements OnInit {
 
   subjectInYear: SubjectInYearModel;
 
-  blocks: BlockModel[] = [];
-  blocksDataLoading = true;
+  terms: SubjectInYearTermModel[] = [];
+  termDataLoading = true;
 
   constructor(
     private subjectInYearService: SubjectInYearService,
+    private subjectInYearTenService: SubjectInYearTermService,
     private blockService: BlockService,
     private route: ActivatedRoute
   ) {
@@ -27,8 +30,8 @@ export class SubjectInYearDetailPageComponent implements OnInit {
 
       this.subjectInYear = null;
 
-      this.blocks = [];
-      this.blocksDataLoading = true;
+      this.terms = [];
+      this.termDataLoading = true;
 
       this.getSubjectInYear(subjectInYearId);
     });
@@ -41,15 +44,20 @@ export class SubjectInYearDetailPageComponent implements OnInit {
     this.subjectInYearService.getSingle(subjectInYearId).subscribe(res => {
       this.subjectInYear = res;
 
-      this.getBlocks(subjectInYearId);
+      this.getTerms(subjectInYearId);
     });
   }
 
-  getBlocks(subjectInYearId: number): void {
-    this.blockService.get(subjectInYearId).subscribe(res => {
-      this.blocks = res;
-      this.blocksDataLoading = false;
+  getTerms(subjectInYearId: number): void {
+    this.subjectInYearTenService.get(subjectInYearId).subscribe(res => {
+      this.terms = res;
+      this.termDataLoading = false;
     });
   }
-
+  // getBlocks(subjectInYearId: number): void {
+  //   this.blockService.get(subjectInYearId).subscribe(res => {
+  //     this.blocks = res;
+  //     this.termDataLoading = false;
+  //   });
+  // }
 }

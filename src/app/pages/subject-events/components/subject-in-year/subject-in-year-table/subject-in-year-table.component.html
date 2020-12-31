@@ -5,7 +5,7 @@
             <th>Jméno </th>
             <th>Uživatel</th>
             <th>Vytvořeno</th>
-            <th>Acke</th>
+            <th>Akce</th>
         </tr>
     </thead>
     <tbody>
@@ -13,8 +13,19 @@
             <td>{{ data.year }}</td>
             <td>{{ data.name }}</td>
             <td>{{ data.ucitelName }}</td>
-            <td>{{ data.dateIn | date: 'd.mm.yyyy' }}</td>
-            <td></td>
+            <td>{{ data.dateIn | date: 'd.M.yyyy' }}</td>
+            <td>
+                <!-- | date: 'd.mm.yyyy' -->
+                <span (click)="onEditClick(data);$event.stopPropagation();">
+                    <app-edit-icon></app-edit-icon>
+                </span>
+                <span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                </span>
+                <span (click)="onDeleteClick(data);$event.stopPropagation();">
+                    <app-delete-icon></app-delete-icon>
+                </span>
+            </td>
         </tr>
     </tbody>
 </nz-table>

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { SubjectModel } from 'src/app/core/models/subject/subject.model';
 import { SubjectService } from 'src/app/core/services/subject/subject.service';
+import { ModalService } from 'src/app/core/services/utils/modal.service';
 import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
 
 @Component({
@@ -18,7 +19,7 @@ export class SubjectTableComponent implements OnInit {
   constructor(
     private router: Router,
     private modal: NzModalService,
-    private subjectService: SubjectService
+    private subjectService: SubjectService,
   ) { }
 
   ngOnInit(): void {
@@ -29,7 +30,7 @@ export class SubjectTableComponent implements OnInit {
   }
 
   goToSubjectDetail(id: number): void {
-    this.router.navigateByUrl('subjects/detail/' + id);
+    this.router.navigateByUrl('admin/subjects/detail/' + id);
   }
 
   onDeleteClick(subject: SubjectModel): void {
