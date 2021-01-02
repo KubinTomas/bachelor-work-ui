@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BlockModel } from 'src/app/core/models/subject/block.model';
 import { SubjectInYearTermModel } from 'src/app/core/models/subject/subject-in-year-term.model';
+import { BlockService } from 'src/app/core/services/subject/block.service';
 import { SubjectInYearTermService } from 'src/app/core/services/subject/subject-in-year-term.service';
 
 @Component({
@@ -12,9 +14,13 @@ export class SubjectInYearTermDetailPageComponent implements OnInit {
 
   term: SubjectInYearTermModel;
 
+  blocks: BlockModel[] = [];
+  blocksDataLoading = true;
+
   constructor(
     private route: ActivatedRoute,
-    private termService: SubjectInYearTermService
+    private termService: SubjectInYearTermService,
+    private blockService: BlockService
   ) { }
 
   ngOnInit(): void {
@@ -22,6 +28,7 @@ export class SubjectInYearTermDetailPageComponent implements OnInit {
       const termId = params.termId;
 
       this.term = null;
+      this.blocksDataLoading = true;
 
       this.getTerm(termId);
     });
@@ -30,7 +37,14 @@ export class SubjectInYearTermDetailPageComponent implements OnInit {
   getTerm(termId: number): void {
     this.termService.getSingle(termId).subscribe(res => {
       this.term = res;
+
+      this.getBlocks(termId);
     });
   }
-
+  getBlocks(termId: number): void {
+    this.blockService.get(termId).subscribe(res => {
+      this.blocks = res;
+      this.blocksDataLoading = false;
+    });
+  }
 }

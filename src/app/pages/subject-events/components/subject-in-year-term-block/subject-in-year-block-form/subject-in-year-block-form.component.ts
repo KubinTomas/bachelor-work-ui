@@ -15,9 +15,7 @@ export class SubjectInYearBlockFormComponent implements OnInit {
   form: FormGroup;
   block: BlockModel = new BlockModel();
 
-  blockId: number;
-  subjectInYearId: number;
-  subjectId: number;
+  termId: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,14 +29,27 @@ export class SubjectInYearBlockFormComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.params.subscribe(params => {
-      this.subjectId = Number(params.subjectId);
-      this.subjectInYearId = Number(params.subjectInYearId);
+      this.form = null;
 
-      this.buildForm();
+      this.termId = Number(params.termId);
+      const blockId = Number(params.blockId);
+
+      if (blockId) {
+        this.getBlock(blockId);
+      } else {
+        this.buildForm();
+      }
+
+
     });
 
   }
-
+  getBlock(blockId: number): void {
+    this.blockService.getSingle(blockId).subscribe(res => {
+      this.block = res;
+      this.buildForm();
+    });
+  }
 
   buildForm(): void {
     // todo validator ze rok je unikatni
@@ -60,7 +71,8 @@ export class SubjectInYearBlockFormComponent implements OnInit {
   }
 
   createSubject(block: BlockModel): void {
-    block.subjectInYearId = this.subjectInYearId;
+    // block.subjectInYearId = this.subjectInYearId;
+    block.termId = this.termId;
 
     this.blockService.create(block).subscribe(() => {
       this.back();
@@ -71,13 +83,18 @@ export class SubjectInYearBlockFormComponent implements OnInit {
     const navState: any = this.location.getState();
 
     if (navState.navigationId === 1) {
-      this.router.navigateByUrl('subjects/detail/' + this.subjectId + '/in-year/' + this.subjectInYearId);
+      this.router.navigateByUrl('admin/term/detail/' + this.termId);
     } else {
       this.location.back();
     }
   }
 
   updateSubject(block: BlockModel): void {
+    block.id = this.block.id;
+
+    this.blockService.update(block).subscribe(() => {
+      this.back();
+    });
   }
 
   triggerFormValidation(): void {

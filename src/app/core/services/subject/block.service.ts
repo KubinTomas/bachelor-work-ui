@@ -15,12 +15,21 @@ export class BlockService {
     return this.httpClient.post<any>(apiUrl + '/teacher/block/create', block);
   }
 
-  get(subjectInYearId: number): Observable<BlockModel[]> {
-    return this.httpClient.get<BlockModel[]>(apiUrl + '/teacher/block/' + subjectInYearId);
+  update(block: BlockModel): Observable<any> {
+    return this.httpClient.put<any>(apiUrl + '/teacher/block/update', block);
+  }
+
+  delete(id: number): Observable<any> {
+    return this.httpClient.delete<any>(apiUrl + '/teacher/block/delete/' + id);
+  }
+
+
+  get(termId: number): Observable<BlockModel[]> {
+    return this.httpClient.get<BlockModel[]>(apiUrl + '/teacher/block/' + termId);
   }
 
   getSingle(blockId: number): Observable<BlockModel> {
-    return this.httpClient.get<BlockModel>(apiUrl + '/teacher/block/' + blockId);
+    return this.httpClient.get<BlockModel>(apiUrl + '/teacher/block/detail/' + blockId);
   }
 
 }

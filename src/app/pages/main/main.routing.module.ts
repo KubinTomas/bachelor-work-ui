@@ -27,6 +27,7 @@ const routes: Routes = [
             { path: 'admin/term/create/:subjectInYearId', component: SubjectInYearTermFormComponent },
             { path: 'admin/term/detail/:termId', component: SubjectInYearTermDetailPageComponent },
             { path: 'admin/term/:termId/block/create', component: SubjectInYearBlockFormComponent },
+            { path: 'admin/term/:termId/block/edit/:blockId', component: SubjectInYearBlockFormComponent },
             // { path: 'term/edit/:subjectInYearId/:termId', component: SubjectInYearTermFormComponent },
 
 

@@ -20,10 +20,10 @@
                         <a [routerLink]="['/admin/subjects/detail', term.subjectId]">Detail předmětu</a>
                     </nz-breadcrumb-item>
                     <nz-breadcrumb-item>
-                        <a [routerLink]="['/admin/subject-year', term.subjectInYearId]">Rok</a>
+                        <a [routerLink]="['/admin/subject-year', term.subjectInYearId]">Detail roku</a>
                     </nz-breadcrumb-item>
                     <nz-breadcrumb-item>
-                        <a>Semestr</a>
+                        <a>Detail semestru</a>
                     </nz-breadcrumb-item>
                 </nz-breadcrumb>
             </nz-page-header-content>
@@ -31,10 +31,8 @@
         </nz-page-header>
     </section>
     <section class="subjects-wrapper">
-        BLOCKS
-
-        <!-- <app-subject-in-year-block-table [blocks]="blocks" [dataLoading]="blocksDataLoading">
-        </app-subject-in-year-block-table> -->
+        <app-subject-in-year-block-table [blocks]="blocks" [dataLoading]="blocksDataLoading">
+        </app-subject-in-year-block-table>
     </section>
 </section>
 

@@ -13,10 +13,10 @@
                     <a [routerLink]="['/admin/subjects/detail', block.subjectId]">Detail předmětu</a>
                 </nz-breadcrumb-item>
                 <nz-breadcrumb-item>
-                    <a [routerLink]="['/admin/subject-year', block.subjectInYearId]">Rok</a>
+                    <a [routerLink]="['/admin/subject-year', block.subjectInYearId]">Detail roku</a>
                 </nz-breadcrumb-item>
                 <nz-breadcrumb-item>
-                    <a [routerLink]="['/admin/subject-year', block.termId]">Semestr</a>
+                    <a [routerLink]="['/admin/subject-year', block.termId]">Detail semestru</a>
                 </nz-breadcrumb-item>
                 <nz-breadcrumb-item>
                     <a>Formulář bloku</a>
@@ -39,7 +39,14 @@
 
         <section class="form-control-wrapper">
             <button nz-button nzType="secondary" class="form-back" (click)="back()">Zpět</button>
-            <button nz-button nzType="primary" (click)="submitForm()">Vytvořit</button>
+            <button nz-button nzType="primary" (click)="submitForm()">
+                <span *ngIf="!block.id">Vytvořit</span>
+                <span *ngIf="block.id">Upravit</span>
+            </button>
         </section>
     </section>
+
+    <div class="page-loader-wrapper" *ngIf="!form" style="height: 230px;">
+        <app-page-loader></app-page-loader>
+    </div>
 </ng-container>

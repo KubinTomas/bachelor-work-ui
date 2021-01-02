@@ -54,10 +54,5 @@ export class SubjectInYearDetailPageComponent implements OnInit {
       this.termDataLoading = false;
     });
   }
-  // getBlocks(subjectInYearId: number): void {
-  //   this.blockService.get(subjectInYearId).subscribe(res => {
-  //     this.blocks = res;
-  //     this.termDataLoading = false;
-  //   });
-  // }
+
 }
