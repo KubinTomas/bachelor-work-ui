@@ -9,6 +9,7 @@ import { SubjectInYearFormComponent } from '../subject-events/components/subject
 import { SubjectDetailPageComponent } from '../subject-events/components/subject/subject-detail-page/subject-detail-page.component';
 import { SubjectFormComponent } from '../subject-events/components/subject/subject-form/subject-form.component';
 import { SubjectPageComponent } from '../subject-events/components/subject/subject-page/subject-page.component';
+import { TermStagConnectionFormComponent } from '../subject-events/components/term-stag-connection/term-stag-connection-form/term-stag-connection-form.component';
 import { DefaultComponent } from './components/default/default.component';
 
 const routes: Routes = [
@@ -28,7 +29,8 @@ const routes: Routes = [
             { path: 'admin/term/detail/:termId', component: SubjectInYearTermDetailPageComponent },
             { path: 'admin/term/:termId/block/create', component: SubjectInYearBlockFormComponent },
             { path: 'admin/term/:termId/block/edit/:blockId', component: SubjectInYearBlockFormComponent },
-            // { path: 'term/edit/:subjectInYearId/:termId', component: SubjectInYearTermFormComponent },
+
+            { path: 'admin/term/:termId/stag-connection/create', component: TermStagConnectionFormComponent },
 
 
             // { path: 'subjects/detail/:subjectId/in-year/:subjectInYearId/block/create', component: SubjectInYearBlockFormComponent },

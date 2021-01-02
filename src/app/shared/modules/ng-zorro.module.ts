@@ -15,6 +15,9 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTransButtonModule } from 'ng-zorro-antd/core/trans-button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+
 @NgModule({
     declarations: [],
     exports: [
@@ -33,7 +36,9 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
         NzSpinModule,
         NzDividerModule,
         NzTransButtonModule,
-        NzModalModule
+        NzModalModule,
+        NzAlertModule,
+        NzCheckboxModule
     ]
 })
 export class NgZorroModule { }

@@ -7,8 +7,8 @@
             </nz-page-header-title>
             <nz-page-header-subtitle></nz-page-header-subtitle>
             <nz-page-header-extra>
-                <button nz-button nzType="primary" routerLink="/admin/year/create" class="btn-stag"><i nz-icon
-                        nzType="link" nzTheme="outline"></i>Nové stag propojení</button>
+                <button nz-button nzType="primary" [routerLink]="'/admin/term/' + term.id +'/stag-connection/create'"
+                    class="btn-stag"><i nz-icon nzType="link" nzTheme="outline"></i>Nové stag propojení</button>
                 <button nz-button nzType="primary" [routerLink]="'/admin/term/' + term.id +'/block/create'"><i nz-icon
                         nzType="plus" nzTheme="outline"></i>Nový blok</button>
             </nz-page-header-extra>

@@ -20,7 +20,9 @@ import { SubjectInYearBlockFormComponent } from './components/subject-in-year-te
 import { SubjectInYearTermTableComponent } from './components/subject-in-year-term/subject-in-year-term-table/subject-in-year-term-table.component';
 import { SubjectInYearTermDetailPageComponent } from './components/subject-in-year-term/subject-in-year-term-detail-page/subject-in-year-term-detail-page.component';
 import { SubjectInYearTermFormComponent } from './components/subject-in-year-term/subject-in-year-term-form/subject-in-year-term-form.component';
-
+import { TermStagConnectionTableComponent } from './components/term-stag-connection/term-stag-connection-table/term-stag-connection-table.component';
+import { TermStagConnectionFormComponent } from './components/term-stag-connection/term-stag-connection-form/term-stag-connection-form.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -41,13 +43,16 @@ import { SubjectInYearTermFormComponent } from './components/subject-in-year-ter
     SubjectInYearTermTableComponent,
     SubjectInYearTermDetailPageComponent,
     SubjectInYearTermFormComponent,
+    TermStagConnectionTableComponent,
+    TermStagConnectionFormComponent,
   ],
   imports: [
     CommonModule,
     NgZorroModule,
     RouterModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ]
 })
 export class SubjectEventsModule { }

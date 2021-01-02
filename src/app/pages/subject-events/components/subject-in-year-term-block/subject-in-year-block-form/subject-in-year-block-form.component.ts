@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BlockModel } from 'src/app/core/models/subject/block.model';
 import { BlockService } from 'src/app/core/services/subject/block.service';
+import { SubjectInYearTermService } from 'src/app/core/services/subject/subject-in-year-term.service';
 
 @Component({
   selector: 'app-subject-in-year-block-form',
@@ -15,13 +16,12 @@ export class SubjectInYearBlockFormComponent implements OnInit {
   form: FormGroup;
   block: BlockModel = new BlockModel();
 
-  termId: number;
-
   constructor(
     private formBuilder: FormBuilder,
     private location: Location,
     private router: Router,
     private blockService: BlockService,
+    private termService: SubjectInYearTermService,
     private route: ActivatedRoute
   ) {
   }
@@ -31,19 +31,32 @@ export class SubjectInYearBlockFormComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.form = null;
 
-      this.termId = Number(params.termId);
+      const termId = Number(params.termId);
       const blockId = Number(params.blockId);
+
+      // potrebuji subjectId a subjectInYearId
 
       if (blockId) {
         this.getBlock(blockId);
       } else {
-        this.buildForm();
+        this.getTerm(termId);
       }
 
-
     });
-
   }
+
+
+  getTerm(termId: number): void {
+    this.termService.getSingle(termId).subscribe(term => {
+
+      this.block.termId = termId;
+      this.block.subjectId = term.subjectId;
+      this.block.subjectInYearId = term.subjectInYearId;
+
+      this.buildForm();
+    });
+  }
+
   getBlock(blockId: number): void {
     this.blockService.getSingle(blockId).subscribe(res => {
       this.block = res;
@@ -71,9 +84,6 @@ export class SubjectInYearBlockFormComponent implements OnInit {
   }
 
   createSubject(block: BlockModel): void {
-    // block.subjectInYearId = this.subjectInYearId;
-    block.termId = this.termId;
-
     this.blockService.create(block).subscribe(() => {
       this.back();
     });
@@ -83,7 +93,7 @@ export class SubjectInYearBlockFormComponent implements OnInit {
     const navState: any = this.location.getState();
 
     if (navState.navigationId === 1) {
-      this.router.navigateByUrl('admin/term/detail/' + this.termId);
+      this.router.navigateByUrl('admin/term/detail/' + this.block.termId);
     } else {
       this.location.back();
     }

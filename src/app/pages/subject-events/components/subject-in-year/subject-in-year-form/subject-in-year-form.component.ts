@@ -11,6 +11,7 @@ import { SubjectModel } from 'src/app/core/models/subject/subject.model';
 import { StagKalendarService } from 'src/app/core/services/kalendar/stag-kalendar-service';
 import { SubjectInYearService } from 'src/app/core/services/subject/subject-in-year.service';
 import { SubjectService } from 'src/app/core/services/subject/subject.service';
+import { UtilsYearService } from 'src/app/core/services/utils/year.service';
 import { AuthActions } from 'src/app/pages/authentication/store/auth-action-types';
 import { user, fakultaKatedra } from 'src/app/pages/authentication/store/auth.selectors';
 import { AppState } from 'src/app/store/app.reducer';
@@ -51,7 +52,8 @@ export class SubjectInYearFormComponent implements OnInit {
     private router: Router,
     private subjectInYearService: SubjectInYearService,
     private stagKalendarService: StagKalendarService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private yearService: UtilsYearService
   ) {
   }
 
@@ -60,7 +62,7 @@ export class SubjectInYearFormComponent implements OnInit {
     this.stagKalendarService.get().subscribe(stagAktualniObdobiInfol => {
       this.akademRok = Number(stagAktualniObdobiInfol.akademRok);
 
-      this.years = this.subjectInYearService.getYears(this.akademRok);
+      this.years = this.yearService.getFormattedYears(this.akademRok);
       this.yearsLoaded = true;
 
       this.buildForm();
@@ -95,7 +97,7 @@ export class SubjectInYearFormComponent implements OnInit {
     // todo validator ze rok je unikatni
     this.form = this.formBuilder.group({
       name: [this.subjectInYear.name, Validators.required],
-      year: [this.subjectInYear.id ? this.subjectInYear.year : this.subjectInYearService.getFormattedYear(this.akademRok), Validators.required],
+      year: [this.subjectInYear.id ? this.subjectInYear.year : this.yearService.getFormattedYear(this.akademRok), Validators.required],
       description: [this.subjectInYear.description, [Validators.maxLength(1000)]],
     });
   }

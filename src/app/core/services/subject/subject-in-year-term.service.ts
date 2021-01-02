@@ -12,25 +12,6 @@ export class SubjectInYearTermService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getYears(currentYear: number = new Date().getFullYear()): string[] {
-    const years: string[] = [];
-
-    for (let i = currentYear + 1; i >= 1980; i--) {
-      const year = this.getFormattedYear(i);
-      years.push(year);
-    }
-
-    return years;
-  }
-
-  getCurrentYear(currentYear: number = new Date().getFullYear()): string {
-    return this.getFormattedYear(currentYear);
-  }
-
-  getFormattedYear(year: number): string {
-    return year.toString() + ' - ' + year.toString() + '/' + (year + 1).toString();
-  }
-
   create(term: SubjectInYearTermModel): Observable<any> {
     return this.httpClient.post<any>(apiUrl + '/teacher/SubjectInYearTerm/create', term);
   }

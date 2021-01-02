@@ -15,6 +15,14 @@ export const user = createSelector(
     (authState) => authState.user
 );
 
+
+export const katedryVRoliVyucujici = createSelector(
+    user,
+    (userModel) => {
+        return [...new Set(userModel.stagUserInfo.filter(c => c.role === 'VY').map(c => c.katedra))];
+    }
+);
+
 export const fakultaKatedra = createSelector(
     user,
     (userModel) => {

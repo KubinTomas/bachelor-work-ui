@@ -1,0 +1,118 @@
+<ng-container *ngIf="form">
+
+    <nz-page-header [nzGhost]="false" class="site-page-header">
+        <nz-page-header-title>Stag propojení</nz-page-header-title>
+        <nz-page-header-subtitle></nz-page-header-subtitle>
+        <nz-page-header-extra>
+            <!-- <button nz-button nzType="secondary" class="form-back" (click)="back()">Zpět</button> -->
+        </nz-page-header-extra>
+        <nz-page-header-content>
+            <nz-breadcrumb>
+                <nz-breadcrumb-item><a routerLink="/admin/subjects">Předměty</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a [routerLink]="['/admin/subjects/detail', termStagConnection.subjectId]">Detail předmětu</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a [routerLink]="['/admin/subject-year', termStagConnection.subjectInYearId]">Detail roku</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a [routerLink]="['/admin/term/detail', termStagConnection.termId]">Detail semestru</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a>Formulář propojení</a>
+                </nz-breadcrumb-item>
+            </nz-breadcrumb>
+        </nz-page-header-content>
+    </nz-page-header>
+
+    <section>
+
+
+        <section class="content-wrapper">
+            <form nz-form nzLayout="vertical" [formGroup]="form">
+                <nz-form-item>
+                    <nz-form-label>Katedra </nz-form-label>
+                    <nz-form-control nzErrorTip="Pro vytvoření je třeba mít zvolenou katedru">
+                        <nz-select formControlName="department" nzPlaceHolder="vyberte katedru" [nzAllowClear]="false"
+                            (ngModelChange)="tryLoadSubjects()" nzShowSearch>
+                            <nz-option *ngFor="let department of (departments$ | async)" [nzValue]="department"
+                                [nzLabel]="department">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>Rok </nz-form-label>
+                    <nz-form-control nzErrorTip="Pro vytvoření je třeba mít zvolený rok">
+                        <nz-select formControlName="year" nzPlaceHolder="vyberte rok" [nzAllowClear]="false"
+                            (ngModelChange)="tryLoadSubjects()" nzShowSearch>
+                            <nz-option *ngFor="let yearModel of years" [nzValue]="yearModel.year"
+                                [nzLabel]="yearModel.formattedYear">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>Semestr </nz-form-label>
+                    <nz-form-control nzErrorTip="Pro vytvoření je třeba mít zvolený semestr">
+                        <nz-select formControlName="term" nzPlaceHolder="vyberte semestr" [nzAllowClear]="false"
+                            (ngModelChange)="tryLoadSubjects()" nzShowSearch>
+                            <nz-option *ngFor="let term of terms" [nzValue]="term.value" [nzLabel]="term.name">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <div *ngIf="subjectsAllData.length != 0" style="padding: 10px;background-color: #f9f9f9;margin-bottom: 5px;">
+                    <label nz-checkbox [(ngModel)]="showEmptySubjects" [ngModelOptions]="{standalone: true}"
+                        (ngModelChange)="onSubjectFilterChange()">Zobrazit
+                        předměty bez studentů</label>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <span>
+                        V nabídce <strong>{{subjects.length}}</strong> z {{subjectsAllData.length}},
+                        {{subjectsAllData.length - subjects.length}} předmětů skryto
+                    </span>
+                </div>
+                <nz-form-item>
+                    <nz-form-label>Předmět</nz-form-label>
+                    <nz-form-control
+                        nzErrorTip="Pro vytvoření je třeba mít zvolený předmět (ujištěte se, že máte zvolenou katedru, rok a semestr, poté se načtou předměty)">
+                        <nz-select formControlName="zkrPredm" nzPlaceHolder="vyberte předmět" [nzAllowClear]="false"
+                            nzShowSearch>
+                            <ng-container *ngIf="!loadingSubjects && subjectsOnceLoaded">
+                                <nz-option *ngFor="let subject of subjects" [nzValue]="subject.zkratka"
+                                    [nzLabel]="subject.zkratka + ' - ' + subject.nazev + ' (počet studentů: ' + subject.pocetStudentu + ')'">
+                                </nz-option>
+                            </ng-container>
+                            <nz-option *ngIf="loadingSubjects" nzDisabled nzCustomContent>
+                                <i nz-icon nzType="loading" class="loading-icon"></i> Načítám předměty...
+                            </nz-option>
+                            <nz-option *ngIf="!loadingSubjects && !subjectsOnceLoaded" nzDisabled nzCustomContent>
+                                <i nz-icon nzType="warning" class="loading-icon"></i> Zvolte <strong>katedru</strong>,
+                                rok a semestr pro načtení předmětů...
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-alert nzType="warning" nzMessage="Předměty nenalezeny"
+                    *ngIf="subjects.length == 0 && subjectsOnceLoaded"
+                    nzDescription="Pod kombinací katedra, rok a semestr nebyly nalezeny žádné předměty. Zkontrolujte vyhledávací kritéria a ujištěte se, že máte oprávnění.">
+                </nz-alert>
+            </form>
+
+        </section>
+
+        <section class="form-control-wrapper">
+            <button nz-button nzType="secondary" class="form-back" (click)="back()">Zpět</button>
+            <button nz-button nzType="primary" (click)="submitForm()">
+                <span *ngIf="!termStagConnection.id">Vytvořit</span>
+                <span *ngIf="termStagConnection.id">Upravit</span>
+            </button>
+        </section>
+
+
+    </section>
+</ng-container>
+<div class="page-loader-wrapper" *ngIf="!form" style="height: 450px;">
+    <app-page-loader></app-page-loader>
+</div>

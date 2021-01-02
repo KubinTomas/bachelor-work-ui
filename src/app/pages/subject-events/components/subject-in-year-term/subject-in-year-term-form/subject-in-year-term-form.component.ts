@@ -7,6 +7,7 @@ import { SubjectInYearTermModel } from 'src/app/core/models/subject/subject-in-y
 import { SubjectInYearModel } from 'src/app/core/models/subject/subject-in-year.model';
 import { SubjectInYearTermService } from 'src/app/core/services/subject/subject-in-year-term.service';
 import { SubjectInYearService } from 'src/app/core/services/subject/subject-in-year.service';
+import { UtilsTermService } from 'src/app/core/services/utils/term.service';
 
 @Component({
   selector: 'app-subject-in-year-term-form',
@@ -24,10 +25,7 @@ export class SubjectInYearTermFormComponent implements OnInit {
 
   loaded = false;
 
-  terms: SelectOptionModel[] = [
-    new SelectOptionModel('LS (letní semestr)', 'LS'),
-    new SelectOptionModel('ZS (zimní semestr)', 'ZS'),
-    new SelectOptionModel('LS a ZS (letní a zimní semestr)', 'LS a ZS')];
+  terms: SelectOptionModel[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,8 +33,10 @@ export class SubjectInYearTermFormComponent implements OnInit {
     private router: Router,
     private subjectInYearTermService: SubjectInYearTermService,
     private subjectInYearService: SubjectInYearService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private termService: UtilsTermService
   ) {
+    this.terms = this.termService.terms;
   }
 
   ngOnInit(): void {
@@ -81,7 +81,7 @@ export class SubjectInYearTermFormComponent implements OnInit {
   createSubject(subjectInYearTerm: SubjectInYearTermModel): void {
     subjectInYearTerm.subjectId = this.subjectInYear.subjectId;
     subjectInYearTerm.subjectInYearId = this.subjectInYear.id;
-    
+
     this.subjectInYearTermService.create(subjectInYearTerm).subscribe(() => {
       this.back();
     });
