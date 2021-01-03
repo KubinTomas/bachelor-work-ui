@@ -1,1 +1,28 @@
-<p>term-stag-connection-table works!</p>
+<nz-table #basicTable [nzData]="connections" [nzLoading]="dataLoading">
+    <thead>
+        <tr>
+            <th>Předmět </th>
+            <th>Rok</th>
+            <th>Semestr</th>
+            <th>Počet studentů</th>
+            <th>Uživatel</th>
+            <th>Vytvořeno</th>
+            <th>Akce</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td>{{ data.zkrPredm }} - {{data.predmetNazev}}</td>
+            <td>{{ data.formattedYear }}</td>
+            <td>{{ data.term }}</td>
+            <td>{{ data.pocetStudentu }}</td>
+            <td>{{ data.ucitelName }}</td>
+            <td>{{ data.dateIn | date: 'd.M.yyyy' }}</td>
+            <td>
+                <span (click)="onDeleteClick(data);$event.stopPropagation();" class="c-p">
+                    <app-delete-icon></app-delete-icon>
+                </span>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>

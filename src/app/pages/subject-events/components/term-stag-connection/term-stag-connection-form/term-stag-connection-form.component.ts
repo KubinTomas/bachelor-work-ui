@@ -167,8 +167,11 @@ export class TermStagConnectionFormComponent implements OnInit {
     }
   }
 
-  createSubject(block: TermStagConnectionModel): void {
-    this.stagConnectionService.create(block).subscribe(() => {
+  createSubject(connection: TermStagConnectionModel): void {
+    connection.termId = this.termStagConnection.termId;
+    connection.term = this.utilsTermsService.getStagTermValue(connection.term);
+
+    this.stagConnectionService.create(connection).subscribe(() => {
       this.back();
     });
   }

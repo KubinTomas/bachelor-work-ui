@@ -30,10 +30,28 @@
 
         </nz-page-header>
     </section>
-    <section class="subjects-wrapper">
-        <app-subject-in-year-block-table [blocks]="blocks" [dataLoading]="blocksDataLoading">
-        </app-subject-in-year-block-table>
+
+    <section>
+        <div class="title">
+            Bloky
+        </div>
+        <div class="subjects-wrapper">
+            <app-subject-in-year-block-table [blocks]="blocks" [dataLoading]="blocksDataLoading">
+            </app-subject-in-year-block-table>
+        </div>
     </section>
+
+
+    <section>
+        <div class="title">
+            Stag propojenní
+        </div>
+        <div class="subjects-wrapper">
+            <app-term-stag-connection-table [connections]="connections" [dataLoading]="connectionsDataLoading">
+            </app-term-stag-connection-table>
+        </div>
+    </section>
+
 </section>
 
 <div class="page-loader-wrapper" *ngIf="!term">

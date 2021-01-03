@@ -18,8 +18,14 @@ export class UtilsTermService {
         return 'LS a ZS';
     }
 
+    // stag api accept LS a ZS as empty string or non parameter send at all
+
     public getStagTermValue(term: string): string {
         return term === 'LS a ZS' ? '' : term;
+    }
+
+    public getDisplayTermValueFromStagValue(term: string): string {
+        return term === '' ? 'LS a ZS' : term;
     }
 }
 
