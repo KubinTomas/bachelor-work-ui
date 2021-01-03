@@ -17,6 +17,7 @@ import { NzTransButtonModule } from 'ng-zorro-antd/core/trans-button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @NgModule({
     declarations: [],
@@ -38,7 +39,8 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
         NzTransButtonModule,
         NzModalModule,
         NzAlertModule,
-        NzCheckboxModule
+        NzCheckboxModule,
+        NzToolTipModule
     ]
 })
 export class NgZorroModule { }

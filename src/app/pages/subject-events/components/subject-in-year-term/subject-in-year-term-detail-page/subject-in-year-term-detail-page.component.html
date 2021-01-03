@@ -44,7 +44,15 @@
 
     <section>
         <div class="title">
-            Stag propojenní
+            Stag propojení
+
+            <div style="float: right;" class="icon-hover">
+                <span nz-tooltip
+                    nzTooltipTitle="Stag propojení na předmět slouží k načtení rozvhorvých akcí a posléze k získání studentů, kteří jsou přiřazování do bloků.">
+                    <i class="fas fa-info-circle"></i>
+                </span>
+
+            </div>
         </div>
         <div class="subjects-wrapper">
             <app-term-stag-connection-table [connections]="connections" [dataLoading]="connectionsDataLoading">

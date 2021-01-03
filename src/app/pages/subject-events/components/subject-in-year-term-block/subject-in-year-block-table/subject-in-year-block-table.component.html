@@ -4,6 +4,7 @@
             <th>Jméno </th>
             <th>Uživatel</th>
             <th>Vytvořeno</th>
+            <th>Studenti s přístupem</th>
             <th>Akce</th>
         </tr>
     </thead>
@@ -12,6 +13,12 @@
             <td>{{ data.name }}</td>
             <td>{{ data.ucitelName }}</td>
             <td>{{ data.dateIn | date: 'd.M.yyyy' }}</td>
+            <td>
+                <span nz-tooltip
+                    nzTooltipTitle="Akce v bloku vidí pouze tito studenti, pokud tedy akce není veřejná. Kliknutím zobrazíte seznam studentů.">
+                    <app-icon-text [clickAble]="true" [faIcon]="'fas fa-users'" [text]="'0'"></app-icon-text>
+                </span>
+            </td>
             <td>
                 <!-- | date: 'd.mm.yyyy' -->
                 <span (click)="onEditClick(data);$event.stopPropagation();">
@@ -22,6 +29,12 @@
                 </span>
                 <span (click)="onDeleteClick(data);$event.stopPropagation();">
                     <app-delete-icon></app-delete-icon>
+                </span>
+                <span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                </span>
+                <span (click)="onEditClick(data);$event.stopPropagation();">
+                    <app-icon-text [clickAble]="true" [faIcon]="'fas fa-users'" [text]="'Přiřadit studenty'"></app-icon-text>
                 </span>
             </td>
         </tr>

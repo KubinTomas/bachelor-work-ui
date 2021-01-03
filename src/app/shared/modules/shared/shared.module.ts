@@ -6,16 +6,17 @@ import { DeleteIconComponent } from '../../components/delete-icon/delete-icon.co
 import { EditIconComponent } from '../../components/edit-icon/edit-icon.component';
 import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-modal.component';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { IconTextComponent } from '../../components/icon-text/icon-text.component';
 
 
 
 @NgModule({
-  declarations: [PageLoaderComponent, EditIconComponent, DeleteIconComponent, ConfirmModalComponent],
+  declarations: [PageLoaderComponent, EditIconComponent, DeleteIconComponent, ConfirmModalComponent, IconTextComponent],
   imports: [
     CommonModule,
     NzSpinModule,
     NzModalModule
   ],
-  exports: [PageLoaderComponent, EditIconComponent, DeleteIconComponent, ConfirmModalComponent]
+  exports: [PageLoaderComponent, EditIconComponent, DeleteIconComponent, ConfirmModalComponent, IconTextComponent]
 })
 export class SharedModule { }
