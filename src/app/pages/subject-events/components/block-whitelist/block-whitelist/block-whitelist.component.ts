@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TransferChange, TransferItem, TransferSelectChange } from 'ng-zorro-antd/transfer';
 import { BlockModel } from 'src/app/core/models/subject/block.model';
+import { BlockWhitelistSaveModel } from 'src/app/core/models/whitelist/block-whitelist-save.model';
 import { BlockWhitelistModel } from 'src/app/core/models/whitelist/block-whitelist.model';
 import { WhitelistStagStudentModel } from 'src/app/core/models/whitelist/whitelist-stag-student.model';
 import { BlockService } from 'src/app/core/services/subject/block.service';
@@ -25,6 +26,9 @@ export class BlockWhitelistComponent implements OnInit {
 
   studentsToAssign: WhitelistStagStudentModel[] = [];
   studentsWithPermission: string[] = [];
+
+  rocnikFilterData: string[] = ['1', '2', '3', '4', '5'];
+  formaStudiaFilterData: string[] = [''];
 
   constructor(
     private location: Location,
@@ -132,12 +136,25 @@ export class BlockWhitelistComponent implements OnInit {
       this.whitelist.predmety.forEach(c => {
         c.term = this.utilTermService.getDisplayTermValueFromStagValue(c.term);
       });
+
+      this.studentsToAssign = [...this.whitelist.selectedStudents];
+
+      this.studentsToAssign.forEach(c => {
+        c.direction = 'right';
+        c.checked = false;
+      });
+
       console.log(this.whitelist);
     });
   }
 
   save(): void {
+    const students = this.studentsToAssign.filter(c => c.direction === 'right').map(c => c.osCislo);
+    const saveModel = new BlockWhitelistSaveModel(this.block.id, students);
 
+    this.blockService.saveWhitelist(saveModel).subscribe(() => {
+      this.back();
+    });
   }
 
   back(): void {

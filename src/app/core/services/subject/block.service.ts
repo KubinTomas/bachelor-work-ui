@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BlockModel } from '../../models/subject/block.model';
 import { apiUrl } from '../../models/url.model';
+import { BlockWhitelistSaveModel } from '../../models/whitelist/block-whitelist-save.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,4 +37,7 @@ export class BlockService {
     return this.httpClient.get<BlockModel>(apiUrl + '/teacher/block/detail/' + blockId);
   }
 
+  saveWhitelist(saveModel: BlockWhitelistSaveModel): Observable<any> {
+    return this.httpClient.post<any>(apiUrl + '/teacher/block/whitelist/save', saveModel);
+  }
 }

@@ -5,4 +5,5 @@ export class BlockModel {
     termId: number;
     name: string;
     ucitelName: string;
+    whitelistUserCount: number;
 }
