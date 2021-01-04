@@ -7,10 +7,8 @@
             </nz-page-header-title>
             <nz-page-header-subtitle></nz-page-header-subtitle>
             <nz-page-header-extra>
-                <button nz-button nzType="primary" [routerLink]="'/admin/term/' + term.id +'/stag-connection/create'"
-                    class="btn-stag"><i nz-icon nzType="link" nzTheme="outline"></i>Nové stag propojení</button>
-                <button nz-button nzType="primary" [routerLink]="'/admin/term/' + term.id +'/block/create'"><i nz-icon
-                        nzType="plus" nzTheme="outline"></i>Nový blok</button>
+               
+
             </nz-page-header-extra>
             <nz-page-header-content>
                 <nz-breadcrumb>
@@ -31,18 +29,52 @@
         </nz-page-header>
     </section>
 
-    <section>
-        <div class="title">
-            Bloky
+
+    <section class="subjects-wrapper table-wrapper">
+        <div class="action-bar">
+            <div>
+                <div class="search">
+                    <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
+                        <input type="text" nz-input placeholder="Vyhledat..." />
+                    </nz-input-group>
+                    <ng-template #prefixIconSearch>
+                        <i nz-icon nzType="search"></i>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="ac-btn-1">
+                <button nz-button nzType="primary" [routerLink]="'/admin/term/' + term.id +'/block/create'"><i nz-icon
+                        nzType="plus" nzTheme="outline"></i>Nový blok</button>
+            </div>
+
         </div>
-        <div class="subjects-wrapper">
-            <app-subject-in-year-block-table [blocks]="blocks" [dataLoading]="blocksDataLoading">
-            </app-subject-in-year-block-table>
-        </div>
+        <app-subject-in-year-block-table [blocks]="blocks" [dataLoading]="blocksDataLoading">
+        </app-subject-in-year-block-table>
     </section>
 
+    <section class="subjects-wrapper table-wrapper">
+        <div class="action-bar">
+            <div>
+                <div class="search">
+                    <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
+                        <input type="text" nz-input placeholder="Vyhledat..." />
+                    </nz-input-group>
+                    <ng-template #prefixIconSearch>
+                        <i nz-icon nzType="search"></i>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="ac-btn-1">
+                <button nz-button nzType="primary" [routerLink]="'/admin/term/' + term.id +'/stag-connection/create'"
+                class="btn-stag"><i nz-icon nzType="link" nzTheme="outline"></i>Nové stag propojení</button>
+            </div>
 
-    <section>
+        </div>
+        <app-term-stag-connection-table [connections]="connections" [dataLoading]="connectionsDataLoading">
+        </app-term-stag-connection-table>
+    </section>
+
+    <!-- <section>
         <div class="title">
             Stag propojení
 
@@ -58,7 +90,7 @@
             <app-term-stag-connection-table [connections]="connections" [dataLoading]="connectionsDataLoading">
             </app-term-stag-connection-table>
         </div>
-    </section>
+    </section> -->
 
 </section>
 

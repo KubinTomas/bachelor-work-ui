@@ -6,8 +6,7 @@
                 {{subjectInYear.name}}</nz-page-header-title>
             <nz-page-header-subtitle></nz-page-header-subtitle>
             <nz-page-header-extra>
-                <button nz-button nzType="primary" [routerLink]="['/admin/term/create', subjectInYear.id]"><i nz-icon
-                        nzType="plus" nzTheme="outline"></i>Nový semestr</button>
+
             </nz-page-header-extra>
             <nz-page-header-content>
                 <nz-breadcrumb>
@@ -24,10 +23,28 @@
 
         </nz-page-header>
     </section>
-    <section class="subjects-wrapper">
+    <section class="subjects-wrapper table-wrapper">
+        <div class="action-bar">
+            <div>
+                <div class="search">
+                    <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
+                        <input type="text" nz-input placeholder="Vyhledat..." />
+                    </nz-input-group>
+                    <ng-template #prefixIconSearch>
+                        <i nz-icon nzType="search"></i>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="ac-btn-1">
+                <button nz-button nzType="primary" [routerLink]="['/admin/term/create', subjectInYear.id]"><i nz-icon
+                        nzType="plus" nzTheme="outline"></i>Nový semestr</button>
+            </div>
+
+        </div>
         <app-subject-in-year-term-table [terms]="terms" [dataLoading]="termDataLoading">
         </app-subject-in-year-term-table>
     </section>
+
 </section>
 
 <div class="page-loader-wrapper" *ngIf="!subjectInYear">

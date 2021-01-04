@@ -4,13 +4,29 @@
             <nz-page-header-title>Předměty</nz-page-header-title>
             <nz-page-header-subtitle></nz-page-header-subtitle>
             <nz-page-header-extra>
-                <button nz-button nzType="primary" routerLink="create"><i nz-icon nzType="plus"
-                        nzTheme="outline"></i>Nový
-                    předmět</button>
+
             </nz-page-header-extra>
         </nz-page-header>
     </section>
-    <section class="subjects-wrapper">
-        <app-subject-table [subjects]="subjects" [dataLoading] = "dataLoading"></app-subject-table>
+    <section class="subjects-wrapper table-wrapper">
+        <div class="action-bar">
+            <div>
+                <div class="search">
+                    <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
+                        <input type="text" nz-input placeholder="Vyhledat..." />
+                    </nz-input-group>
+                    <ng-template #prefixIconSearch>
+                        <i nz-icon nzType="search"></i>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="ac-btn-1">
+                <button nz-button nzType="primary" routerLink="create"><i nz-icon nzType="plus"
+                        nzTheme="outline"></i>Nový
+                    předmět</button>
+            </div>
+
+        </div>
+        <app-subject-table [subjects]="subjects" [dataLoading]="dataLoading"></app-subject-table>
     </section>
 </section>
