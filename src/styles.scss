@@ -70,7 +70,26 @@ $stag-btn-color-hover: rgba(255, 165, 0, 0.85);
     margin-top: 25px;
     background-color: white;
 }
+.table-wrapper {
+    background-color: white;
+    padding: 16px 24px;
 
+    .action-bar {
+        position: relative;
+        margin-top: 16px;
+        padding-bottom: 15px;
+
+        .search {
+            width: 350px;
+        }
+
+        .ac-btn-1 {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+        }
+    }
+}
 .text-wrapper {
     background-color: white;
     padding: 16px 24px;
@@ -92,7 +111,8 @@ $stag-btn-color-hover: rgba(255, 165, 0, 0.85);
 .ant-table-tbody > tr > td,
 .ant-table tfoot > tr > th,
 .ant-table tfoot > tr > td {
-    padding: 16px 24px;
+    padding: 16px 16px;
+    // padding: 16px 24px;
 }
 
 .ant-table-pagination.ant-pagination {
@@ -108,7 +128,6 @@ $stag-btn-color-hover: rgba(255, 165, 0, 0.85);
     padding: 20px 20px 0px 20px;
     font-size: 1.2em;
 }
-
 
 .icon-hover {
     color: #646464;
