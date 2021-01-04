@@ -25,12 +25,11 @@
         </nz-page-header-content>
     </nz-page-header>
 
-    <section *ngIf="loaded">
+    <section *ngIf="whitelist">
         <div class="title">
             Filtr studentů
             <div style="float: right;" class="icon-hover">
-                <span nz-tooltip
-                    nzTooltipTitle="Slouží k omezení výpisů studentů v sekci přiřazování studentů.">
+                <span nz-tooltip nzTooltipTitle="Slouží k omezení výpisů studentů v sekci přiřazování studentů.">
                     <i class="fas fa-info-circle"></i>
                 </span>
 
@@ -40,17 +39,20 @@
             <div class="roakce-filter">
                 <div>
                     Rozvhrové akce
-                   
+
                 </div>
                 <nz-select [(ngModel)]="selectedRoAkce" nzAllowClear nzPlaceHolder="Choose" nzShowSearch
                     nzMode="multiple">
-                    
-                    <nz-option-group nzLabel="Manager">
-                        <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-                        <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-                    </nz-option-group>
-                    <nz-option-group nzLabel="Engineer">
-                        <nz-option nzValue="tom" nzLabel="Tom"></nz-option>
+
+                    <nz-option-group [nzLabel]="predmet.label" *ngFor="let predmet of whitelist.predmety">
+                        <nz-option [nzValue]="akce.rozvrhovaAkce.roakIdno"
+                            [nzLabel]="
+                        akce.rozvrhovaAkce.katedraPredmet + ' | '
+                            + akce.rozvrhovaAkce.semestr + ' | '
+                             + akce.rozvrhovaAkce.typAkce + ' | '
+                              + akce.rozvrhovaAkce.den + ' ' + akce.rozvrhovaAkce.hodinaSkutOd + '-' + akce.rozvrhovaAkce.hodinaSkutDo + ' | ' 
+                              + 'studenti ' +akce.students.length"
+                            *ngFor="let akce of predmet.rozvrhoveAkce"></nz-option>
                     </nz-option-group>
                 </nz-select>
             </div>

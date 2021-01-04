@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TransferChange, TransferItem, TransferSelectChange } from 'ng-zorro-antd/transfer';
 import { BlockModel } from 'src/app/core/models/subject/block.model';
+import { BlockWhitelistModel } from 'src/app/core/models/whitelist/block-whitelist.model';
 import { BlockService } from 'src/app/core/services/subject/block.service';
+import { UtilsTermService } from 'src/app/core/services/utils/term.service';
 
 @Component({
   selector: 'app-block-whitelist',
@@ -13,6 +15,7 @@ import { BlockService } from 'src/app/core/services/subject/block.service';
 export class BlockWhitelistComponent implements OnInit {
 
   block: BlockModel;
+  whitelist: BlockWhitelistModel;
   loaded = true;
 
   list: TransferItem[] = [];
@@ -23,7 +26,8 @@ export class BlockWhitelistComponent implements OnInit {
     private location: Location,
     private router: Router,
     private blockService: BlockService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private utilTermService: UtilsTermService
   ) {
   }
 
@@ -86,8 +90,13 @@ export class BlockWhitelistComponent implements OnInit {
 
   getWhitelist(blockId: number): void {
     this.blockService.getWhitelist(blockId).subscribe(res => {
-      console.log(res);
 
+      this.whitelist = res;
+
+      this.whitelist.predmety.forEach(c => {
+        c.term = this.utilTermService.getDisplayTermValueFromStagValue(c.term);
+      });
+      console.log(this.whitelist);
     });
   }
 
