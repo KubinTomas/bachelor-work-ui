@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TransferChange, TransferItem, TransferSelectChange } from 'ng-zorro-antd/transfer';
 import { BlockModel } from 'src/app/core/models/subject/block.model';
 import { BlockWhitelistModel } from 'src/app/core/models/whitelist/block-whitelist.model';
+import { WhitelistStagStudentModel } from 'src/app/core/models/whitelist/whitelist-stag-student.model';
 import { BlockService } from 'src/app/core/services/subject/block.service';
 import { UtilsTermService } from 'src/app/core/services/utils/term.service';
 
@@ -20,7 +21,10 @@ export class BlockWhitelistComponent implements OnInit {
 
   list: TransferItem[] = [];
 
-  selectedRoAkce: string;
+  roAkceStudents: Array<WhitelistStagStudentModel[]>;
+
+  studentsToAssign: WhitelistStagStudentModel[] = [];
+  studentsWithPermission: string[] = [];
 
   constructor(
     private location: Location,
@@ -42,28 +46,57 @@ export class BlockWhitelistComponent implements OnInit {
       }
 
     });
-    this.createDemoData();
   }
 
-  createDemoData(): void {
-    for (let i = 0; i < 20; i++) {
-      this.list.push({
-        key: i.toString(),
-        title: `content${i + 1}`,
-        description: `description of content${i + 1}`,
-        disabled: false,
-        tag: ['cat', 'dog', 'bird'][i % 3],
-        checked: false
-      });
-    }
+  onRozvrhoveAkceFilterChange(): void {
+    const assignStudents = this.studentsToAssign.filter(c => c.direction === 'right').sort((s1, s2) => s1.prijmeni > s2.prijmeni ? 1 : -1);
 
-    [2, 3].forEach(idx => (this.list[idx].direction = 'right'));
+    this.studentsToAssign = [...assignStudents];
+
+    this.roAkceStudents.forEach(ras => {
+      ras.forEach(s => {
+        const studentInArray = this.studentsToAssign.find(c => c.osCislo === s.osCislo);
+
+        if (!studentInArray) {
+          s.title = s.osCislo;
+          s.checked = false;
+          s.direction = 'left';
+          this.studentsToAssign.push(s);
+        }
+
+      });
+    });
+
+    this.studentsToAssign.forEach(s => {
+      s.key = s.osCislo.toLocaleLowerCase();
+    });
+
+    this.studentsToAssign.sort((s1, s2) => s1.prijmeni > s2.prijmeni ? 1 : -1);
+
+    this.filterStudentsToAssign();
+  }
+
+  filterOption(inputValue: string, item: WhitelistStagStudentModel): boolean {
+    inputValue = inputValue.toLocaleLowerCase();
+
+    return (item.osCislo.toLocaleLowerCase().indexOf(inputValue) !== -1) ||
+      (item.jmeno.toLocaleLowerCase().indexOf(inputValue) !== -1) ||
+      (item.prijmeni.toLocaleLowerCase().indexOf(inputValue) !== -1) ||
+      ((item.jmeno + item.prijmeni).toLocaleLowerCase().indexOf(inputValue.replace(/ /g, '')) !== -1);
+    // return item.description.indexOf(inputValue) > -1;
+  }
+
+  filterStudentsToAssign(): void {
+    const left = this.studentsToAssign.filter(c => c.direction === 'left').sort((s1, s2) => s1.prijmeni > s2.prijmeni ? 1 : -1);
+    const right = this.studentsToAssign.filter(c => c.direction === 'right').sort((s1, s2) => s1.prijmeni > s2.prijmeni ? 1 : -1);
+
+    this.studentsToAssign = [...left, ...right];
   }
 
   change(ret: TransferChange): void {
-    console.log('nzChange', ret);
     const listKeys = ret.list.map(l => l.key);
     const hasOwnKey = (e: TransferItem) => e.hasOwnProperty('key');
+
     this.list = this.list.map(e => {
       if (listKeys.includes(e.key) && hasOwnKey(e)) {
         if (ret.to === 'left') {
@@ -74,10 +107,13 @@ export class BlockWhitelistComponent implements OnInit {
       }
       return e;
     });
+
+    this.filterStudentsToAssign();
+    // this.studentsToAssign = [];
   }
 
   select(ret: TransferSelectChange): void {
-    console.log('nzSelectChange', ret);
+
   }
 
 

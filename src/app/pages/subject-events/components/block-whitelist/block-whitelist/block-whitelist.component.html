@@ -41,18 +41,17 @@
                     Rozvhrové akce
 
                 </div>
-                <nz-select [(ngModel)]="selectedRoAkce" nzAllowClear nzPlaceHolder="Choose" nzShowSearch
-                    nzMode="multiple">
+                <nz-select [(ngModel)]="roAkceStudents" nzAllowClear nzPlaceHolder="vybrat rozvrhové akce" nzShowSearch
+                    (ngModelChange)="onRozvrhoveAkceFilterChange()" nzMode="multiple">
 
                     <nz-option-group [nzLabel]="predmet.label" *ngFor="let predmet of whitelist.predmety">
-                        <nz-option [nzValue]="akce.rozvrhovaAkce.roakIdno"
-                            [nzLabel]="
+                        <nz-option [nzValue]="akce.students" [nzLabel]="
                         akce.rozvrhovaAkce.katedraPredmet + ' | '
                             + akce.rozvrhovaAkce.semestr + ' | '
                              + akce.rozvrhovaAkce.typAkce + ' | '
                               + akce.rozvrhovaAkce.den + ' ' + akce.rozvrhovaAkce.hodinaSkutOd + '-' + akce.rozvrhovaAkce.hodinaSkutDo + ' | ' 
-                              + 'studenti ' +akce.students.length"
-                            *ngFor="let akce of predmet.rozvrhoveAkce"></nz-option>
+                              + 'studenti ' +akce.students.length" *ngFor="let akce of predmet.rozvrhoveAkce">
+                        </nz-option>
                     </nz-option-group>
                 </nz-select>
             </div>
@@ -68,8 +67,9 @@
         </div>
         <section class="content-wrapper" style="min-height: 650px;">
 
-            <nz-transfer [nzDataSource]="list" [nzDisabled]="false" [nzShowSearch]="true" [nzShowSelectAll]="false"
-                [nzRenderList]="[renderList, renderList]" (nzSelectChange)="select($event)" (nzChange)="change($event)"
+            <nz-transfer [nzDataSource]="studentsToAssign" [nzDisabled]="false" [nzShowSearch]="true"
+                [nzFilterOption]="filterOption" [nzShowSelectAll]="false" [nzRenderList]="[renderList, renderList]"
+                (nzSelectChange)="select($event)" (nzChange)="change($event)"
                 [nzOperations]="['povolit přístup', 'odebrat přístup']"
                 [nzTitles]="['(student) bez přístupu', '(student) s povolením přístupu']">
                 <ng-template #renderList let-items let-direction="direction" let-stat="stat" let-disabled="disabled"
@@ -79,20 +79,22 @@
                             <tr>
                                 <th [nzDisabled]="disabled" [nzChecked]="stat.checkAll"
                                     [nzIndeterminate]="stat.checkHalf" (nzCheckedChange)="onItemSelectAll($event)"></th>
-                                <th>Name</th>
-                                <th *ngIf="direction === 'left'">Tag</th>
-                                <th>Description</th>
+                                <th>Osobní číslo</th>
+                                <th>Jméno</th>
+                                <th>Fakulta</th>
+                                <th>Rocnik</th>
+                                <th>Forma studia</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of t.data" (click)="onItemSelect(data)">
                                 <td [nzChecked]="data.checked" [nzDisabled]="disabled || data.disabled"
                                     (nzCheckedChange)="onItemSelect(data)"></td>
-                                <td>{{ data.title }}</td>
-                                <td *ngIf="direction === 'left'">
-                                    <nz-tag>{{ data.tag }}</nz-tag>
-                                </td>
-                                <td>{{ data.description }}</td>
+                                <td>{{ data.osCislo }}</td>
+                                <td>{{ data.prijmeni }} {{ data.jmeno }} </td>
+                                <td>{{ data.fakultaSp }}</td>
+                                <td>{{ data.rocnik }}</td>
+                                <td>{{ data.formaSp }}</td>
                             </tr>
                         </tbody>
                     </nz-table>

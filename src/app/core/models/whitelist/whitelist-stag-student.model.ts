@@ -6,4 +6,8 @@ export class WhitelistStagStudentModel {
     nazevSp: string;
     rocnik: string;
     formaSp: string;
+    checked: boolean;
+    direction: string; // left or right .. in assign control
+    key: string;
+    title: string;
 }
