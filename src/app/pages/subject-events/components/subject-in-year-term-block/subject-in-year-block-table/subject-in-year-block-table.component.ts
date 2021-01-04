@@ -38,6 +38,10 @@ export class SubjectInYearBlockTableComponent implements OnInit {
     this.showDeleteConfirm(block);
   }
 
+  onWhitelistClick(data: BlockModel): void {
+    this.router.navigateByUrl('/admin/block/' + data.id + '/whitelist');
+  }
+
   showDeleteConfirm(block: BlockModel): void {
     const title = 'Smazat blok<b>' + block.name + '</b>?';
     const content = 'Smazání je nevratný proces, jste si jist?';

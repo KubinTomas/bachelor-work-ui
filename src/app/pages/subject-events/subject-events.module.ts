@@ -23,6 +23,7 @@ import { SubjectInYearTermFormComponent } from './components/subject-in-year-ter
 import { TermStagConnectionTableComponent } from './components/term-stag-connection/term-stag-connection-table/term-stag-connection-table.component';
 import { TermStagConnectionFormComponent } from './components/term-stag-connection/term-stag-connection-form/term-stag-connection-form.component';
 import { FormsModule } from '@angular/forms';
+import { BlockWhitelistComponent } from './components/block-whitelist/block-whitelist/block-whitelist.component';
 
 
 
@@ -45,6 +46,7 @@ import { FormsModule } from '@angular/forms';
     SubjectInYearTermFormComponent,
     TermStagConnectionTableComponent,
     TermStagConnectionFormComponent,
+    BlockWhitelistComponent,
   ],
   imports: [
     CommonModule,

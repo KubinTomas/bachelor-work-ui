@@ -1,0 +1,112 @@
+<ng-container *ngIf="block">
+    <nz-page-header [nzGhost]="false" class="site-page-header">
+        <nz-page-header-title>Nastavení přístupu pro studenty</nz-page-header-title>
+        <nz-page-header-subtitle></nz-page-header-subtitle>
+        <nz-page-header-extra>
+            <!-- <button nz-button nzType="secondary" class="form-back" (click)="back()">Zpět</button> -->
+        </nz-page-header-extra>
+        <nz-page-header-content>
+            <nz-breadcrumb>
+                <nz-breadcrumb-item><a routerLink="/admin/subjects">Předměty</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a [routerLink]="['/admin/subjects/detail', block.subjectId]">Detail předmětu</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a [routerLink]="['/admin/subject-year', block.subjectInYearId]">Detail roku</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a [routerLink]="['/admin/term/detail', block.termId]">Detail semestru</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a>Přiřazování studentů</a>
+                </nz-breadcrumb-item>
+            </nz-breadcrumb>
+        </nz-page-header-content>
+    </nz-page-header>
+
+    <section *ngIf="loaded">
+        <div class="title">
+            Filtr studentů
+            <div style="float: right;" class="icon-hover">
+                <span nz-tooltip
+                    nzTooltipTitle="Slouží k omezení výpisů studentů v sekci přiřazování studentů.">
+                    <i class="fas fa-info-circle"></i>
+                </span>
+
+            </div>
+        </div>
+        <section class="content-wrapper">
+            <div class="roakce-filter">
+                <div>
+                    Rozvhrové akce
+                   
+                </div>
+                <nz-select [(ngModel)]="selectedRoAkce" nzAllowClear nzPlaceHolder="Choose" nzShowSearch
+                    nzMode="multiple">
+                    
+                    <nz-option-group nzLabel="Manager">
+                        <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                        <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                    </nz-option-group>
+                    <nz-option-group nzLabel="Engineer">
+                        <nz-option nzValue="tom" nzLabel="Tom"></nz-option>
+                    </nz-option-group>
+                </nz-select>
+            </div>
+        </section>
+        <div class="title">Přiřazování studentů
+            <div style="float: right;" class="icon-hover">
+                <span nz-tooltip
+                    nzTooltipTitle="Studenti v pravé částí (student s povolením přístupu) bude moci navštěvovat akce daného bloku. Je možné přiřadit studenta i ručně.">
+                    <i class="fas fa-info-circle"></i>
+                </span>
+
+            </div>
+        </div>
+        <section class="content-wrapper" style="min-height: 650px;">
+
+            <nz-transfer [nzDataSource]="list" [nzDisabled]="false" [nzShowSearch]="true" [nzShowSelectAll]="false"
+                [nzRenderList]="[renderList, renderList]" (nzSelectChange)="select($event)" (nzChange)="change($event)"
+                [nzOperations]="['povolit přístup', 'odebrat přístup']"
+                [nzTitles]="['(student) bez přístupu', '(student) s povolením přístupu']">
+                <ng-template #renderList let-items let-direction="direction" let-stat="stat" let-disabled="disabled"
+                    let-onItemSelectAll="onItemSelectAll" let-onItemSelect="onItemSelect">
+                    <nz-table #t [nzData]="items" nzSize="small">
+                        <thead>
+                            <tr>
+                                <th [nzDisabled]="disabled" [nzChecked]="stat.checkAll"
+                                    [nzIndeterminate]="stat.checkHalf" (nzCheckedChange)="onItemSelectAll($event)"></th>
+                                <th>Name</th>
+                                <th *ngIf="direction === 'left'">Tag</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of t.data" (click)="onItemSelect(data)">
+                                <td [nzChecked]="data.checked" [nzDisabled]="disabled || data.disabled"
+                                    (nzCheckedChange)="onItemSelect(data)"></td>
+                                <td>{{ data.title }}</td>
+                                <td *ngIf="direction === 'left'">
+                                    <nz-tag>{{ data.tag }}</nz-tag>
+                                </td>
+                                <td>{{ data.description }}</td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </ng-template>
+            </nz-transfer>
+        </section>
+
+        <section class="form-control-wrapper">
+            <button nz-button nzType="secondary" class="form-back" (click)="back()">Zpět</button>
+            <button nz-button nzType="primary" (click)="save()">
+                <span>Uložit</span>
+            </button>
+        </section>
+    </section>
+
+    <div class="page-loader-wrapper" *ngIf="!block" style="height: 230px;">
+        <app-page-loader></app-page-loader>
+    </div>
+</ng-container>

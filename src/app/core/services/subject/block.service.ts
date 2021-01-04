@@ -28,6 +28,10 @@ export class BlockService {
     return this.httpClient.get<BlockModel[]>(apiUrl + '/teacher/block/' + termId);
   }
 
+  getWhitelist(blockId: number): Observable<any> {
+    return this.httpClient.get<any>(apiUrl + '/teacher/block/whitelist/' + blockId);
+  }
+
   getSingle(blockId: number): Observable<BlockModel> {
     return this.httpClient.get<BlockModel>(apiUrl + '/teacher/block/detail/' + blockId);
   }

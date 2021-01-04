@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
+import { BlockWhitelistComponent } from '../subject-events/components/block-whitelist/block-whitelist/block-whitelist.component';
 import { SubjectInYearBlockFormComponent } from '../subject-events/components/subject-in-year-term-block/subject-in-year-block-form/subject-in-year-block-form.component';
 import { SubjectInYearTermDetailPageComponent } from '../subject-events/components/subject-in-year-term/subject-in-year-term-detail-page/subject-in-year-term-detail-page.component';
 import { SubjectInYearTermFormComponent } from '../subject-events/components/subject-in-year-term/subject-in-year-term-form/subject-in-year-term-form.component';
@@ -31,6 +32,8 @@ const routes: Routes = [
             { path: 'admin/term/:termId/block/edit/:blockId', component: SubjectInYearBlockFormComponent },
 
             { path: 'admin/term/:termId/stag-connection/create', component: TermStagConnectionFormComponent },
+
+            { path: 'admin/block/:blockId/whitelist', component: BlockWhitelistComponent },
 
 
             // { path: 'subjects/detail/:subjectId/in-year/:subjectInYearId/block/create', component: SubjectInYearBlockFormComponent },

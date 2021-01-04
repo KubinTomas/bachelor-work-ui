@@ -15,7 +15,13 @@
             <td>{{ data.zkrPredm }} - {{data.predmetNazev}}</td>
             <td>{{ data.formattedYear }}</td>
             <td>{{ data.term }}</td>
-            <td>{{ data.pocetStudentu }}</td>
+            <td>
+                <span nz-tooltip
+                    nzTooltipTitle="Celkový počet studentů v předmětu. Ne každý student, ale musí být zapsán na rozvrhové akci.">
+                    <app-icon-text [clickAble]="true" [faIcon]="'fas fa-users'" [text]="data.pocetStudentu">
+                    </app-icon-text>
+                </span>
+            </td>
             <td>{{ data.ucitelName }}</td>
             <td>{{ data.dateIn | date: 'd.M.yyyy' }}</td>
             <td>
