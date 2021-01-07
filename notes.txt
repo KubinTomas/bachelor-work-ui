@@ -4,3 +4,41 @@ http://localhost:4200/subjects/detail/1/in-year/4/block/8 vs http://localhost:42
 
 delam par entit a sunu si hromadku..
 Toastr, Error handling, Url routes, Authorization, Update, Delete... 😃 :((((((((((((
+
+
+Prepne se role behem jedne cookie autorizace (prihlaseni) - a pak si ji po dobu te cookie pamatuje
+
+Behem jedne autorizace si to pamatuje roli do ktere se prepnul
+
+Asi musi byt role na zmenu role..
+
+Zapado ceska univerzita
+
+Pan Vajbar - zeptat se jake api je na zmenu role
+
+- vsechny aktivni predmety "A"
+
+http://prntscr.com/wiaqgv
+- pridat symbol ze je propojen se stagem
+
+
+- neumoznit prihlasit se uzivateli na akci, kdyztrak bude externista
+
+
+blok
+----------
+parametr kolikrat student musi navstivit akci aby byl splnen <- zaroven to je cislo kolikrat se muze zapsat do akci dobudoucna
+
+pocet moznosti prihlasit se na akce v rade se rovna poctu kolikrat ten blok musi absolvovat - pokud jiz ma 1x splneno ze 2 tak se muze prihlasit jen 1x
+pokud se ceka na vyhodnoceni dochazky tak stale muze na 2 akce
+upozornit ze se ceka na vydhodnoceni dochazky
+
+pridat moznost nemilosrdne vyhodit studenta/uzivatele z akce
+
+logovat - treba vyhozeni studenta z akce
+
+akce date from a date to
+
+podivat se vygenorvani QR kodu, ktery prida zaznam do google kalendare
+
+ical - api pro vkladani do kalendaru.. googlit pod tim
