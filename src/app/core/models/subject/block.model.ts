@@ -1,3 +1,5 @@
+import { BlockRestrictionModel } from "./block-restriction.model";
+
 export class BlockModel {
     id: number;
     subjectInYearId: number;
@@ -6,4 +8,13 @@ export class BlockModel {
     name: string;
     ucitelName: string;
     whitelistUserCount: number;
+
+    blockRestriction: BlockRestrictionModel;
+
+    /**
+     *
+     */
+    constructor() {
+        this.blockRestriction = new BlockRestrictionModel();
+    }
 }

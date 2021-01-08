@@ -20,6 +20,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTransferModule } from 'ng-zorro-antd/transfer';
 import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 
 @NgModule({
     declarations: [],
@@ -44,7 +45,8 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
         NzCheckboxModule,
         NzToolTipModule,
         NzTransferModule,
-        NzTagModule
+        NzTagModule,
+        NzInputNumberModule
     ]
 })
 export class NgZorroModule { }

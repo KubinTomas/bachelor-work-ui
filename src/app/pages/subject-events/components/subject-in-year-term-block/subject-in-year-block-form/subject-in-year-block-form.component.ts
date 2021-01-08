@@ -68,6 +68,11 @@ export class SubjectInYearBlockFormComponent implements OnInit {
     // todo validator ze rok je unikatni
     this.form = this.formBuilder.group({
       name: [this.block.name, [Validators.required, Validators.maxLength(100)]],
+      blockRestriction: this.formBuilder.group({
+        allowExternalUsers: [this.block.blockRestriction.allowExternalUsers, Validators.required],
+        allowOnlyStudentsOnWhiteList: [this.block.blockRestriction.allowOnlyStudentsOnWhiteList, Validators.required],
+        actionAttendLimit: [this.block.blockRestriction.actionAttendLimit, Validators.required],
+      })
     });
   }
 
