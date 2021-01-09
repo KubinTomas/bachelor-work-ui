@@ -81,14 +81,16 @@ export class SubjectInYearBlockFormComponent implements OnInit {
 
     if (this.form.valid) {
       if (this.block.id) {
-        this.updateSubject(this.form.value);
+        this.updateBlock(this.form.value);
       } else {
-        this.createSubject(this.form.value);
+        this.createBlock(this.form.value);
       }
     }
   }
 
-  createSubject(block: BlockModel): void {
+  createBlock(block: BlockModel): void {
+    block.termId = this.block.termId;
+    
     this.blockService.create(block).subscribe(() => {
       this.back();
     });
@@ -104,7 +106,7 @@ export class SubjectInYearBlockFormComponent implements OnInit {
     }
   }
 
-  updateSubject(block: BlockModel): void {
+  updateBlock(block: BlockModel): void {
     block.id = this.block.id;
 
     this.blockService.update(block).subscribe(() => {
