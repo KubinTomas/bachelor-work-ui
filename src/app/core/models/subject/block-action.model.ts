@@ -12,4 +12,10 @@ export class BlockActionModel {
     attendanceSignOffEndDate: Date;
     visible: boolean;
     groupId: number;
+
+    startEndDate: Date;
+
+    constructor() {
+        this.visible = true;
+    }
 }

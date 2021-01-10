@@ -49,21 +49,78 @@
                         </nz-textarea-count>
                     </nz-form-control>
                 </nz-form-item>
+
                 <nz-form-item>
-                    <nz-form-label>Začátek a konec akce</nz-form-label>
-                    <nz-form-control nzErrorTip="Datum konání akce je povinný">
-                        <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm"
-                            formControlName="actionStartEndDate"></nz-range-picker>
+                    <nz-form-control>
+                        <label nz-checkbox formControlName="visible">Viditelná akce</label>
                     </nz-form-control>
                 </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label>Začátek a konec akce</nz-form-label>
+                    <nz-form-control [nzErrorTip]="errorTpl">
+                        <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm" formControlName="startDate"
+                            [nzShowTime]="{ nzFormat: 'HH:mm' }" nzPlaceHolder="začátek akce"
+                            (nzOnOpenChange)="handleStartOpenChange($event)">
+                        </nz-date-picker>
+                        -
+                        <nz-date-picker #endDatePicker nzShowTime formControlName="endDate" nzFormat="yyyy-MM-dd HH:mm"
+                            [nzShowTime]="{ nzFormat: 'HH:mm' }" nzPlaceHolder="konec akce"
+                            (nzOnOpenChange)="handleEndOpenChange($event)"
+                            (ngModelChange)="validateDate()">
+                        </nz-date-picker>
+                    </nz-form-control>
+
+                    <ng-template #errorTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                            Datum konání akce je povinný
+                        </ng-container>
+                        <ng-container *ngIf="control.hasError('dateRange')">
+                            Datum začátku musí být menší než datum konce
+                        </ng-container>
+                    </ng-template>
+                    <!-- <nz-form-label>Začátek a konec akce</nz-form-label>
+                    <nz-form-control nzErrorTip="Datum konání akce je povinný">
+                        <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm"  (nzOnOk)="onOk($event)"
+                            formControlName="startEndDate"></nz-range-picker>
+                    </nz-form-control> -->
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label>Datum od kdy je povolen zápis (nemusí být vybrán)</nz-form-label>
+                    <nz-form-control>
+                        <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm" [nzShowTime]="{ nzFormat: 'HH:mm' }"
+                            formControlName="attendanceAllowStartDate">
+                        </nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label>Datum do kdy je povolen zápis (nemusí být vybrán)</nz-form-label>
+                    <nz-form-control nzErrorTip="Datum konání akce je povinný">
+                        <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm" [nzShowTime]="{ nzFormat: 'HH:mm' }"
+                            formControlName="attendanceAllowEndDate">
+                        </nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>Datum do kdy je možné se odepsat z akce</nz-form-label>
+                    <nz-form-control nzErrorTip="Datum odzápisu akce je povinný">
+                        <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm" [nzShowTime]="{ nzFormat: 'HH:mm' }"
+                            formControlName="attendanceSignOffEndDate">
+                        </nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+
+
             </form>
         </section>
 
         <section class="form-control-wrapper">
             <button nz-button nzType="secondary" class="form-back" (click)="back()">Zpět</button>
             <button nz-button nzType="primary" (click)="submitForm()">
-                <span *ngIf="!block.id">Vytvořit</span>
-                <span *ngIf="block.id">Upravit</span>
+                <span *ngIf="!action.id">Vytvořit</span>
+                <span *ngIf="action.id">Upravit</span>
             </button>
         </section>
     </section>
