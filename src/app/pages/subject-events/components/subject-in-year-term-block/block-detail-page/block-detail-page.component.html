@@ -1,0 +1,63 @@
+<ng-container *ngIf="block">
+    <nz-page-header [nzGhost]="false" class="site-page-header">
+        <nz-page-header-title>
+            {{block.term.subjectInYearYear}} <nz-divider nzType="vertical"></nz-divider>
+            {{block.term.subjectInYearName}} <nz-divider nzType="vertical"></nz-divider> {{block.term.term}}
+            <nz-divider nzType="vertical"></nz-divider> {{block.name}}
+        </nz-page-header-title>
+        <nz-page-header-subtitle></nz-page-header-subtitle>
+        <nz-page-header-extra>
+            <!-- <button nz-button nzType="secondary" class="form-back" (click)="back()">Zpět</button> -->
+        </nz-page-header-extra>
+        <nz-page-header-content>
+            <nz-breadcrumb>
+                <nz-breadcrumb-item><a routerLink="/admin/subjects">Předměty</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a [routerLink]="['/admin/subjects/detail', block.term.subjectId]">Detail předmětu</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a [routerLink]="['/admin/subject-year', block.subjectInYearId]">Detail roku</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a [routerLink]="['/admin/term/detail', block.termId]">Detail semestru</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a>Detail bloku</a>
+                </nz-breadcrumb-item>
+            </nz-breadcrumb>
+        </nz-page-header-content>
+    </nz-page-header>
+
+
+
+    <section class="subjects-wrapper table-wrapper">
+        <div class="action-bar">
+            <div>
+                <div class="search">
+                    <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
+                        <input type="text" nz-input placeholder="Vyhledat..." />
+                    </nz-input-group>
+                    <ng-template #prefixIconSearch>
+                        <i nz-icon nzType="search"></i>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="ac-btn-1">
+                <button nz-button nzType="primary" [routerLink]="'/admin/action/create/' + block.id "><i nz-icon nzType="plus"
+                        nzTheme="outline"></i>Nová akce</button>
+            </div>
+
+        </div>
+        <app-block-action-table [actions]="actions" [dataLoading]="actionsDataLoading"></app-block-action-table>
+        <!-- <app-subject-in-year-block-table [blocks]="blocks" [dataLoading]="blocksDataLoading">
+        </app-subject-in-year-block-table> -->
+    </section>
+
+
+
+</ng-container>
+
+<div class="page-loader-wrapper" *ngIf="!block" style="height: 230px;">
+    <app-page-loader></app-page-loader>
+</div>

@@ -23,12 +23,12 @@ export class SubjectInYearBlockTableComponent implements OnInit {
   }
 
   onRowClick(data: BlockModel): void {
-    // this.goToSubjectInYearDetail(data.subjectId, data.id);
+    this.goToBlockDetail(data.id);
   }
 
-  // goToBlockDetail(subjectId: number, subjectInYearId: number): void {
-  //   this.router.navigateByUrl('subjects/detail/' + subjectId + '/in-year/' + subjectInYearId);
-  // }
+  goToBlockDetail(blockId: number): void {
+    this.router.navigateByUrl('/admin/block/' + blockId);
+  }
 
   onEditClick(data: BlockModel): void {
     this.router.navigateByUrl('/admin/term/' + data.termId + '/block/edit/' + data.id);

@@ -1,0 +1,85 @@
+<ng-container *ngIf="block">
+    <nz-page-header [nzGhost]="false" class="site-page-header">
+        <nz-page-header-title>Nový blok</nz-page-header-title>
+        <nz-page-header-subtitle></nz-page-header-subtitle>
+        <nz-page-header-extra>
+            <!-- <button nz-button nzType="secondary" class="form-back" (click)="back()">Zpět</button> -->
+        </nz-page-header-extra>
+        <nz-page-header-content>
+            <nz-breadcrumb>
+                <nz-breadcrumb-item><a routerLink="/admin/subjects">Předměty</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a [routerLink]="['/admin/subjects/detail', block.subjectId]">Detail předmětu</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a [routerLink]="['/admin/subject-year', block.subjectInYearId]">Detail roku</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a [routerLink]="['/admin/term/detail', block.termId]">Detail semestru</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a>Formulář bloku</a>
+                </nz-breadcrumb-item>
+            </nz-breadcrumb>
+        </nz-page-header-content>
+    </nz-page-header>
+
+    <section *ngIf="form">
+        <section class="content-wrapper">
+            <form nz-form nzLayout="vertical" [formGroup]="form">
+                <!-- <nz-form-item>
+                    <nz-form-label>Jméno</nz-form-label>
+                    <nz-form-control nzErrorTip="Prosím vyplňte jméno.">
+                        <input nz-input formControlName="name" placeholder="zadejte jméno" />
+                    </nz-form-control>
+                </nz-form-item>
+                <div formGroupName="blockRestriction">
+
+                    <nz-form-item>
+                        <div class="custom-form-label">Počet návštěv ke splnění bloku
+                            <div style="float: right;" class="icon-hover">
+                                <span nz-tooltip
+                                    nzTooltipTitle="Číslo udává kolikrát se daný student může přihlásit na akci a kolik jich musí splnit k absolvování bloku. 
+                                    Hodnota 0 znamená, že student se může na akce přihlásit bez omezení (kolikrát chce), zároveň není žádná podmínka ke splnění">
+                                    <i class="fas fa-info-circle"></i>
+                                </span>
+
+                            </div>
+                        </div>
+                        <nz-input-number formControlName="actionAttendLimit" [nzMin]="0" [nzStep]="1"
+                            style="width: 100%;">
+                        </nz-input-number>
+                    </nz-form-item>
+                    <div>
+                        <h4>Nastavení přístupu na akce bloku</h4>
+                        <div>
+                            <label nz-checkbox formControlName="allowOnlyStudentsOnWhiteList">Povolit přístup na akce
+                                pouze studentům s uděleným oprávněním (studenti přiřazeni v bloku)</label>
+                        </div>
+                        <div class="mt-5">
+                            <label nz-checkbox formControlName="allowExternalUsers">Povolit přístup externím uživatelům
+                                (uživatel mimo stag)</label>
+                        </div>
+
+
+
+
+                    </div>
+                </div> -->
+            </form>
+        </section>
+
+        <section class="form-control-wrapper">
+            <button nz-button nzType="secondary" class="form-back" (click)="back()">Zpět</button>
+            <button nz-button nzType="primary" (click)="submitForm()">
+                <span *ngIf="!block.id">Vytvořit</span>
+                <span *ngIf="block.id">Upravit</span>
+            </button>
+        </section>
+    </section>
+
+    <div class="page-loader-wrapper" *ngIf="!form" style="height: 230px;">
+        <app-page-loader></app-page-loader>
+    </div>
+</ng-container>

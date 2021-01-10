@@ -24,6 +24,9 @@ import { TermStagConnectionTableComponent } from './components/term-stag-connect
 import { TermStagConnectionFormComponent } from './components/term-stag-connection/term-stag-connection-form/term-stag-connection-form.component';
 import { FormsModule } from '@angular/forms';
 import { BlockWhitelistComponent } from './components/block-whitelist/block-whitelist/block-whitelist.component';
+import { BlockActionFormComponent } from './components/block-action/block-action-form/block-action-form.component';
+import { BlockDetailPageComponent } from './components/subject-in-year-term-block/block-detail-page/block-detail-page.component';
+import { BlockActionTableComponent } from './components/block-action/block-action-table/block-action-table.component';
 
 
 
@@ -47,6 +50,9 @@ import { BlockWhitelistComponent } from './components/block-whitelist/block-whit
     TermStagConnectionTableComponent,
     TermStagConnectionFormComponent,
     BlockWhitelistComponent,
+    BlockActionFormComponent,
+    BlockDetailPageComponent,
+    BlockActionTableComponent,
   ],
   imports: [
     CommonModule,
