@@ -28,45 +28,34 @@
     <section *ngIf="form">
         <section class="content-wrapper">
             <form nz-form nzLayout="vertical" [formGroup]="form">
-                <!-- <nz-form-item>
+                <nz-form-item>
                     <nz-form-label>Jméno</nz-form-label>
                     <nz-form-control nzErrorTip="Prosím vyplňte jméno.">
                         <input nz-input formControlName="name" placeholder="zadejte jméno" />
                     </nz-form-control>
                 </nz-form-item>
-                <div formGroupName="blockRestriction">
-
-                    <nz-form-item>
-                        <div class="custom-form-label">Počet návštěv ke splnění bloku
-                            <div style="float: right;" class="icon-hover">
-                                <span nz-tooltip
-                                    nzTooltipTitle="Číslo udává kolikrát se daný student může přihlásit na akci a kolik jich musí splnit k absolvování bloku. 
-                                    Hodnota 0 znamená, že student se může na akce přihlásit bez omezení (kolikrát chce), zároveň není žádná podmínka ke splnění">
-                                    <i class="fas fa-info-circle"></i>
-                                </span>
-
-                            </div>
-                        </div>
-                        <nz-input-number formControlName="actionAttendLimit" [nzMin]="0" [nzStep]="1"
-                            style="width: 100%;">
-                        </nz-input-number>
-                    </nz-form-item>
-                    <div>
-                        <h4>Nastavení přístupu na akce bloku</h4>
-                        <div>
-                            <label nz-checkbox formControlName="allowOnlyStudentsOnWhiteList">Povolit přístup na akce
-                                pouze studentům s uděleným oprávněním (studenti přiřazeni v bloku)</label>
-                        </div>
-                        <div class="mt-5">
-                            <label nz-checkbox formControlName="allowExternalUsers">Povolit přístup externím uživatelům
-                                (uživatel mimo stag)</label>
-                        </div>
-
-
-
-
-                    </div>
-                </div> -->
+                <nz-form-item>
+                    <nz-form-label>Místo konání</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="location" placeholder="zadejte místo konání" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>Popis</nz-form-label>
+                    <nz-form-control nzErrorTip="Maximální počet znaků je 1000">
+                        <nz-textarea-count [nzMaxCharacterCount]="1000">
+                            <textarea nz-input formControlName="description" placeholder="zadejte popis akce"
+                                [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                        </nz-textarea-count>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>Začátek a konec akce</nz-form-label>
+                    <nz-form-control nzErrorTip="Datum konání akce je povinný">
+                        <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm"
+                            formControlName="actionStartEndDate"></nz-range-picker>
+                    </nz-form-control>
+                </nz-form-item>
             </form>
         </section>
 

@@ -1,7 +1,8 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BlockActionModel } from 'src/app/core/models/subject/block-action.model';
 import { BlockModel } from 'src/app/core/models/subject/block.model';
 import { BlockService } from 'src/app/core/services/subject/block.service';
 
@@ -13,13 +14,17 @@ import { BlockService } from 'src/app/core/services/subject/block.service';
 export class BlockActionFormComponent implements OnInit {
 
   form: FormGroup;
-  block: BlockModel = new BlockModel();
+  action: BlockActionModel = new BlockActionModel();
+  block: BlockModel;
+
+  actionStartEndDate: Date[];
 
   constructor(
     private route: ActivatedRoute,
     private blockService: BlockService,
     private location: Location,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ) {
 
     this.route.params.subscribe(params => {
@@ -38,7 +43,8 @@ export class BlockActionFormComponent implements OnInit {
   }
 
   submitForm(): void {
-
+    console.log(this.form.value);
+    console.log(this.actionStartEndDate);
   }
 
   getBlock(blockId: number): void {
@@ -49,7 +55,17 @@ export class BlockActionFormComponent implements OnInit {
   }
 
   buildForm(): void {
-
+    this.form = this.formBuilder.group({
+      name: [this.action.name, [Validators.required]],
+      location: [this.action.location, []],
+      description: [this.action.description, [Validators.required]],
+      actionStartEndDate: [[this.action.startDate, this.action.endDate], [Validators.required]],
+      // startDate: [this.action.startDate, [Validators.required]],
+      // endDate: [this.action.endDate, [Validators.required]],
+      // attendanceAllowStartDate: [this.action.attendanceAllowStartDate, []],
+      // attendanceAllowEndDate: [this.action.attendanceAllowEndDate, []],
+      visible: [this.action.visible, [Validators.required]],
+    });
   }
 
   back(): void {

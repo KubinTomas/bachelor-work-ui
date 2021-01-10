@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,10 +9,11 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { cs_CZ, NZ_I18N } from 'ng-zorro-antd/i18n';
+import { cs_CZ, NzI18nService, NZ_DATE_LOCALE, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+import cs from '@angular/common/locales/cs';
 import { AuthenticationModule } from './pages/authentication/authentication.module';
 import { NgZorroModule } from './shared/modules/ng-zorro.module';
 import { RouterModule } from '@angular/router';
@@ -28,7 +29,7 @@ import { DefaultInterceptor } from './core/interceptors/default.interceptor';
 import { AuthGuard } from './core/guards/auth.guard';
 import { MainModule } from './pages/main/main.module';
 
-registerLocaleData(en);
+registerLocaleData(cs);
 
 export function tokenGetter(): string {
   return localStorage.getItem('jwt');
@@ -67,7 +68,9 @@ export function tokenGetter(): string {
   ],
   providers: [
     AuthGuard,
+    // { provide: LOCALE_ID, useValue: 'cs_CZ' },
     { provide: NZ_I18N, useValue: cs_CZ },
+    // { provide: NZ_DATE_LOCALE, useValue: 'cs_CZ' },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: DefaultInterceptor,
@@ -76,4 +79,11 @@ export function tokenGetter(): string {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  /**
+   *
+   */
+  constructor(private i18nService: NzI18nService) {
+    this.i18nService.setLocale(cs_CZ);
+  }
+ }

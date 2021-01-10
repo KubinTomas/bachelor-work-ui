@@ -21,6 +21,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTransferModule } from 'ng-zorro-antd/transfer';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 @NgModule({
     declarations: [],
@@ -46,7 +47,8 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
         NzToolTipModule,
         NzTransferModule,
         NzTagModule,
-        NzInputNumberModule
+        NzInputNumberModule,
+        NzDatePickerModule
     ]
 })
 export class NgZorroModule { }
