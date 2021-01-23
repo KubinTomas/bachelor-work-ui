@@ -5,7 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzDatePickerComponent } from 'ng-zorro-antd/date-picker';
 import { BlockActionModel } from 'src/app/core/models/subject/block-action.model';
 import { BlockModel } from 'src/app/core/models/subject/block.model';
+import { ActionService } from 'src/app/core/services/subject/action.service';
 import { BlockService } from 'src/app/core/services/subject/block.service';
+import { DateService } from 'src/app/core/services/utils/date.service';
 
 @Component({
   selector: 'app-block-action-form',
@@ -25,7 +27,9 @@ export class BlockActionFormComponent implements OnInit {
     private blockService: BlockService,
     private location: Location,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private actionService: ActionService,
+    private dateService: DateService
   ) {
 
     this.route.params.subscribe(params => {
@@ -53,6 +57,21 @@ export class BlockActionFormComponent implements OnInit {
       action.id = this.action.id;
       action.blockId = this.block.id;
 
+      action.startDate = this.dateService.covertDateToAPIFriendlyFormat(new Date(action.startDate));
+      action.endDate = this.dateService.covertDateToAPIFriendlyFormat(new Date(action.endDate));
+
+      if (action.attendanceAllowStartDate) {
+        action.attendanceAllowStartDate = this.dateService.covertDateToAPIFriendlyFormat(new Date(action.attendanceAllowStartDate));
+      }
+      if (action.attendanceAllowEndDate) {
+        action.attendanceAllowEndDate = this.dateService.covertDateToAPIFriendlyFormat(new Date(action.attendanceAllowEndDate));
+      }
+      if (action.attendanceSignOffEndDate) {
+        action.attendanceSignOffEndDate = this.dateService.covertDateToAPIFriendlyFormat(new Date(action.attendanceSignOffEndDate));
+      }
+
+      action.attendanceSignOffEndDate = this.dateService.covertDateToAPIFriendlyFormat(new Date(action.attendanceSignOffEndDate));
+
       console.log(action);
 
       if (this.action.id) {
@@ -61,6 +80,11 @@ export class BlockActionFormComponent implements OnInit {
         this.create(action);
       }
     }
+  }
+
+  covertDateToISO(date: Date): string {
+    const tzoffset = (new Date()).getTimezoneOffset() * 60000; // offset in milliseconds
+    return (new Date(date.getTime() - tzoffset)).toISOString().slice(0, -1);
   }
 
   validateDate(): void {
@@ -89,7 +113,9 @@ export class BlockActionFormComponent implements OnInit {
   }
 
   create(action: BlockActionModel): void {
-    console.log(action);
+    this.actionService.create(action).subscribe(() => {
+      this.back();
+    });
   }
 
   getBlock(blockId: number): void {
@@ -133,7 +159,7 @@ export class BlockActionFormComponent implements OnInit {
     const navState: any = this.location.getState();
 
     if (navState.navigationId === 1) {
-      this.router.navigateByUrl('admin/term/detail/' + this.block.termId);
+      this.router.navigateByUrl('admin/block/' + this.block.id);
     } else {
       this.location.back();
     }

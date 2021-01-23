@@ -5,15 +5,17 @@ export class BlockActionModel {
     location: string;
     description: string;
     color: string;
-    startDate: Date;
-    endDate: Date;
-    attendanceAllowStartDate: Date;
-    attendanceAllowEndDate: Date;
-    attendanceSignOffEndDate: Date;
+    startDate;
+    endDate;
+    attendanceAllowStartDate;
+    attendanceAllowEndDate;
+    attendanceSignOffEndDate;
     visible: boolean;
     groupId: number;
 
+    dateIn: Date;
     startEndDate: Date;
+    ucitelName: string;
 
     constructor() {
         this.visible = true;

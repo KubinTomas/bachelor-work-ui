@@ -26,8 +26,8 @@ export class ActionService {
   }
 
 
-  get(termId: number): Observable<BlockActionModel[]> {
-    return this.httpClient.get<BlockActionModel[]>(apiUrl + '/teacher/action/' + termId);
+  get(blockId: number): Observable<BlockActionModel[]> {
+    return this.httpClient.get<BlockActionModel[]>(apiUrl + '/teacher/action/' + blockId);
   }
 
   getWhitelist(blockId: number): Observable<any> {
