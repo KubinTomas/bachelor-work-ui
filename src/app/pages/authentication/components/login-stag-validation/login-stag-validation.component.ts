@@ -46,7 +46,8 @@ export class LoginStagValidationComponent implements OnInit {
       this.router.navigateByUrl('/login');
     } else {
       this.authenticationService.login({}).subscribe(loginResponse => {
-        this.authenticationService.saveCredentials(loginResponse.token, loginParams.stagUserTicket);
+        // , loginParams.stagUserTicket
+        this.authenticationService.saveCredentials(loginParams.stagUserTicket);
 
         this.getUser();
       });

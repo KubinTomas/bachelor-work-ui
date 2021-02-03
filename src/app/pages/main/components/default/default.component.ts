@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { UserModel } from 'src/app/core/models/authentication/user.model';
+import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { AuthActions } from 'src/app/pages/authentication/store/auth-action-types';
 import { user } from 'src/app/pages/authentication/store/auth.selectors';
 import { AppState } from 'src/app/store/app.reducer';
@@ -19,7 +20,9 @@ export class DefaultComponent implements OnInit, OnDestroy {
 
   subs: Subscription = new Subscription();
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private authService: AuthenticationService,
+    private store: Store<AppState>) {
     this.store.dispatch(AuthActions.getUser());
   }
 
@@ -39,5 +42,11 @@ export class DefaultComponent implements OnInit, OnDestroy {
 
   consoleLogAboutMe(): void {
     console.log(this.user);
+  }
+
+  changeRole(userName: string): void {
+    this.authService.changeRole(userName).subscribe(user => {
+      this.store.dispatch(AuthActions.saveUser({ user }));
+    });
   }
 }

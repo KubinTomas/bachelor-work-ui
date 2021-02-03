@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -61,7 +61,7 @@ export class AuthenticationService {
 
     return this.jwtHelper.isTokenExpired(token);
   }
-  saveCredentials(token: string, stagUserTicket: string): void {
+  saveCredentials(stagUserTicket: string): void {
     this.stagAuthenticationService.saveCredentials(stagUserTicket);
   }
 
@@ -76,6 +76,17 @@ export class AuthenticationService {
   getUser(): Observable<UserModel> {
     return this.httpClient.get<UserModel>(apiUrl + '/authentication/user');
   }
+
+  changeRole(role: string): Observable<UserModel> {
+    let headers = new HttpHeaders();
+    headers = headers.append('role', role);
+
+    console.log(role);
+    console.log(headers);
+
+    return this.httpClient.get<UserModel>(apiUrl + '/authentication/user/change-role', { headers });
+  }
+
 
   isAuthorize(): Observable<boolean> {
     return this.httpClient.get<boolean>(apiUrl + '/authentication/authorize');
