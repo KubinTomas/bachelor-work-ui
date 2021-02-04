@@ -1,3 +1,5 @@
+import { BlockActionRestriction } from "./block-acion-restriction.model";
+
 export class BlockActionModel {
     id: number;
     blockId: number;
@@ -17,7 +19,12 @@ export class BlockActionModel {
     startEndDate: Date;
     ucitelName: string;
 
+    studentCount: number;
+
+    blockActionRestriction: BlockActionRestriction;
+
     constructor() {
         this.visible = true;
+        this.blockActionRestriction = new BlockActionRestriction();
     }
 }

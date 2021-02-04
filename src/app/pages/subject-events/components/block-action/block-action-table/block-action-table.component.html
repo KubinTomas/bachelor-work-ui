@@ -8,6 +8,9 @@
             <th>Zápis povolen do</th>
             <th>Místo</th>
             <th>Viditelná</th>
+            <th>Externí uživatelé</th>
+            <th>Stag studenti </th>
+            <th>Přihlášeno</th>
         </tr>
     </thead>
     <tbody>
@@ -16,11 +19,13 @@
             <td>{{ data.startDate | date: 'd.M.yyyy HH:mm' }} - {{ data.endDate | date: 'd.M.yyyy HH:mm'}}</td>
             <td>{{ data.attendanceSignOffEndDate | date: 'd.M.yyyy HH:mm' }}</td>
             <td>
-                <span *ngIf="data.attendanceAllowStartDate">{{ data.attendanceAllowStartDate | date: 'd.M.yyyy HH:mm' }}</span>
+                <span *ngIf="data.attendanceAllowStartDate">{{ data.attendanceAllowStartDate | date: 'd.M.yyyy HH:mm'
+                    }}</span>
                 <span *ngIf="!data.attendanceAllowStartDate">Neomezeno</span>
             </td>
             <td>
-                <span *ngIf="data.attendanceAllowEndDate">{{ data.attendanceAllowEndDate | date: 'd.M.yyyy HH:mm' }}</span>
+                <span *ngIf="data.attendanceAllowEndDate">{{ data.attendanceAllowEndDate | date: 'd.M.yyyy HH:mm'
+                    }}</span>
                 <span *ngIf="!data.attendanceAllowEndDate">Neomezeno</span>
             </td>
             <td>{{ data.location }}</td>
@@ -28,6 +33,32 @@
                     [class.active-icon]="data.visible" [class.fade-out-icon]="!data.visible">
                 </i>
             </td>
+            <td>
+                <!-- <td><i class="fa @((item.vkCourse.hasEvaluation ? "fa-check" : "fa-times"))" style="@(item.vkCourse.hasEvaluation? "color:#28a745;" : "color:#bcbcbc;")"></i></td> -->
+                <i class="fa" [class.fa-check]="data.blockActionRestriction.allowExternalUsers"
+                    [class.fa-times]="!data.blockActionRestriction.allowExternalUsers"
+                    [class.active-icon]="data.blockActionRestriction.allowExternalUsers"
+                    [class.fade-out-icon]="!data.blockActionRestriction.allowExternalUsers">
+
+                </i>
+            </td>
+            <td>
+                <i class="fa" [class.fa-check]="data.blockActionRestriction.allowOnlyStudentsOnWhiteList"
+                    [class.fa-times]="!data.blockActionRestriction.allowOnlyStudentsOnWhiteList"
+                    [class.active-icon]="data.blockActionRestriction.allowOnlyStudentsOnWhiteList"
+                    [class.fade-out-icon]="!data.blockActionRestriction.allowOnlyStudentsOnWhiteList">
+                </i>
+
+            </td>
+            <td>
+                <span nz-tooltip
+                    nzTooltipTitle="Akce v bloku vidí pouze tito studenti, pokud tedy akce není veřejná. Kliknutím zobrazíte seznam studentů.">
+                    <app-icon-text [clickAble]="true" [faIcon]="'fas fa-users'"
+                        [text]="data.studentCount + '/' + data.blockActionRestriction.maxCapacity">
+                    </app-icon-text>
+                </span>
+            </td>
+
         </tr>
     </tbody>
 </nz-table>

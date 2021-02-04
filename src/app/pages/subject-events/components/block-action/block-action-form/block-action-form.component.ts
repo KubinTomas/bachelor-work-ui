@@ -121,6 +121,12 @@ export class BlockActionFormComponent implements OnInit {
   getBlock(blockId: number): void {
     this.blockService.getSingle(blockId).subscribe(res => {
       this.block = res;
+
+      if (!this.action.id) {
+        this.action.blockActionRestriction.allowExternalUsers = this.block.blockRestriction.allowExternalUsers;
+        this.action.blockActionRestriction.allowOnlyStudentsOnWhiteList = this.block.blockRestriction.allowOnlyStudentsOnWhiteList;
+      }
+
       this.buildForm();
     });
   }
@@ -137,6 +143,11 @@ export class BlockActionFormComponent implements OnInit {
       attendanceAllowEndDate: [this.action.attendanceAllowEndDate, []],
       attendanceSignOffEndDate: [this.action.attendanceSignOffEndDate, [Validators.required]],
       visible: [this.action.visible, [Validators.required]],
+      blockActionRestriction: this.formBuilder.group({
+        allowExternalUsers: [this.action.blockActionRestriction.allowExternalUsers, Validators.required],
+        allowOnlyStudentsOnWhiteList: [this.action.blockActionRestriction.allowOnlyStudentsOnWhiteList, Validators.required],
+        maxCapacity: [this.action.blockActionRestriction.maxCapacity, Validators.required],
+      })
     });
   }
 

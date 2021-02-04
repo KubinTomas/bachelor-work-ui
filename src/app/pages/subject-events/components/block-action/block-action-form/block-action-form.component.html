@@ -50,6 +50,40 @@
                     </nz-form-control>
                 </nz-form-item>
 
+            
+
+                <div formGroupName="blockActionRestriction" class="action-restriction-wrapper">
+
+                    <nz-form-item>
+                        <div class="custom-form-label">Maximální kapacita akce
+                            <div style="float: right;" class="icon-hover">
+                                <span nz-tooltip
+                                    nzTooltipTitle="Číslo udává kolik lidí se maximálně může zapsat na akci.">
+                                    <i class="fas fa-info-circle"></i>
+                                </span>
+
+                            </div>
+                        </div>
+                        <nz-input-number formControlName="maxCapacity" [nzMin]="0" [nzStep]="1" style="width: 100%;">
+                        </nz-input-number>
+                    </nz-form-item>
+                    <div>
+                        <h4>Nastavení přístupu na akce bloku</h4>
+                        <div>
+                            <label nz-checkbox formControlName="allowOnlyStudentsOnWhiteList">Povolit přístup na akce
+                                pouze studentům s uděleným oprávněním (studenti přiřazeni v bloku)</label>
+                        </div>
+                        <div class="mt-5">
+                            <label nz-checkbox formControlName="allowExternalUsers">Povolit přístup externím uživatelům
+                                (uživatel mimo stag)</label>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+
                 <nz-form-item>
                     <nz-form-control>
                         <label nz-checkbox formControlName="visible">Viditelná akce</label>
@@ -66,8 +100,7 @@
                         -
                         <nz-date-picker #endDatePicker nzShowTime formControlName="endDate" nzFormat="yyyy-MM-dd HH:mm"
                             [nzShowTime]="{ nzFormat: 'HH:mm' }" nzPlaceHolder="konec akce"
-                            (nzOnOpenChange)="handleEndOpenChange($event)"
-                            (ngModelChange)="validateDate()">
+                            (nzOnOpenChange)="handleEndOpenChange($event)" (ngModelChange)="validateDate()">
                         </nz-date-picker>
                     </nz-form-control>
 
