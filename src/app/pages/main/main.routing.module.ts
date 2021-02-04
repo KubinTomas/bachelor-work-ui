@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
+import { StudentActionsTableComponent } from '../student/components/actions/student-actions-table/student-actions-table.component';
 import { BlockActionFormComponent } from '../subject-events/components/block-action/block-action-form/block-action-form.component';
 import { BlockWhitelistComponent } from '../subject-events/components/block-whitelist/block-whitelist/block-whitelist.component';
 import { BlockDetailPageComponent } from '../subject-events/components/subject-in-year-term-block/block-detail-page/block-detail-page.component';
@@ -18,6 +19,9 @@ import { DefaultComponent } from './components/default/default.component';
 const routes: Routes = [
     {
         path: '', component: DefaultComponent, children: [
+
+            { path: 'student/action', component: StudentActionsTableComponent },
+
 
             { path: 'admin/subjects', component: SubjectPageComponent },
             { path: 'admin/subjects/create', component: SubjectFormComponent },

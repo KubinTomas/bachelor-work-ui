@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { NgZorroModule } from 'src/app/shared/modules/ng-zorro.module';
 import { MainRoutingModule } from './main.routing.module';
 import { SubjectEventsModule } from '../subject-events/subject-events.module';
+import { StudentModule } from '../student/student.module';
 
 
 
@@ -15,7 +16,8 @@ import { SubjectEventsModule } from '../subject-events/subject-events.module';
     NgZorroModule,
     RouterModule,
     MainRoutingModule,
-    SubjectEventsModule
+    SubjectEventsModule,
+    StudentModule
   ]
 })
 export class MainModule { }
