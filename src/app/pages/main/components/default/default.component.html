@@ -9,17 +9,14 @@
             </a>
         </div>
         <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-            <li nz-submenu nzOpen nzTitle="Události" nzIcon="dashboard">
+            <li nz-submenu nzOpen nzTitle="Události" nzIcon="dashboard" *ngxPermissionsOnly="roleStudent">
                 <ul>
-                    <li nz-menu-item nzMatchRouter>
-                        <a routerLink="/login">Login</a>
-                    </li>
                     <li nz-menu-item nzMatchRouter>
                         <a routerLink='student/action'>Moje události</a>
                     </li>
                 </ul>
             </li>
-            <li nz-submenu nzOpen nzTitle="Správa předmětů" nzIcon="form">
+            <li nz-submenu nzOpen nzTitle="Správa předmětů" nzIcon="form" *ngxPermissionsOnly="roleAdmin">
                 <ul>
                     <li nz-menu-item nzMatchRouter>
                         <a routerLink="admin/subjects">Předměty</a>

@@ -64,7 +64,7 @@ export function tokenGetter(): string {
         allowedDomains: [apiUrl, "localhost:50466"],
       }
     }),
-    MainModule
+    MainModule,
   ],
   providers: [
     AuthGuard,

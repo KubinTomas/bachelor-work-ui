@@ -1,7 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { NgxPermissionsService } from 'ngx-permissions';
 import { Subscription } from 'rxjs';
 import { UserModel } from 'src/app/core/models/authentication/user.model';
+import { roleAdmin, roleStudent } from 'src/app/core/models/constants';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { AuthActions } from 'src/app/pages/authentication/store/auth-action-types';
 import { user } from 'src/app/pages/authentication/store/auth.selectors';
@@ -20,15 +23,28 @@ export class DefaultComponent implements OnInit, OnDestroy {
 
   subs: Subscription = new Subscription();
 
+  roleStudent = roleStudent;
+  roleAdmin = roleAdmin;
+
   constructor(
     private authService: AuthenticationService,
-    private store: Store<AppState>) {
+    private store: Store<AppState>,
+    private permissionsService: NgxPermissionsService) {
     this.store.dispatch(AuthActions.getUser());
   }
 
   ngOnInit(): void {
     this.subs.add(this.store.select(user).subscribe(userInStore => {
       this.user = userInStore;
+
+
+      if (this.user) {
+        //const roles = this.user.stagUserInfo.map(c => c.role);
+        const roles = [this.user.activeStagUserInfo.role];
+
+        this.permissionsService.flushPermissions();
+        this.permissionsService.loadPermissions(roles);
+      }
     }));
   }
 

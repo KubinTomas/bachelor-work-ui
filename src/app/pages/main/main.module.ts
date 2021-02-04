@@ -6,6 +6,7 @@ import { NgZorroModule } from 'src/app/shared/modules/ng-zorro.module';
 import { MainRoutingModule } from './main.routing.module';
 import { SubjectEventsModule } from '../subject-events/subject-events.module';
 import { StudentModule } from '../student/student.module';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 
 
@@ -17,7 +18,9 @@ import { StudentModule } from '../student/student.module';
     RouterModule,
     MainRoutingModule,
     SubjectEventsModule,
-    StudentModule
+    StudentModule,
+    NgxPermissionsModule.forRoot()
+
   ]
 })
 export class MainModule { }
