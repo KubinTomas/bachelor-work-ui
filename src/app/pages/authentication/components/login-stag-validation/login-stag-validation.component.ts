@@ -45,9 +45,12 @@ export class LoginStagValidationComponent implements OnInit {
       this.notificationToastrService.loginStagNoAnonymousUsers();
       this.router.navigateByUrl('/login');
     } else {
+
+      this.authenticationService.saveCredentials(loginParams.stagUserTicket);
+      
       this.authenticationService.login({}).subscribe(loginResponse => {
         // , loginParams.stagUserTicket
-        this.authenticationService.saveCredentials(loginParams.stagUserTicket);
+       
 
         this.getUser();
       });

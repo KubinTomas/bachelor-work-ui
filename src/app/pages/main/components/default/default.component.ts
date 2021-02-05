@@ -44,6 +44,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
 
         this.permissionsService.flushPermissions();
         this.permissionsService.loadPermissions(roles);
+       
       }
     }));
   }

@@ -28,6 +28,7 @@ import { apiUrl } from './core/models/url.model';
 import { DefaultInterceptor } from './core/interceptors/default.interceptor';
 import { AuthGuard } from './core/guards/auth.guard';
 import { MainModule } from './pages/main/main.module';
+import { StudentGuard } from './core/guards/student.guard';
 
 registerLocaleData(cs);
 

@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { NgxPermissionsGuard } from 'ngx-permissions';
+import { AdminGuard } from 'src/app/core/guards/admin.guard';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
+import { StudentGuard } from 'src/app/core/guards/student.guard';
+import { roleAdmin, roleStudent } from 'src/app/core/models/constants';
 import { StudentActionsTableComponent } from '../student/components/actions/student-actions-table/student-actions-table.component';
 import { BlockActionFormComponent } from '../subject-events/components/block-action/block-action-form/block-action-form.component';
 import { BlockWhitelistComponent } from '../subject-events/components/block-whitelist/block-whitelist/block-whitelist.component';
@@ -15,35 +19,86 @@ import { SubjectFormComponent } from '../subject-events/components/subject/subje
 import { SubjectPageComponent } from '../subject-events/components/subject/subject-page/subject-page.component';
 import { TermStagConnectionFormComponent } from '../subject-events/components/term-stag-connection/term-stag-connection-form/term-stag-connection-form.component';
 import { DefaultComponent } from './components/default/default.component';
+import { WelcomePageComponent } from './components/welcome-page/welcome-page.component';
 
 const routes: Routes = [
     {
         path: '', component: DefaultComponent, children: [
+            // canActivateChild: [AuthGuard],
+            {
+                path: 'student/action', component: StudentActionsTableComponent,
+                canActivate: [StudentGuard]
+            },
 
-            { path: 'student/action', component: StudentActionsTableComponent },
+
+            {
+                path: 'admin/subjects', component: SubjectPageComponent,
+                canActivate: [AdminGuard]
+            },
+            {
+                path: 'admin/subjects/create', component: SubjectFormComponent,
+                canActivate: [AdminGuard]
+            },
+            {
+                path: 'admin/subjects/edit/:subjectId', component: SubjectFormComponent,
+                canActivate: [AdminGuard]
+            },
+            {
+                path: 'admin/subjects/detail/:subjectId', component: SubjectDetailPageComponent,
+                canActivate: [AdminGuard]
+            },
+
+            {
+                path: 'admin/subject/:subjectId/year/create', component: SubjectInYearFormComponent,
+                canActivate: [AdminGuard]
+            },
+            {
+                path: 'admin/subject/:subjectId/year/edit/:subjectInYearId', component: SubjectInYearFormComponent,
+                canActivate: [AdminGuard]
+            },
+            {
+                path: 'admin/subject-year/:subjectInYearId', component: SubjectInYearDetailPageComponent,
+                canActivate: [AdminGuard]
+            },
+
+            {
+                path: 'admin/term/create/:subjectInYearId', component: SubjectInYearTermFormComponent,
+                canActivate: [AdminGuard]
+            },
+            {
+                path: 'admin/term/detail/:termId', component: SubjectInYearTermDetailPageComponent,
+                canActivate: [AdminGuard]
+            },
+            {
+                path: 'admin/term/:termId/block/create', component: SubjectInYearBlockFormComponent,
+                canActivate: [AdminGuard]
+            },
+            {
+                path: 'admin/term/:termId/block/edit/:blockId', component: SubjectInYearBlockFormComponent,
+                canActivate: [AdminGuard]
+            },
+
+            {
+                path: 'admin/term/:termId/stag-connection/create', component: TermStagConnectionFormComponent,
+                canActivate: [AdminGuard]
+            },
+
+            {
+                path: 'admin/block/:blockId/whitelist', component: BlockWhitelistComponent,
+                canActivate: [AdminGuard]
+            },
+
+            {
+                path: 'admin/action/create/:blockId', component: BlockActionFormComponent,
+                canActivate: [AdminGuard]
+            },
+            {
+                path: 'admin/block/:blockId', component: BlockDetailPageComponent,
+                canActivate: [AdminGuard]
+            },
 
 
-            { path: 'admin/subjects', component: SubjectPageComponent },
-            { path: 'admin/subjects/create', component: SubjectFormComponent },
-            { path: 'admin/subjects/edit/:subjectId', component: SubjectFormComponent },
-            { path: 'admin/subjects/detail/:subjectId', component: SubjectDetailPageComponent },
-
-            { path: 'admin/subject/:subjectId/year/create', component: SubjectInYearFormComponent },
-            { path: 'admin/subject/:subjectId/year/edit/:subjectInYearId', component: SubjectInYearFormComponent },
-            { path: 'admin/subject-year/:subjectInYearId', component: SubjectInYearDetailPageComponent },
-
-            { path: 'admin/term/create/:subjectInYearId', component: SubjectInYearTermFormComponent },
-            { path: 'admin/term/detail/:termId', component: SubjectInYearTermDetailPageComponent },
-            { path: 'admin/term/:termId/block/create', component: SubjectInYearBlockFormComponent },
-            { path: 'admin/term/:termId/block/edit/:blockId', component: SubjectInYearBlockFormComponent },
-
-            { path: 'admin/term/:termId/stag-connection/create', component: TermStagConnectionFormComponent },
-
-            { path: 'admin/block/:blockId/whitelist', component: BlockWhitelistComponent },
-
-            { path: 'admin/action/create/:blockId', component: BlockActionFormComponent },
-            { path: 'admin/block/:blockId', component: BlockDetailPageComponent },
-
+            { path: '', component: WelcomePageComponent },
 
             // { path: 'subjects/detail/:subjectId/in-year/:subjectInYearId/block/create', component: SubjectInYearBlockFormComponent },
 
