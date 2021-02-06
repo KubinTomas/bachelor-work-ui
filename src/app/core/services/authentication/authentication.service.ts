@@ -77,6 +77,20 @@ export class AuthenticationService {
     return this.httpClient.get<UserModel>(apiUrl + '/authentication/user');
   }
 
+  getUserRole(): Observable<string> {
+    return this.httpClient.get<string>(apiUrl + '/authentication/role');
+  }
+
+  isStudent(): Promise<boolean> {
+    return this.httpClient.get<boolean>(apiUrl + '/authentication/role/student').toPromise();
+  }
+
+  
+  isAdmin(): Promise<boolean> {
+    return this.httpClient.get<boolean>(apiUrl + '/authentication/role/administrator').toPromise();
+  }
+  
+
   changeRole(role: string): Observable<UserModel> {
     let headers = new HttpHeaders();
     headers = headers.append('role', role);

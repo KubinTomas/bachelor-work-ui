@@ -23,12 +23,27 @@ export class AdminGuard implements CanActivate {
     }
     canActivate(): Promise<boolean> {
         return new Promise((resolve) => {
-            this.permissionsService.hasPermission(roleAdmin).then(res => {
-                if (!res) {
+
+            const permissions = this.permissionsService.getPermissions();
+
+            if (Object.keys(permissions).length === 0) {
+                this.authenticationService.isAdmin().then(res => {
+                    if (!res) {
+                        this.router.navigateByUrl('');
+                    }
+                    resolve(res);
+                }, (error) => {
                     this.router.navigateByUrl('');
-                }
-                resolve(res);
-            });
+                    resolve(false);
+                });
+            } else {
+                this.permissionsService.hasPermission(roleStudent).then(res => {
+                    if (!res) {
+                        this.router.navigateByUrl('');
+                    }
+                    resolve(res);
+                });
+            }
         });
     }
 }

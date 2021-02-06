@@ -39,12 +39,10 @@ export class DefaultComponent implements OnInit, OnDestroy {
 
 
       if (this.user) {
-        //const roles = this.user.stagUserInfo.map(c => c.role);
         const roles = [this.user.activeStagUserInfo.role];
-
+        
         this.permissionsService.flushPermissions();
         this.permissionsService.loadPermissions(roles);
-       
       }
     }));
   }
