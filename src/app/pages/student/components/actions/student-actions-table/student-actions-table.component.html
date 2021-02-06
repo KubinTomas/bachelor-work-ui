@@ -1,1 +1,84 @@
-<p>student-actions-table works!</p>
+<nz-table #basicTable [nzData]="actions" [nzLoading]="dataLoading">
+    <thead>
+        <tr>
+            <th>Jméno </th>
+            <th>Datum konání </th>
+            <th>Datum odzápisu </th>
+            <th>Zápis od do </th>
+            <th>Místo</th>
+            <th>Přihlášeno</th>
+            <th>Fronta</th>
+            <th>Akce</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)">
+            <td>{{ data.name }}</td>
+            <td>{{ data.startDate | date: 'd.M.yyyy HH:mm' }} - {{ data.endDate | date: 'd.M.yyyy HH:mm'}}</td>
+            <td>{{ data.attendanceSignOffEndDate | date: 'd.M.yyyy HH:mm' }}</td>
+            <td>
+                <span *ngIf="data.attendanceAllowStartDate">{{ data.attendanceAllowStartDate | date: 'd.M.yyyy HH:mm'
+                    }}</span>
+                <span *ngIf="!data.attendanceAllowStartDate">neomezeno</span>
+                <span> - </span>
+                <span *ngIf="data.attendanceAllowEndDate">{{ data.attendanceAllowEndDate | date: 'd.M.yyyy HH:mm'
+                    }}</span>
+                <span *ngIf="!data.attendanceAllowEndDate">neomezeno</span>
+            </td>
+            <td>{{ data.location }}</td>
+            <td>
+                <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'"
+                    [text]="data.signedUsersCount + '/' + data.maxCapacity">
+                </app-icon-text>
+            </td>
+            <td>
+                <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'" [text]="data.usersInQueueCount">
+                </app-icon-text>
+            </td>
+            <td>
+                <ng-container *ngIf="data.canSignIn">
+                    <span (click)="joinAction(data)">
+                        prihlasit se
+                    </span>
+                </ng-container>
+                <ng-container *ngIf="data.canSignInQueue">
+                    <span (click)="onJoinActionQueue(data)">
+                        prihlasit se do fronty
+                    </span>
+                </ng-container>
+                <ng-container *ngIf="data.isUserSignedIn">
+                    <span (click)="leaveAction(data.id)">
+                        odhlasit se
+                    </span>
+
+                </ng-container>
+                <ng-container *ngIf="data.isUserSignedInQueue">
+                    <span (click)="leaveActionQueue(data.id)">
+                        odhlasit se z fronty
+                    </span>
+                </ng-container>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+
+<nz-modal [(nzVisible)]="actionJoinQueue" nzTitle="Plná kapacita - přihlášení do fronty"
+    (nzOnCancel)="joinActionQueueCancelModel()" *ngIf="actionJoinQueue">
+    <div *nzModalContent>
+        <p>Akce <strong>{{actionJoinQueue.name}}</strong> má již plnou kapacitu.</p>
+        <p>Chcete se přihlásit do fronty?</p>
+        <span style="font-style: italic;">
+            <p>Pokud se uvolní místo na akci a ve frontě budete první na řadě, systém Vás automaticky přesune do akce
+                jako
+                účastníka. (jako kdybyste se přihlásil)</p>
+
+            <p>Přesun z fronty je možný maximálně do: <strong>{{actionJoinQueue.attendanceSignOffEndDate | date:
+                    'd.M.yyyy HH:mm'}}</strong></p>
+        </span>
+
+    </div>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="joinActionQueueCancelModel()">Zrušit</button>
+        <button nz-button nzType="primary" (click)="joinActionQueue(actionJoinQueue.id)">Přihlásit se do fronty</button>
+    </div>
+</nz-modal>
