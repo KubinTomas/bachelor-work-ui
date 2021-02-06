@@ -16,6 +16,10 @@ export class NotificationToastrService {
     this.notification.error('Přihlášení selhalo', 'Přihlášení pod anonymním uživatelem není podporováno.');
   }
 
+  showError(title: string, message: string, duration: number = 2000): void {
+    this.notification.error(title, message, { nzDuration: duration });
+  }
+
   showSuccess(title: string, message: string, duration: number = 2000): void {
     this.notification.success(title, message, { nzDuration: duration });
   }

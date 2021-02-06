@@ -38,23 +38,41 @@
             <td>
                 <ng-container *ngIf="data.canSignIn">
                     <span (click)="joinAction(data)">
-                        prihlasit se
+                        <button nz-button nzType="default">Přihlásit se</button>
                     </span>
                 </ng-container>
                 <ng-container *ngIf="data.canSignInQueue">
                     <span (click)="onJoinActionQueue(data)">
-                        prihlasit se do fronty
+                        <button nz-button nzType="default">Přihlasit se do fronty</button>
                     </span>
                 </ng-container>
                 <ng-container *ngIf="data.isUserSignedIn">
                     <span (click)="leaveAction(data.id)">
-                        odhlasit se
+                        <button nz-button nzType="default" nzDanger>Odhlásit se</button>
                     </span>
 
                 </ng-container>
                 <ng-container *ngIf="data.isUserSignedInQueue">
                     <span (click)="leaveActionQueue(data.id)">
-                        odhlasit se z fronty
+                        <button nz-button nzType="default" nzDanger>Odhlásit se z fronty</button>
+                    </span>
+                </ng-container>
+
+                <ng-container
+                    *ngIf="!data.blockAttendanceRestrictionAllowSignIn && !data.isUserSignedInQueue && !data.isUserSignedIn">
+                    <span
+                        *ngIf="data.blockAttendanceRestrictionAllowSignInMessageCode == actionBlockRequirementsCompleted"
+                        nz-tooltip
+                        nzTooltipTitle="Požadavku bloku byly splněny. Na další akce v rámci bloku se již není možné zapsat.">
+                        <app-icon-text [clickAble]="false" [faIcon]="'fa fa-check'" [text]="'Blok splněn'">
+                        </app-icon-text>
+                    </span>
+                    <span
+                        *ngIf="data.blockAttendanceRestrictionAllowSignInMessageCode == actionWaitingForAttendanceEvaluation"
+                        nz-tooltip
+                        nzTooltipTitle="Maximální počet přihlášení v rámci bloku. Čeká se až pořadatel vyhodnotí účast na předchozích akcí bloku. Blokovat Vás může i počet přihlášení ve frontě, který se uvolňuje v momentě, když již nemůžete být přesunut jako účastník (datum odzápisu akce).">
+                        <app-icon-text [clickAble]="false" [faIcon]="'fa fa-ban'" [text]="'Vyhodnocuje se docházka'">
+                        </app-icon-text>
                     </span>
                 </ng-container>
             </td>

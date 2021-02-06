@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StudentBlockActionModel } from 'src/app/core/models/student/student-block-action.model';
 import { StudentActionService } from 'src/app/core/services/student/student-action.service';
 import { NotificationToastrService } from 'src/app/core/services/notification/notification-toastr.service';
-import { errorActionIsFull, errorActionIsNotFull } from 'src/app/core/models/constants';
+import { errorActionIsFull, errorActionIsNotFull, ActionBlockRequirementsCompleted, ActionWaitingForAttendanceEvaluation } from 'src/app/core/models/constants';
 
 @Component({
   selector: 'app-student-actions-table',
@@ -15,6 +15,9 @@ export class StudentActionsTableComponent implements OnInit {
   dataLoading = true;
 
   actionJoinQueue: StudentBlockActionModel;
+
+  actionBlockRequirementsCompleted = ActionBlockRequirementsCompleted;
+  actionWaitingForAttendanceEvaluation = ActionWaitingForAttendanceEvaluation;
 
   constructor(
     private studentActionService: StudentActionService,
@@ -38,8 +41,12 @@ export class StudentActionsTableComponent implements OnInit {
   }
 
   joinAction(action: StudentBlockActionModel): void {
-    this.studentActionService.join(action.id).subscribe(actions => {
-      this.notificationToastrService.showSuccess('Byl jste přihlášen na akci', '');
+    this.studentActionService.join(action.id).subscribe(joined => {
+      if (joined) {
+        this.notificationToastrService.showSuccess('Byl jste přihlášen na akci', '');
+      } else {
+        this.notificationToastrService.showError('Nepodařilo se přihlásit na akci', '');
+      }
       this.getActions();
     }, (error) => {
       if (error.error === errorActionIsFull) {
@@ -64,8 +71,12 @@ export class StudentActionsTableComponent implements OnInit {
 
     this.joinActionQueueCancelModel();
 
-    this.studentActionService.joinQueue(actionId).subscribe(actions => {
-      this.notificationToastrService.showSuccess('Byl jste přihlášen do fronty', '');
+    this.studentActionService.joinQueue(actionId).subscribe(joined => {
+      if (joined) {
+        this.notificationToastrService.showSuccess('Byl jste přihlášen do fronty', '');
+      } else {
+        this.notificationToastrService.showError('Nepodařilo se přihlásit do fronty', '');
+      }
       this.getActions();
     }, (error) => {
       if (error.error === errorActionIsNotFull) {

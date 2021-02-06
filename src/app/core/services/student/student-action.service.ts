@@ -18,12 +18,12 @@ export class StudentActionService {
     return this.httpClient.get<StudentBlockActionModel[]>(apiUrl + '/studentAction');
   }
 
-  join(actionId: number): Observable<StudentBlockActionModel[]> {
-    return this.httpClient.get<StudentBlockActionModel[]>(apiUrl + '/studentAction/join/' + actionId);
+  join(actionId: number): Observable<boolean> {
+    return this.httpClient.get<boolean>(apiUrl + '/studentAction/join/' + actionId);
   }
 
-  joinQueue(actionId: number): Observable<StudentBlockActionModel[]> {
-    return this.httpClient.get<StudentBlockActionModel[]>(apiUrl + '/studentAction/queue/join/' + actionId);
+  joinQueue(actionId: number): Observable<boolean> {
+    return this.httpClient.get<boolean>(apiUrl + '/studentAction/queue/join/' + actionId);
   }
 
   leave(actionId: number): Observable<StudentBlockActionModel[]> {

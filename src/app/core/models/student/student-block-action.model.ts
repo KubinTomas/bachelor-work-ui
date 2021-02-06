@@ -18,6 +18,7 @@ export class StudentBlockActionModel {
     isUserSignedInQueue: boolean;
     canSignIn: boolean;
     blockAttendanceRestrictionAllowSignIn: boolean;
+    blockAttendanceRestrictionAllowSignInMessageCode: number;
     canSignInQueue: boolean;
 
     constructor() {
