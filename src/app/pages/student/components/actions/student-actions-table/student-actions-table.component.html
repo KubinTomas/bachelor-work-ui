@@ -52,7 +52,8 @@
             <div class="align">
                 <div class="search">
                     <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
-                        <input type="text" nz-input placeholder="Vyhledat..." [(ngModel)]="filterText" (ngModelChange) = "filterDataByInputString()" />
+                        <input type="text" nz-input placeholder="Vyhledat..." [(ngModel)]="filterText"
+                            (ngModelChange)="filterDataByInputString()" />
                     </nz-input-group>
                     <ng-template #prefixIconSearch>
                         <i nz-icon nzType="search"></i>
@@ -108,26 +109,27 @@
                     <ng-container *ngIf="data.canSignIn">
                         <span nz-tooltip [nzTooltipTitle]="!data.dateRestrictionCanSignIn? 'Zápis není povolen': ''">
                             <button nz-button nzType="default" [disabled]="!data.dateRestrictionCanSignIn"
-                                (click)="joinAction(data)">Přihlásit se</button>
+                                (click)="joinAction(data);$event.stopPropagation()">Přihlásit se</button>
                         </span>
                     </ng-container>
                     <ng-container *ngIf="data.canSignInQueue">
                         <span nz-tooltip [nzTooltipTitle]="!data.dateRestrictionCanSignIn? 'Zápis není povolen': ''">
                             <button nz-button nzType="default" [disabled]="!data.dateRestrictionCanSignIn"
-                                (click)="onJoinActionQueue(data)">Přihlasit se do fronty</button>
+                                (click)="onJoinActionQueue(data);$event.stopPropagation()">Přihlasit se do
+                                fronty</button>
                         </span>
                     </ng-container>
                     <ng-container *ngIf="data.isUserSignedIn">
                         <span nz-tooltip [nzTooltipTitle]="!data.canSignOfTheAction? 'Odzápis již není povolen': ''">
                             <button nz-button nzType="default" nzDanger [disabled]="!data.canSignOfTheAction"
-                                (click)="leaveAction(data.id)">Odhlásit
+                                (click)="leaveAction(data.id);$event.stopPropagation()">Odhlásit
                                 se</button>
                         </span>
                     </ng-container>
                     <ng-container *ngIf="data.isUserSignedInQueue">
                         <span nz-tooltip [nzTooltipTitle]="!data.canSignOfTheAction? 'Odzápis již není povolen': ''">
                             <button nz-button nzType="default" nzDanger [disabled]="!data.canSignOfTheAction"
-                                (click)="leaveActionQueue(data.id)">Odhlásit se z
+                                (click)="leaveActionQueue(data.id);$event.stopPropagation()">Odhlásit se z
                                 fronty</button>
                         </span>
                     </ng-container>

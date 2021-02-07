@@ -15,6 +15,10 @@ export class StudentActionService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getSingle(actionId: number): Observable<StudentBlockActionModel> {
+    return this.httpClient.get<StudentBlockActionModel>(apiUrl + '/studentAction/' + actionId);
+  }
+
   get(filter: StudentActionPostModel): Observable<StudentBlockActionModel[]> {
     return this.httpClient.post<StudentBlockActionModel[]>(apiUrl + '/studentAction', filter);
   }

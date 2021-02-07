@@ -63,7 +63,8 @@
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>
-                <div *ngIf="subjectsAllData.length != 0" style="padding: 10px;background-color: #f9f9f9;margin-bottom: 5px;">
+                <div *ngIf="subjectsAllData.length != 0"
+                    style="padding: 10px;background-color: #f9f9f9;margin-bottom: 5px;">
                     <label nz-checkbox [(ngModel)]="showEmptySubjects" [ngModelOptions]="{standalone: true}"
                         (ngModelChange)="onSubjectFilterChange()">Zobrazit
                         předměty bez studentů</label>
@@ -113,6 +114,6 @@
 
     </section>
 </ng-container>
-<div class="page-loader-wrapper" *ngIf="!form" style="height: 450px;">
+<div class="abs-center-page" *ngIf="!form">
     <app-page-loader></app-page-loader>
 </div>

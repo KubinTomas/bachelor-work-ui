@@ -1,0 +1,113 @@
+<ng-container *ngIf="loaded">
+    <section *ngIf="action">
+        <nz-page-header [nzGhost]="false" class="site-page-header">
+            <nz-page-header-title>{{action.name}}</nz-page-header-title>
+            <nz-page-header-subtitle></nz-page-header-subtitle>
+            <nz-page-header-extra>
+                <ng-container *ngIf="action.canSignIn">
+                    <span nz-tooltip [nzTooltipTitle]="!action.dateRestrictionCanSignIn? 'Zápis není povolen': ''">
+                        <button nz-button nzType="default" [disabled]="!action.dateRestrictionCanSignIn"
+                            (click)="joinAction(action);$event.stopPropagation()">Přihlásit se</button>
+                    </span>
+                </ng-container>
+                <ng-container *ngIf="action.canSignInQueue">
+                    <span nz-tooltip [nzTooltipTitle]="!action.dateRestrictionCanSignIn? 'Zápis není povolen': ''">
+                        <button nz-button nzType="default" [disabled]="!action.dateRestrictionCanSignIn"
+                            (click)="onJoinActionQueue(action);$event.stopPropagation()">Přihlasit se do
+                            fronty</button>
+                    </span>
+                </ng-container>
+                <ng-container *ngIf="action.isUserSignedIn">
+                    <span nz-tooltip [nzTooltipTitle]="!action.canSignOfTheAction? 'Odzápis již není povolen': ''">
+                        <button nz-button nzType="default" nzDanger [disabled]="!action.canSignOfTheAction"
+                            (click)="leaveAction(action.id);$event.stopPropagation()">Odhlásit
+                            se</button>
+                    </span>
+                </ng-container>
+                <ng-container *ngIf="action.isUserSignedInQueue">
+                    <span nz-tooltip [nzTooltipTitle]="!action.canSignOfTheAction? 'Odzápis již není povolen': ''">
+                        <button nz-button nzType="default" nzDanger [disabled]="!action.canSignOfTheAction"
+                            (click)="leaveActionQueue(action.id);$event.stopPropagation()">Odhlásit se z
+                            fronty</button>
+                    </span>
+                </ng-container>
+
+                <ng-container
+                    *ngIf="!action.blockAttendanceRestrictionAllowSignIn && !action.isUserSignedInQueue && !action.isUserSignedIn">
+                    <span
+                        *ngIf="action.blockAttendanceRestrictionAllowSignInMessageCode == actionBlockRequirementsCompleted"
+                        nz-tooltip
+                        nzTooltipTitle="Požadavku bloku byly splněny. Na další akce v rámci bloku se již není možné zapsat.">
+                        <app-icon-text [clickAble]="false" [faIcon]="'fa fa-check'" [text]="'Blok splněn'">
+                        </app-icon-text>
+                    </span>
+                    <span
+                        *ngIf="action.blockAttendanceRestrictionAllowSignInMessageCode == actionWaitingForAttendanceEvaluation"
+                        nz-tooltip
+                        nzTooltipTitle="Maximální počet přihlášení v rámci bloku. Čeká se až pořadatel vyhodnotí účast na předchozích akcí bloku. Blokovat Vás může i počet přihlášení ve frontě, který se uvolňuje v momentě, když již nemůžete být přesunut jako účastník (datum odzápisu akce).">
+                        <app-icon-text [clickAble]="false" [faIcon]="'fa fa-ban'" [text]="'Vyhodnocuje se docházka'">
+                        </app-icon-text>
+                    </span>
+                </ng-container>
+            </nz-page-header-extra>
+            <nz-page-header-content>
+                <nz-breadcrumb>
+                    <nz-breadcrumb-item><a routerLink="/student/actions">Události</a>
+                    </nz-breadcrumb-item>
+                    <nz-breadcrumb-item><a>Detail události</a>
+                    </nz-breadcrumb-item>
+                </nz-breadcrumb>
+            </nz-page-header-content>
+        </nz-page-header>
+
+        <section class="subjects-wrapper text-wrapper">
+            <div class="header">
+                Popis
+            </div>
+            <div [innerHTML]="action.description">
+
+            </div>
+        </section>
+
+        <div class="content-wrapper action-data">
+            <ul>
+                <li>Datum konání: <strong>{{ action.startDate | date: 'd.M.yyyy HH:mm' }} - {{ action.endDate | date:
+                        'd.M.yyyy HH:mm'}}</strong>
+                </li>
+                <li>Datum odzápisu: <strong>{{ action.attendanceSignOffEndDate | date: 'd.M.yyyy HH:mm' }}</strong>
+                </li>
+                <li>Zápis od do: <strong>
+                        <span *ngIf="action.attendanceAllowStartDate">
+                            {{ action.attendanceAllowStartDate | date: 'd.M.yyyy HH:mm'}}
+                        </span>
+                        <span *ngIf="!action.attendanceAllowStartDate">neomezeno</span>
+                        <span> - </span>
+                        <span *ngIf="action.attendanceAllowEndDate">
+                            {{ action.attendanceAllowEndDate | date: 'd.M.yyyy HH:mm'}}</span>
+                        <span *ngIf="!action.attendanceAllowEndDate">neomezeno</span>
+                    </strong>
+                </li>
+                <li>Místo: <strong>{{ action.location }}</strong>
+                </li>
+                <li>Přihlášeno: <strong>
+                        <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'"
+                            [text]="action.signedUsersCount + '/' + action.maxCapacity">
+                        </app-icon-text>
+                    </strong>
+                </li>
+                <li>Fronta: <strong>
+                        <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'" [text]="action.usersInQueueCount">
+                        </app-icon-text>
+                    </strong>
+                </li>
+            </ul>
+        </div>
+
+    </section>
+    <section *ngIf="!action" class="abs-center-page">
+        <nz-empty></nz-empty>
+    </section>
+</ng-container>
+<div class="abs-center-page" *ngIf="!loaded">
+    <app-page-loader></app-page-loader>
+</div>

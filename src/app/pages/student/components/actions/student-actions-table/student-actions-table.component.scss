@@ -8,20 +8,24 @@
     width: 220px;
     display: inline-block;
     padding-top: 10px;
-    
-    nz-select{
+
+    nz-select {
         width: 210px;
         text-align: left;
     }
 }
 
-.align-r-sin{
+.align-r-sin {
     width: 300px;
     display: inline-block;
     padding-top: 10px;
-    
-    nz-select{
+
+    nz-select {
         width: 290px;
         text-align: left;
     }
+}
+
+.ant-table-row {
+    cursor: pointer;
 }

@@ -5,6 +5,7 @@ import { AdminGuard } from 'src/app/core/guards/admin.guard';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { StudentGuard } from 'src/app/core/guards/student.guard';
 import { roleAdmin, roleStudent } from 'src/app/core/models/constants';
+import { StudentActionDetailComponent } from '../student/components/actions/student-action-detail/student-action-detail.component';
 import { StudentActionsTableComponent } from '../student/components/actions/student-actions-table/student-actions-table.component';
 import { BlockActionFormComponent } from '../subject-events/components/block-action/block-action-form/block-action-form.component';
 import { BlockWhitelistComponent } from '../subject-events/components/block-whitelist/block-whitelist/block-whitelist.component';
@@ -26,7 +27,12 @@ const routes: Routes = [
         path: '', component: DefaultComponent, children: [
             // canActivateChild: [AuthGuard],
             {
-                path: 'student/action', component: StudentActionsTableComponent,
+                path: 'student/actions', component: StudentActionsTableComponent,
+                canActivate: [StudentGuard]
+            },
+
+            {
+                path: 'student/action/:actionId', component: StudentActionDetailComponent,
                 canActivate: [StudentGuard]
             },
 
