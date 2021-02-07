@@ -1,0 +1,27 @@
+.align {
+    width: 350px;
+    display: inline-block;
+    padding-top: 10px;
+}
+
+.align-r {
+    width: 220px;
+    display: inline-block;
+    padding-top: 10px;
+    
+    nz-select{
+        width: 210px;
+        text-align: left;
+    }
+}
+
+.align-r-sin{
+    width: 300px;
+    display: inline-block;
+    padding-top: 10px;
+    
+    nz-select{
+        width: 290px;
+        text-align: left;
+    }
+}

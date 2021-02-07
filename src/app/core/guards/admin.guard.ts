@@ -37,7 +37,7 @@ export class AdminGuard implements CanActivate {
                     resolve(false);
                 });
             } else {
-                this.permissionsService.hasPermission(roleStudent).then(res => {
+                this.permissionsService.hasPermission(roleAdmin).then(res => {
                     if (!res) {
                         this.router.navigateByUrl('');
                     }

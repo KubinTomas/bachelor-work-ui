@@ -1,84 +1,162 @@
-<nz-table #basicTable [nzData]="actions" [nzLoading]="dataLoading">
-    <thead>
-        <tr>
-            <th>Jméno </th>
-            <th>Datum konání </th>
-            <th>Datum odzápisu </th>
-            <th>Zápis od do </th>
-            <th>Místo</th>
-            <th>Přihlášeno</th>
-            <th>Fronta</th>
-            <th>Akce</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)">
-            <td>{{ data.name }}</td>
-            <td>{{ data.startDate | date: 'd.M.yyyy HH:mm' }} - {{ data.endDate | date: 'd.M.yyyy HH:mm'}}</td>
-            <td>{{ data.attendanceSignOffEndDate | date: 'd.M.yyyy HH:mm' }}</td>
-            <td>
-                <span *ngIf="data.attendanceAllowStartDate">{{ data.attendanceAllowStartDate | date: 'd.M.yyyy HH:mm'
-                    }}</span>
-                <span *ngIf="!data.attendanceAllowStartDate">neomezeno</span>
-                <span> - </span>
-                <span *ngIf="data.attendanceAllowEndDate">{{ data.attendanceAllowEndDate | date: 'd.M.yyyy HH:mm'
-                    }}</span>
-                <span *ngIf="!data.attendanceAllowEndDate">neomezeno</span>
-            </td>
-            <td>{{ data.location }}</td>
-            <td>
-                <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'"
-                    [text]="data.signedUsersCount + '/' + data.maxCapacity">
-                </app-icon-text>
-            </td>
-            <td>
-                <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'" [text]="data.usersInQueueCount">
-                </app-icon-text>
-            </td>
-            <td>
-                <ng-container *ngIf="data.canSignIn">
-                    <span (click)="joinAction(data)">
-                        <button nz-button nzType="default">Přihlásit se</button>
-                    </span>
-                </ng-container>
-                <ng-container *ngIf="data.canSignInQueue">
-                    <span (click)="onJoinActionQueue(data)">
-                        <button nz-button nzType="default">Přihlasit se do fronty</button>
-                    </span>
-                </ng-container>
-                <ng-container *ngIf="data.isUserSignedIn">
-                    <span (click)="leaveAction(data.id)">
-                        <button nz-button nzType="default" nzDanger>Odhlásit se</button>
-                    </span>
+<section>
+    <nz-page-header [nzGhost]="false" class="site-page-header">
+        <nz-page-header-title>Vypsané akce</nz-page-header-title>
+        <nz-page-header-subtitle></nz-page-header-subtitle>
+        <nz-page-header-extra>
+        </nz-page-header-extra>
+        <nz-page-header-content>
+        </nz-page-header-content>
 
-                </ng-container>
-                <ng-container *ngIf="data.isUserSignedInQueue">
-                    <span (click)="leaveActionQueue(data.id)">
-                        <button nz-button nzType="default" nzDanger>Odhlásit se z fronty</button>
-                    </span>
-                </ng-container>
+    </nz-page-header>
+</section>
+<section class="subjects-wrapper text-wrapper">
+    <div class="header">
+        Filtry akcí
+    </div>
+    <div>
+        <div class="align-r">
+            Docházka na akcích
+            <nz-select [(ngModel)]="studentActionPostModel.attendanceEnum" (ngModelChange)="onFilterChange()">
+                <nz-option [nzValue]="0" nzLabel="Všechny"></nz-option>
+                <nz-option [nzValue]="1" nzLabel="Navštívené"></nz-option>
+                <nz-option [nzValue]="2" nzLabel="Přihlášen, ale nedorazil"></nz-option>
+                <nz-option [nzValue]="3" nzLabel="Vyhodnocuje docházku"></nz-option>
+            </nz-select>
+        </div>
 
-                <ng-container
-                    *ngIf="!data.blockAttendanceRestrictionAllowSignIn && !data.isUserSignedInQueue && !data.isUserSignedIn">
-                    <span
-                        *ngIf="data.blockAttendanceRestrictionAllowSignInMessageCode == actionBlockRequirementsCompleted"
-                        nz-tooltip
-                        nzTooltipTitle="Požadavku bloku byly splněny. Na další akce v rámci bloku se již není možné zapsat.">
-                        <app-icon-text [clickAble]="false" [faIcon]="'fa fa-check'" [text]="'Blok splněn'">
-                        </app-icon-text>
+        <div class="align-r">
+            Historie
+            <nz-select [(ngModel)]="studentActionPostModel.historyEnum" (ngModelChange)="onFilterChange()">
+                <nz-option [nzValue]="0" nzLabel="Všechny"></nz-option>
+                <nz-option [nzValue]="1" nzLabel="Nadcházející akce"></nz-option>
+                <nz-option [nzValue]="2" nzLabel="Uplynulé akce "></nz-option>
+            </nz-select>
+        </div>
+        <div class="align-r-sin">
+            Stav přihlášení
+            <nz-select [(ngModel)]="studentActionPostModel.signEnum" (ngModelChange)="onFilterChange()">
+                <nz-option [nzValue]="0" nzLabel="Všechny"></nz-option>
+                <nz-option [nzValue]="1" nzLabel="Přihlášen na akci"></nz-option>
+                <nz-option [nzValue]="2" nzLabel="Přihlášen ve frontě akce "></nz-option>
+                <nz-option [nzValue]="3" nzLabel="Přihlášen na akci nebo ve frontě "></nz-option>
+                <nz-option [nzValue]="4" nzLabel="Mohu se přihlásit"></nz-option>
+            </nz-select>
+        </div>
+    </div>
+</section>
+
+<section class="subjects-wrapper table-wrapper">
+
+    <div class="action-bar">
+        <div>
+            <div class="align">
+                <div class="search">
+                    <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
+                        <input type="text" nz-input placeholder="Vyhledat..." [(ngModel)]="filterText" (ngModelChange) = "filterDataByInputString()" />
+                    </nz-input-group>
+                    <ng-template #prefixIconSearch>
+                        <i nz-icon nzType="search"></i>
+                    </ng-template>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+    <nz-table #basicTable [nzData]="actions" [nzLoading]="dataLoading">
+        <thead>
+            <tr>
+                <th>Jméno </th>
+                <th>Datum konání </th>
+                <th>Datum odzápisu </th>
+                <th>Zápis od do </th>
+                <th>Místo</th>
+                <th>Přihlášeno</th>
+                <th>Fronta</th>
+                <th>Akce</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)">
+                <td>{{ data.name }}</td>
+                <td>{{ data.startDate | date: 'd.M.yyyy HH:mm' }} - {{ data.endDate | date: 'd.M.yyyy HH:mm'}}</td>
+                <td>{{ data.attendanceSignOffEndDate | date: 'd.M.yyyy HH:mm' }}</td>
+                <td>
+
+                    <span *ngIf="data.attendanceAllowStartDate">
+                        {{ data.attendanceAllowStartDate | date: 'd.M.yyyy HH:mm'}}
                     </span>
-                    <span
-                        *ngIf="data.blockAttendanceRestrictionAllowSignInMessageCode == actionWaitingForAttendanceEvaluation"
-                        nz-tooltip
-                        nzTooltipTitle="Maximální počet přihlášení v rámci bloku. Čeká se až pořadatel vyhodnotí účast na předchozích akcí bloku. Blokovat Vás může i počet přihlášení ve frontě, který se uvolňuje v momentě, když již nemůžete být přesunut jako účastník (datum odzápisu akce).">
-                        <app-icon-text [clickAble]="false" [faIcon]="'fa fa-ban'" [text]="'Vyhodnocuje se docházka'">
-                        </app-icon-text>
-                    </span>
-                </ng-container>
-            </td>
-        </tr>
-    </tbody>
-</nz-table>
+                    <span *ngIf="!data.attendanceAllowStartDate">neomezeno</span>
+                    <span> - </span>
+                    <span *ngIf="data.attendanceAllowEndDate">{{ data.attendanceAllowEndDate | date: 'd.M.yyyy HH:mm'
+                        }}</span>
+                    <span *ngIf="!data.attendanceAllowEndDate">neomezeno</span>
+                </td>
+                <td>{{ data.location }}</td>
+                <td>
+                    <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'"
+                        [text]="data.signedUsersCount + '/' + data.maxCapacity">
+                    </app-icon-text>
+                </td>
+                <td>
+                    <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'" [text]="data.usersInQueueCount">
+                    </app-icon-text>
+                </td>
+                <td>
+                    <ng-container *ngIf="data.canSignIn">
+                        <span nz-tooltip [nzTooltipTitle]="!data.dateRestrictionCanSignIn? 'Zápis není povolen': ''">
+                            <button nz-button nzType="default" [disabled]="!data.dateRestrictionCanSignIn"
+                                (click)="joinAction(data)">Přihlásit se</button>
+                        </span>
+                    </ng-container>
+                    <ng-container *ngIf="data.canSignInQueue">
+                        <span nz-tooltip [nzTooltipTitle]="!data.dateRestrictionCanSignIn? 'Zápis není povolen': ''">
+                            <button nz-button nzType="default" [disabled]="!data.dateRestrictionCanSignIn"
+                                (click)="onJoinActionQueue(data)">Přihlasit se do fronty</button>
+                        </span>
+                    </ng-container>
+                    <ng-container *ngIf="data.isUserSignedIn">
+                        <span nz-tooltip [nzTooltipTitle]="!data.canSignOfTheAction? 'Odzápis již není povolen': ''">
+                            <button nz-button nzType="default" nzDanger [disabled]="!data.canSignOfTheAction"
+                                (click)="leaveAction(data.id)">Odhlásit
+                                se</button>
+                        </span>
+                    </ng-container>
+                    <ng-container *ngIf="data.isUserSignedInQueue">
+                        <span nz-tooltip [nzTooltipTitle]="!data.canSignOfTheAction? 'Odzápis již není povolen': ''">
+                            <button nz-button nzType="default" nzDanger [disabled]="!data.canSignOfTheAction"
+                                (click)="leaveActionQueue(data.id)">Odhlásit se z
+                                fronty</button>
+                        </span>
+                    </ng-container>
+
+                    <ng-container
+                        *ngIf="!data.blockAttendanceRestrictionAllowSignIn && !data.isUserSignedInQueue && !data.isUserSignedIn">
+                        <span
+                            *ngIf="data.blockAttendanceRestrictionAllowSignInMessageCode == actionBlockRequirementsCompleted"
+                            nz-tooltip
+                            nzTooltipTitle="Požadavku bloku byly splněny. Na další akce v rámci bloku se již není možné zapsat.">
+                            <app-icon-text [clickAble]="false" [faIcon]="'fa fa-check'" [text]="'Blok splněn'">
+                            </app-icon-text>
+                        </span>
+                        <span
+                            *ngIf="data.blockAttendanceRestrictionAllowSignInMessageCode == actionWaitingForAttendanceEvaluation"
+                            nz-tooltip
+                            nzTooltipTitle="Maximální počet přihlášení v rámci bloku. Čeká se až pořadatel vyhodnotí účast na předchozích akcí bloku. Blokovat Vás může i počet přihlášení ve frontě, který se uvolňuje v momentě, když již nemůžete být přesunut jako účastník (datum odzápisu akce).">
+                            <app-icon-text [clickAble]="false" [faIcon]="'fa fa-ban'"
+                                [text]="'Vyhodnocuje se docházka'">
+                            </app-icon-text>
+                        </span>
+                    </ng-container>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</section>
+
+
 
 <nz-modal [(nzVisible)]="actionJoinQueue" nzTitle="Plná kapacita - přihlášení do fronty"
     (nzOnCancel)="joinActionQueueCancelModel()" *ngIf="actionJoinQueue">
