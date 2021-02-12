@@ -24,6 +24,7 @@ export class BlockActionTableComponent implements OnInit {
   }
 
   onRowClick(data: BlockActionModel): void {
+    this.router.navigateByUrl('admin/action/' + data.id);
   }
 
   onEditClick(data: BlockActionModel): void {

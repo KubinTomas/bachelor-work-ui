@@ -1,0 +1,87 @@
+<ng-container *ngIf="loaded">
+    <section *ngIf="action">
+        <nz-page-header [nzGhost]="false" class="site-page-header">
+            <nz-page-header-title>{{action.name}}</nz-page-header-title>
+            <nz-page-header-subtitle></nz-page-header-subtitle>
+            <nz-page-header-extra>
+
+            </nz-page-header-extra>
+            <nz-page-header-content>
+                <nz-breadcrumb>
+                    <nz-breadcrumb-item><a routerLink="/student/actions">Události</a>
+                    </nz-breadcrumb-item>
+                    <nz-breadcrumb-item><a>Detail události</a>
+                    </nz-breadcrumb-item>
+                </nz-breadcrumb>
+            </nz-page-header-content>
+        </nz-page-header>
+
+        <section class="subjects-wrapper text-wrapper">
+            <div class="header">
+                Popis
+            </div>
+            <div [innerHTML]="action.description">
+
+            </div>
+        </section>
+
+        <div class="content-wrapper action-data">
+            <ul>
+                <li>Datum konání: <strong>{{ action.startDate | date: 'd.M.yyyy HH:mm' }} - {{ action.endDate | date:
+                        'd.M.yyyy HH:mm'}}</strong>
+                </li>
+                <li>Datum odzápisu: <strong>{{ action.attendanceSignOffEndDate | date: 'd.M.yyyy HH:mm' }}</strong>
+                </li>
+                <li>Zápis od do: <strong>
+                        <span *ngIf="action.attendanceAllowStartDate">
+                            {{ action.attendanceAllowStartDate | date: 'd.M.yyyy HH:mm'}}
+                        </span>
+                        <span *ngIf="!action.attendanceAllowStartDate">neomezeno</span>
+                        <span> - </span>
+                        <span *ngIf="action.attendanceAllowEndDate">
+                            {{ action.attendanceAllowEndDate | date: 'd.M.yyyy HH:mm'}}</span>
+                        <span *ngIf="!action.attendanceAllowEndDate">neomezeno</span>
+                    </strong>
+                </li>
+                <li>Místo: <strong>{{ action.location }}</strong>
+                </li>
+                <li>Přihlášeno: <strong>
+                        <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'"
+                            [text]="action.signedUsersCount + '/' + action.blockActionRestriction.maxCapacity">
+                        </app-icon-text>
+                    </strong>
+                </li>
+                <li>Fronta: <strong>
+                        <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'" [text]="action.usersInQueueCount">
+                        </app-icon-text>
+                    </strong>
+                </li>
+            </ul>
+        </div>
+
+        <section class="subjects-wrapper text-wrapper">
+            <div class="header">
+                Účastníci
+            </div>
+            <div class="mt-20">
+                <app-action-signed-people [people]="action.signedUsers"></app-action-signed-people>
+            </div>
+        </section>
+
+        <section class="subjects-wrapper text-wrapper">
+            <div class="header">
+                Fronta
+            </div>
+            <div>
+                <app-action-queue-signed-people [people]="action.signedUsersInQueue"></app-action-queue-signed-people>
+            </div>
+        </section>
+
+    </section>
+    <section *ngIf="!action" class="abs-center-page">
+        <nz-empty></nz-empty>
+    </section>
+</ng-container>
+<div class="abs-center-page" *ngIf="!loaded">
+    <app-page-loader></app-page-loader>
+</div>

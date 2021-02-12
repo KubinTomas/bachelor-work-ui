@@ -26,6 +26,7 @@
     margin-left: 8px;
 }
 
+
 .mt-5 {
     margin-top: 5px;
 }
@@ -33,7 +34,9 @@
 .mt-10 {
     margin-top: 10px;
 }
-
+.mt-20 {
+    margin-top: 20px;
+}
 .content-wrapper {
     background: white;
     padding: 20px;
@@ -151,7 +154,7 @@ $stag-btn-color-hover: rgba(255, 165, 0, 0.85);
     color: #28a745;
 }
 
-.abs-center-page{
+.abs-center-page {
     position: absolute;
     top: 50%;
     left: 50%;

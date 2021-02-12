@@ -4,13 +4,13 @@
             <th>Jméno </th>
             <th>Datum konání </th>
             <th>Datum odzápisu </th>
-            <th>Zápis povolen od </th>
-            <th>Zápis povolen do</th>
+            <th>Zápis od do </th>
             <th>Místo</th>
             <th>Viditelná</th>
             <th>Externí uživatelé</th>
             <th>Stag studenti </th>
             <th>Přihlášeno</th>
+            <th>Fronta</th>
         </tr>
     </thead>
     <tbody>
@@ -21,12 +21,11 @@
             <td>
                 <span *ngIf="data.attendanceAllowStartDate">{{ data.attendanceAllowStartDate | date: 'd.M.yyyy HH:mm'
                     }}</span>
-                <span *ngIf="!data.attendanceAllowStartDate">Neomezeno</span>
-            </td>
-            <td>
+                <span *ngIf="!data.attendanceAllowStartDate">neomezeno</span>
+                <span> - </span>
                 <span *ngIf="data.attendanceAllowEndDate">{{ data.attendanceAllowEndDate | date: 'd.M.yyyy HH:mm'
                     }}</span>
-                <span *ngIf="!data.attendanceAllowEndDate">Neomezeno</span>
+                <span *ngIf="!data.attendanceAllowEndDate">neomezeno</span>
             </td>
             <td>{{ data.location }}</td>
             <td> <i class="fa" [class.fa-check]="data.visible" [class.fa-times]="!data.visible"
@@ -51,10 +50,17 @@
 
             </td>
             <td>
-                <span nz-tooltip
-                    nzTooltipTitle="Akce v bloku vidí pouze tito studenti, pokud tedy akce není veřejná. Kliknutím zobrazíte seznam studentů.">
-                    <app-icon-text [clickAble]="true" [faIcon]="'fas fa-users'"
-                        [text]="data.studentCount + '/' + data.blockActionRestriction.maxCapacity">
+                <!-- nz-tooltip
+                nzTooltipTitle="Akce v bloku vidí pouze tito studenti, pokud tedy akce není veřejná. Kliknutím zobrazíte seznam studentů." -->
+                <span>
+                    <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'"
+                        [text]="data.signedUsersCount + '/' + data.blockActionRestriction.maxCapacity">
+                    </app-icon-text>
+                </span>
+            </td>
+            <td>
+                <span>
+                    <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'" [text]="data.usersInQueueCount">
                     </app-icon-text>
                 </span>
             </td>

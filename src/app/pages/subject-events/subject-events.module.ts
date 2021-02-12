@@ -27,6 +27,9 @@ import { BlockWhitelistComponent } from './components/block-whitelist/block-whit
 import { BlockActionFormComponent } from './components/block-action/block-action-form/block-action-form.component';
 import { BlockDetailPageComponent } from './components/subject-in-year-term-block/block-detail-page/block-detail-page.component';
 import { BlockActionTableComponent } from './components/block-action/block-action-table/block-action-table.component';
+import { BlockActionDetailComponent } from './components/block-action/block-action-detail/block-action-detail.component';
+import { ActionSignedPeopleComponent } from './components/block-action/action-signed-people/action-signed-people.component';
+import { ActionQueueSignedPeopleComponent } from './components/block-action/action-queue-signed-people/action-queue-signed-people.component';
 
 
 
@@ -53,6 +56,9 @@ import { BlockActionTableComponent } from './components/block-action/block-actio
     BlockActionFormComponent,
     BlockDetailPageComponent,
     BlockActionTableComponent,
+    BlockActionDetailComponent,
+    ActionSignedPeopleComponent,
+    ActionQueueSignedPeopleComponent,
   ],
   imports: [
     CommonModule,

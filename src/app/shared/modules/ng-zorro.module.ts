@@ -24,6 +24,7 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 @NgModule({
     declarations: [],
@@ -52,7 +53,8 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
         NzInputNumberModule,
         NzDatePickerModule,
         NzNotificationModule,
-        NzEmptyModule
+        NzEmptyModule,
+        NzPopconfirmModule
     ]
 })
 export class NgZorroModule { }

@@ -1,0 +1,34 @@
+<nz-table #basicTable [nzData]="people">
+    <thead>
+        <tr>
+            <th style="width: 25px;"> </th>
+            <th style="width: 250px;">Jméno </th>
+            <th style="width: 50px;">Ročník </th>
+            <th>Fakulta</th>
+            <th style="width: 80px;">Pořadí </th>
+            <th style="width: 150px;">Akce </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td>
+                <ng-container *ngIf="data.isStagStudent">
+                    <i class="fas fa-user-graduate"></i>
+                </ng-container>
+                <ng-container *ngIf="!data.isStagStudent">
+                    <i class="fas fa-user"></i>
+                </ng-container>
+            </td>
+            <td>{{ data.fullname }}</td>
+            <td>{{ data.rocnik }}</td>
+            <td>{{ data.fakultaSp }}</td>
+            <td>{{ data.queueOrder }}</td>
+            <td>
+                <button nz-button nzType="default" nzDanger nz-popconfirm
+                    nzPopconfirmTitle="Opravdu chcete uživatele vyhodit? Proces je nevratný."
+                    (nzOnConfirm)="kickUser(data.id)">Vyhodit
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>

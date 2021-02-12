@@ -1,3 +1,4 @@
+import { ActionPersonModel } from "../persons/action-person.model";
 import { BlockActionRestriction } from "./block-acion-restriction.model";
 
 export class BlockActionModel {
@@ -22,6 +23,12 @@ export class BlockActionModel {
     studentCount: number;
 
     blockActionRestriction: BlockActionRestriction;
+
+    signedUsersCount: number;
+    usersInQueueCount: number;
+
+    signedUsers: ActionPersonModel[];
+    signedUsersInQueue: ActionPersonModel[];
 
     constructor() {
         this.visible = true;

@@ -7,6 +7,7 @@ import { StudentGuard } from 'src/app/core/guards/student.guard';
 import { roleAdmin, roleStudent } from 'src/app/core/models/constants';
 import { StudentActionDetailComponent } from '../student/components/actions/student-action-detail/student-action-detail.component';
 import { StudentActionsTableComponent } from '../student/components/actions/student-actions-table/student-actions-table.component';
+import { BlockActionDetailComponent } from '../subject-events/components/block-action/block-action-detail/block-action-detail.component';
 import { BlockActionFormComponent } from '../subject-events/components/block-action/block-action-form/block-action-form.component';
 import { BlockWhitelistComponent } from '../subject-events/components/block-whitelist/block-whitelist/block-whitelist.component';
 import { BlockDetailPageComponent } from '../subject-events/components/subject-in-year-term-block/block-detail-page/block-detail-page.component';
@@ -102,6 +103,12 @@ const routes: Routes = [
                 path: 'admin/block/:blockId', component: BlockDetailPageComponent,
                 canActivate: [AdminGuard]
             },
+
+            {
+                path: 'admin/action/:actionId', component: BlockActionDetailComponent,
+                canActivate: [AdminGuard]
+            },
+
 
 
             { path: '', component: WelcomePageComponent },
