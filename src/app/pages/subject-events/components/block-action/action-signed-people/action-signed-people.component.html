@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th style="width: 25px;"> </th>
+            <th style="width: 150px;">Číslo </th>
             <th style="width: 250px;">Jméno </th>
             <th style="width: 50px;">Ročník </th>
             <th>Fakulta</th>
@@ -22,45 +23,54 @@
                     <i class="fas fa-user"></i>
                 </ng-container>
             </td>
+            <td>{{ data.studentOsCislo }} {{ data.id }}</td>
             <td>{{ data.fullname }}</td>
             <td>{{ data.rocnik }}</td>
             <td>{{ data.fakultaSp }}</td>
             <td>
-                <ng-container *ngIf=" data.EvaluationDate">
-                    <i class="fa" [class.fa-check]="data.fulfilled" [class.fa-times]="!data.fulfilled"
-                        [class.active-icon]="data.fulfilled" [class.fade-out-icon]="!data.fulfilled">
-                    </i>
+                <ng-container *ngIf="data.evaluationDate">
+                    <span nz-tooltip
+                        [nzTooltipTitle]="data.fulfilled? 'Splnil (zúčastnil se)': 'Nesplnil (nezúčastnil se)'"> <i
+                            class="fa" [class.fa-check]="data.fulfilled" [class.fa-times]="!data.fulfilled"
+                            [class.active-icon]="data.fulfilled" [class.fade-out-icon]="!data.fulfilled">
+                        </i></span>
                 </ng-container>
-                <ng-container *ngIf="!data.EvaluationDate">
+                <ng-container *ngIf="!data.evaluationDate">
                     čeká se na vyhodnocení..
                 </ng-container>
             </td>
             <td>
-                <!-- *ngIf=" data.EvaluationDate" -->
+                <!-- *ngIf=" data.evaluationDate" -->
 
                 <ng-container>
+                    <div class="control-btns">
+                        <button nz-button nzType="default" nz-popconfirm *ngIf="!data.evaluationDate || !data.fulfilled"
+                            nzPopconfirmTitle="Opravdu chcete změnit stav na SPLNIL?"
+                            (nzOnConfirm)="setAttendanceFulfilled(data, true)"
+                            [nzCondition]="!data.evaluationDate">Splnil</button>
 
-                    <button nz-button nzType="default" nz-popconfirm nzPopconfirmTitle="Are you sure delete this task?"
-                        (nzOnConfirm)="setAttendanceFulfilled(data.id, true)"
-                        [nzCondition]="!data.EvaluationDate">Splnil</button>
-                    <button nz-button nzType="default" nzDanger class="ml-8"
-                        (click)="setAttendanceFulfilled(data.id, false);$event.stopPropagation()">Nesplnil
-                    </button>
+                        <button nz-button nzType="default" nzDanger nz-popconfirm *ngIf="!data.evaluationDate || data.fulfilled"
+                            nzPopconfirmTitle="Opravdu chcete změnit stav na NESPLNIL?"
+                            (nzOnConfirm)="setAttendanceFulfilled(data, false)"
+                            [nzCondition]="!data.evaluationDate">Nesplnil
+                        </button>
+                    </div>
+
                 </ng-container>
             </td>
             <td>
-                <ng-container *ngIf=" data.EvaluationDate">
-                    {{ data.EvaluationDate | date: 'd.M.yyyy HH:mm'}}
+                <ng-container *ngIf=" data.evaluationDate">
+                    {{ data.evaluationDate | date: 'd.M.yyyy HH:mm'}}
 
                 </ng-container>
-                <ng-container *ngIf=" !data.EvaluationDate">
+                <ng-container *ngIf=" !data.evaluationDate">
                     čeká se na vyhodnocení..
                 </ng-container>
             </td>
             <td>
                 <button nz-button nzType="default" nzDanger nz-popconfirm
                     nzPopconfirmTitle="Opravdu chcete uživatele vyhodit? Proces je nevratný."
-                    (nzOnConfirm)="setAttendanceFulfilled(data.id, true)">Vyhodit
+                    (nzOnConfirm)="kickUser(data.id)">Vyhodit
                 </button>
             </td>
         </tr>

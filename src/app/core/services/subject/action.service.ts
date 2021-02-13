@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ActionPersonModel } from '../../models/persons/action-person.model';
 import { BlockActionModel } from '../../models/subject/block-action.model';
 import { BlockModel } from '../../models/subject/block.model';
 import { apiUrl } from '../../models/url.model';
@@ -40,5 +41,17 @@ export class ActionService {
 
   saveWhitelist(saveModel: BlockWhitelistSaveModel): Observable<any> {
     return this.httpClient.post<any>(apiUrl + '/teacher/action/whitelist/save', saveModel);
+  }
+
+  queueKick(queueId: number): Observable<any> {
+    return this.httpClient.delete<any>(apiUrl + '/teacher/action/queue/kick/' + queueId);
+  }
+
+  attendanceKick(attendanceId: number): Observable<any> {
+    return this.httpClient.delete<any>(apiUrl + '/teacher/action/attendance/kick/' + attendanceId);
+  }
+
+  attendanceFulfilled(attendanceId: number, fulfilled: boolean): Observable<ActionPersonModel> {
+    return this.httpClient.get<ActionPersonModel>(apiUrl + '/teacher/action/attendance/fulfilled/' + attendanceId + '/' + fulfilled);
   }
 }
