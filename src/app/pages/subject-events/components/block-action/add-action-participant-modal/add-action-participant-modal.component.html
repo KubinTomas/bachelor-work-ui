@@ -1,0 +1,29 @@
+<nz-modal [(nzVisible)]="visible" nzTitle="Přidání studenta">
+    <div *nzModalContent>
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
+            <input type="text" nz-input placeholder="osobní číslo studenta" [(ngModel)]="studentOsCislo" />
+        </nz-input-group>
+        <ng-template #suffixButton>
+            <button nz-button nzType="primary" nzSearch (click)="findParticipant()">Vyhledat</button>
+        </ng-template>
+
+        <section class="student" style="margin-top: 15px;">
+            <h3>Student</h3>
+            <div>
+                <nz-empty *ngIf="!student"></nz-empty>
+                <div *ngIf="student">
+                    <div>
+                        <strong> {{student.studentOsCislo}}</strong>
+                    </div>
+                    <div>
+                        {{student.fullname}}, {{student.fakultaSp}}, {{student.rocnik}}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="closeModal()">Zrušit</button>
+        <button nz-button nzType="primary" (click)="addParticipant()" [disabled]="!student">Přidat účastníka</button>
+    </div>
+</nz-modal>

@@ -30,6 +30,7 @@ import { BlockActionTableComponent } from './components/block-action/block-actio
 import { BlockActionDetailComponent } from './components/block-action/block-action-detail/block-action-detail.component';
 import { ActionSignedPeopleComponent } from './components/block-action/action-signed-people/action-signed-people.component';
 import { ActionQueueSignedPeopleComponent } from './components/block-action/action-queue-signed-people/action-queue-signed-people.component';
+import { AddActionParticipantModalComponent } from './components/block-action/add-action-participant-modal/add-action-participant-modal.component';
 
 
 
@@ -59,6 +60,7 @@ import { ActionQueueSignedPeopleComponent } from './components/block-action/acti
     BlockActionDetailComponent,
     ActionSignedPeopleComponent,
     ActionQueueSignedPeopleComponent,
+    AddActionParticipantModalComponent,
   ],
   imports: [
     CommonModule,

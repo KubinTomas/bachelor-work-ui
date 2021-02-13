@@ -73,7 +73,7 @@ $stag-btn-color-hover: rgba(255, 165, 0, 0.85);
     margin-top: 25px;
     background-color: white;
 }
-.table-wrapper {
+.table-wrapper, .table-w {
     background-color: white;
     padding: 16px 24px;
 
@@ -93,6 +93,8 @@ $stag-btn-color-hover: rgba(255, 165, 0, 0.85);
         }
     }
 }
+
+
 .text-wrapper {
     background-color: white;
     padding: 16px 24px;

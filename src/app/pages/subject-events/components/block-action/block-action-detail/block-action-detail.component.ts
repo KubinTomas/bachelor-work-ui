@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BlockActionModel } from 'src/app/core/models/subject/block-action.model';
 import { NotificationToastrService } from 'src/app/core/services/notification/notification-toastr.service';
 import { ActionService } from 'src/app/core/services/subject/action.service';
+import { AddActionParticipantModalComponent } from '../add-action-participant-modal/add-action-participant-modal.component';
 
 @Component({
   selector: 'app-block-action-detail',
@@ -10,6 +11,8 @@ import { ActionService } from 'src/app/core/services/subject/action.service';
   styleUrls: ['./block-action-detail.component.scss']
 })
 export class BlockActionDetailComponent {
+
+  @ViewChild(AddActionParticipantModalComponent) addParticipantModal: AddActionParticipantModalComponent;
 
   action: BlockActionModel;
   actionJoinQueue: BlockActionModel;
@@ -49,6 +52,10 @@ export class BlockActionDetailComponent {
       this.loaded = true;
       this.notificationToastrService.showError('Akce neexistuje a nebo k ní nemáte přístup', '', 3000);
     });
+  }
+
+  onAddParticipantClick(): void {
+    this.addParticipantModal.openModal(this.action.id);
   }
 
 
