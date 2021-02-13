@@ -1,5 +1,6 @@
 import { ActionPersonModel } from "../persons/action-person.model";
 import { BlockActionRestriction } from "./block-acion-restriction.model";
+import { BlockModel } from "./block.model";
 
 export class BlockActionModel {
     id: number;
@@ -29,6 +30,8 @@ export class BlockActionModel {
 
     signedUsers: ActionPersonModel[];
     signedUsersInQueue: ActionPersonModel[];
+
+    block: BlockModel;
 
     constructor() {
         this.visible = true;

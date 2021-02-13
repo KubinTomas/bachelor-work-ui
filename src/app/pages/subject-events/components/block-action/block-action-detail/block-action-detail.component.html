@@ -1,21 +1,39 @@
 <ng-container *ngIf="loaded">
     <section *ngIf="action">
         <nz-page-header [nzGhost]="false" class="site-page-header">
-            <nz-page-header-title>{{action.name}}</nz-page-header-title>
+            <nz-page-header-title>
+                {{action.block.term.subjectInYearYear}} <nz-divider nzType="vertical"></nz-divider>
+                {{action.block.term.subjectInYearName}} <nz-divider nzType="vertical"></nz-divider>
+                {{action.block.term.term}} <nz-divider nzType="vertical"></nz-divider>
+                {{action.block.name}} <nz-divider nzType="vertical"></nz-divider>
+                {{action.name}}
+            </nz-page-header-title>
             <nz-page-header-subtitle></nz-page-header-subtitle>
             <nz-page-header-extra>
-
+                <!-- <button nz-button nzType="secondary" class="form-back" (click)="back()">Zpět</button> -->
             </nz-page-header-extra>
             <nz-page-header-content>
                 <nz-breadcrumb>
-                    <nz-breadcrumb-item><a routerLink="/student/actions">Události</a>
+                    <nz-breadcrumb-item><a routerLink="/admin/subjects">Předměty</a>
                     </nz-breadcrumb-item>
-                    <nz-breadcrumb-item><a>Detail události</a>
+                    <nz-breadcrumb-item>
+                        <a [routerLink]="['/admin/subjects/detail', action.block.term.subjectId]">Detail předmětu</a>
+                    </nz-breadcrumb-item>
+                    <nz-breadcrumb-item>
+                        <a [routerLink]="['/admin/subject-year', action.block.subjectInYearId]">Detail roku</a>
+                    </nz-breadcrumb-item>
+                    <nz-breadcrumb-item>
+                        <a [routerLink]="['/admin/term/detail', action.block.termId]">Detail semestru</a>
+                    </nz-breadcrumb-item>
+                    <nz-breadcrumb-item>
+                        <a [routerLink]="['/admin/block', action.block.id]">Detail bloku</a>
+                    </nz-breadcrumb-item>
+                    <nz-breadcrumb-item>
+                        <a>Detail akce</a>
                     </nz-breadcrumb-item>
                 </nz-breadcrumb>
             </nz-page-header-content>
         </nz-page-header>
-
         <section class="subjects-wrapper text-wrapper">
             <div class="header">
                 Popis
@@ -26,7 +44,67 @@
         </section>
 
         <div class="content-wrapper action-data">
-            <ul>
+            <table style="margin-left: 5px;">
+                <tr>
+                    <td class="td-icon"> <i class="fas fa-calendar"></i></td>
+                    <td style="width: 150px;">Datum konání:</td>
+                    <td>
+
+                        <span>
+                            {{ action.startDate | date: 'd.M.yyyy HH:mm' }} - {{ action.endDate | date:
+                            'd.M.yyyy HH:mm'}}
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-icon"> <i class="fas fa-calendar-check"></i></td>
+                    <td>Zápis od do:</td>
+                    <td>
+                        <span>
+                            <span *ngIf="action.attendanceAllowStartDate">
+                                {{ action.attendanceAllowStartDate | date: 'd.M.yyyy HH:mm'}}
+                            </span>
+                            <span *ngIf="!action.attendanceAllowStartDate">neomezeno</span>
+                            <span> - </span>
+                            <span *ngIf="action.attendanceAllowEndDate">
+                                {{ action.attendanceAllowEndDate | date: 'd.M.yyyy HH:mm'}}</span>
+                            <span *ngIf="!action.attendanceAllowEndDate">neomezeno</span>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-icon"> <i class="fas fa-calendar-times"></i></td>
+                    <td>Datum odzápisu:</td>
+                    <td>
+                        <span>
+                            {{ action.attendanceSignOffEndDate | date: 'd.M.yyyy HH:mm'
+                            }}
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-icon"> <i class="fas fa-map-marker-alt"></i></td>
+                    <td>Místo:</td>
+                    <td>
+                        {{action.location ? action.location : 'neurčeno'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-icon"> <i class="fas fa-users"></i></td>
+                    <td>Přihlášeno:</td>
+                    <td>
+                        {{action.signedUsersCount + '/' + action.blockActionRestriction.maxCapacity}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-icon"> <i class="fas fa-users"></i></td>
+                    <td>Fronta:</td>
+                    <td>
+                        {{action.usersInQueueCount}}
+                    </td>
+                </tr>
+            </table>
+            <!-- <ul>
                 <li>Datum konání: <strong>{{ action.startDate | date: 'd.M.yyyy HH:mm' }} - {{ action.endDate | date:
                         'd.M.yyyy HH:mm'}}</strong>
                 </li>
@@ -56,7 +134,7 @@
                         </app-icon-text>
                     </strong>
                 </li>
-            </ul>
+            </ul> -->
         </div>
 
         <section class="subjects-wrapper text-wrapper">
@@ -72,7 +150,7 @@
             <div class="header">
                 Fronta
             </div>
-            <div>
+            <div class="mt-20">
                 <app-action-queue-signed-people [people]="action.signedUsersInQueue"></app-action-queue-signed-people>
             </div>
         </section>

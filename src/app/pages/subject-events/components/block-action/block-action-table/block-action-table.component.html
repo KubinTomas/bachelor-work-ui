@@ -3,8 +3,8 @@
         <tr>
             <th>Jméno </th>
             <th>Datum konání </th>
-            <th>Datum odzápisu </th>
             <th>Zápis od do </th>
+            <th>Datum odzápisu </th>
             <th>Místo</th>
             <th>Viditelná</th>
             <th>Externí uživatelé</th>
@@ -17,7 +17,6 @@
         <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)">
             <td>{{ data.name }}</td>
             <td>{{ data.startDate | date: 'd.M.yyyy HH:mm' }} - {{ data.endDate | date: 'd.M.yyyy HH:mm'}}</td>
-            <td>{{ data.attendanceSignOffEndDate | date: 'd.M.yyyy HH:mm' }}</td>
             <td>
                 <span *ngIf="data.attendanceAllowStartDate">{{ data.attendanceAllowStartDate | date: 'd.M.yyyy HH:mm'
                     }}</span>
@@ -27,6 +26,7 @@
                     }}</span>
                 <span *ngIf="!data.attendanceAllowEndDate">neomezeno</span>
             </td>
+            <td>{{ data.attendanceSignOffEndDate | date: 'd.M.yyyy HH:mm' }}</td>
             <td>{{ data.location }}</td>
             <td> <i class="fa" [class.fa-check]="data.visible" [class.fa-times]="!data.visible"
                     [class.active-icon]="data.visible" [class.fade-out-icon]="!data.visible">
