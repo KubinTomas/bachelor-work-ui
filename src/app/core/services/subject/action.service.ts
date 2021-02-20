@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActionPersonModel } from '../../models/persons/action-person.model';
+import { StudentModel } from '../../models/persons/student.model';
 import { BlockActionModel } from '../../models/subject/block-action.model';
 import { BlockModel } from '../../models/subject/block.model';
 import { apiUrl } from '../../models/url.model';
@@ -53,5 +54,9 @@ export class ActionService {
 
   attendanceFulfilled(attendanceId: number, fulfilled: boolean): Observable<ActionPersonModel> {
     return this.httpClient.get<ActionPersonModel>(apiUrl + '/teacher/action/attendance/fulfilled/' + attendanceId + '/' + fulfilled);
+  }
+
+  addStudent(student: StudentModel): Observable<any> {
+    return this.httpClient.post<any>(apiUrl + '/teacher/action/add/student', student);
   }
 }

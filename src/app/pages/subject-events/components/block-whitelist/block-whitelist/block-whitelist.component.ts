@@ -1,13 +1,15 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TransferChange, TransferItem, TransferSelectChange } from 'ng-zorro-antd/transfer';
+import { StudentModel } from 'src/app/core/models/persons/student.model';
 import { BlockModel } from 'src/app/core/models/subject/block.model';
 import { BlockWhitelistSaveModel } from 'src/app/core/models/whitelist/block-whitelist-save.model';
 import { BlockWhitelistModel } from 'src/app/core/models/whitelist/block-whitelist.model';
 import { WhitelistStagStudentModel } from 'src/app/core/models/whitelist/whitelist-stag-student.model';
 import { BlockService } from 'src/app/core/services/subject/block.service';
 import { UtilsTermService } from 'src/app/core/services/utils/term.service';
+import { AddActionParticipantModalComponent } from '../../block-action/add-action-participant-modal/add-action-participant-modal.component';
 
 @Component({
   selector: 'app-block-whitelist',
@@ -15,6 +17,8 @@ import { UtilsTermService } from 'src/app/core/services/utils/term.service';
   styleUrls: ['./block-whitelist.component.scss']
 })
 export class BlockWhitelistComponent implements OnInit {
+
+  @ViewChild(AddActionParticipantModalComponent) addParticipantModal: AddActionParticipantModalComponent;
 
   block: BlockModel;
   whitelist: BlockWhitelistModel;
@@ -167,4 +171,25 @@ export class BlockWhitelistComponent implements OnInit {
     }
   }
 
+  onAddParticipantClick(): void {
+    this.addParticipantModal.openModal(this.block.id);
+  }
+
+  addParticipant(student: StudentModel): void {
+    const studentToAssign = new WhitelistStagStudentModel();
+
+    studentToAssign.checked = false;
+    studentToAssign.osCislo = student.studentOsCislo;
+    studentToAssign.formaSp = student.formaSp;
+    studentToAssign.rocnik = student.rocnik;
+    studentToAssign.fakultaSp = student.fakultaSp;
+    studentToAssign.jmeno = student.fullname;
+    studentToAssign.direction = 'right';
+
+    this.studentsToAssign.push(studentToAssign);
+
+    this.studentsToAssign = [...this.studentsToAssign];
+
+    this.addParticipantModal.closeModal();
+  }
 }

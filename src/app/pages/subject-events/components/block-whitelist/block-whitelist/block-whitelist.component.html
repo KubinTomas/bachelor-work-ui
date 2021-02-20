@@ -25,7 +25,11 @@
         </nz-page-header-content>
     </nz-page-header>
 
+    <div *ngIf="!whitelist" class="loader">
+        <app-page-loader></app-page-loader>
+    </div>
     <section *ngIf="whitelist">
+
         <div class="title">
             Filtr studentů
             <div style="float: right;" class="icon-hover">
@@ -80,10 +84,13 @@
         </section>
         <div class="title">Přiřazování studentů
             <div style="float: right;" class="icon-hover">
-                <span nz-tooltip
+                <!-- <span nz-tooltip
                     nzTooltipTitle="Studenti v pravé částí (student s povolením přístupu) bude moci navštěvovat akce daného bloku. Je možné přiřadit studenta i ručně.">
                     <i class="fas fa-info-circle"></i>
-                </span>
+                </span> -->
+
+                <button nz-button nzType="primary" (click)="onAddParticipantClick()"><i nz-icon nzType="plus"
+                        nzTheme="outline"></i>Přidat studenta</button>
 
             </div>
         </div>
@@ -136,3 +143,5 @@
         <app-page-loader></app-page-loader>
     </div>
 </ng-container>
+
+<app-add-action-participant-modal (addParticipantEvent)="addParticipant($event)"></app-add-action-participant-modal>

@@ -72,7 +72,7 @@ export class BlockActionFormComponent implements OnInit {
 
       action.attendanceSignOffEndDate = this.dateService.covertDateToAPIFriendlyFormat(new Date(action.attendanceSignOffEndDate));
 
-      console.log(action);
+      return;
 
       if (this.action.id) {
         this.update(action);
@@ -90,6 +90,10 @@ export class BlockActionFormComponent implements OnInit {
   validateDate(): void {
     this.form.get('startDate').setErrors(null);
 
+    this.validateAttendanceAllowStartDate();
+    this.validateAttendanceAllowEndDate();
+    this.validateAttendanceSignOffEndDate();
+
     const startDate = this.form.get('startDate').value as Date;
     const endDate = this.form.get('endDate').value as Date;
 
@@ -106,6 +110,48 @@ export class BlockActionFormComponent implements OnInit {
         this.form.get('startDate').setErrors({ 'dateRange': true });
       }
     }
+  }
+
+  validateAttendanceSignOffEndDate(): void {
+    const startDate = this.form.get('startDate').value as Date;
+    const attendanceSignOffEndDate = this.form.get('attendanceSignOffEndDate').value as Date;
+
+    if (!startDate || !attendanceSignOffEndDate) {
+      return;
+    }
+
+    if (attendanceSignOffEndDate > startDate) {
+      this.form.get('attendanceSignOffEndDate').setErrors({ 'dateRange': true });
+    }
+
+  }
+
+  validateAttendanceAllowStartDate(): void {
+    const startDate = this.form.get('startDate').value as Date;
+    const attendanceAllowStartDate = this.form.get('attendanceAllowStartDate').value as Date;
+
+    if (!startDate || !attendanceAllowStartDate) {
+      return;
+    }
+
+    if (attendanceAllowStartDate > startDate) {
+      this.form.get('attendanceAllowStartDate').setErrors({ 'dateRange': true });
+    }
+
+  }
+
+  validateAttendanceAllowEndDate(): void {
+    const startDate = this.form.get('startDate').value as Date;
+    const attendanceAllowEndDate = this.form.get('attendanceAllowEndDate').value as Date;
+
+    if (!startDate || !attendanceAllowEndDate) {
+      return;
+    }
+
+    if (attendanceAllowEndDate > startDate) {
+      this.form.get('attendanceAllowEndDate').setErrors({ 'dateRange': true });
+    }
+
   }
 
   update(action: BlockActionModel): void {

@@ -50,7 +50,7 @@
                     </nz-form-control>
                 </nz-form-item>
 
-            
+
 
                 <div formGroupName="blockActionRestriction" class="action-restriction-wrapper">
 
@@ -121,7 +121,7 @@
 
                 <nz-form-item>
                     <nz-form-label>Datum od kdy je povolen zápis (nemusí být vybrán)</nz-form-label>
-                    <nz-form-control>
+                    <nz-form-control nzErrorTip="Datum musí být menší než začátek akce">
                         <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm" [nzShowTime]="{ nzFormat: 'HH:mm' }"
                             formControlName="attendanceAllowStartDate">
                         </nz-date-picker>
@@ -130,7 +130,8 @@
 
                 <nz-form-item>
                     <nz-form-label>Datum do kdy je povolen zápis (nemusí být vybrán)</nz-form-label>
-                    <nz-form-control nzErrorTip="Datum konání akce je povinný">
+                    <nz-form-control nzErrorTip="Datum konání akce je povinný"
+                        nzErrorTip="Datum musí být menší než začátek akce">
                         <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm" [nzShowTime]="{ nzFormat: 'HH:mm' }"
                             formControlName="attendanceAllowEndDate">
                         </nz-date-picker>
@@ -138,11 +139,20 @@
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label>Datum do kdy je možné se odepsat z akce</nz-form-label>
-                    <nz-form-control nzErrorTip="Datum odzápisu akce je povinný">
+                    <nz-form-control [nzErrorTip]="errorSignOff">
                         <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm" [nzShowTime]="{ nzFormat: 'HH:mm' }"
                             formControlName="attendanceSignOffEndDate">
                         </nz-date-picker>
                     </nz-form-control>
+
+                    <ng-template #errorSignOff let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                            Datum odzápisu akce je povinný
+                        </ng-container>
+                        <ng-container *ngIf="control.hasError('dateRange')">
+                            Datum musí být menší než začátek akce
+                        </ng-container>
+                    </ng-template>
                 </nz-form-item>
 
 

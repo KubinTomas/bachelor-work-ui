@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SelectOptionModel } from 'src/app/core/models/others/select-option.model';
 import { SubjectInYearTermModel } from 'src/app/core/models/subject/subject-in-year-term.model';
 import { SubjectInYearModel } from 'src/app/core/models/subject/subject-in-year.model';
+import { NotificationToastrService } from 'src/app/core/services/notification/notification-toastr.service';
 import { SubjectInYearTermService } from 'src/app/core/services/subject/subject-in-year-term.service';
 import { SubjectInYearService } from 'src/app/core/services/subject/subject-in-year.service';
 import { UtilsTermService } from 'src/app/core/services/utils/term.service';
@@ -34,7 +35,8 @@ export class SubjectInYearTermFormComponent implements OnInit {
     private subjectInYearTermService: SubjectInYearTermService,
     private subjectInYearService: SubjectInYearService,
     private route: ActivatedRoute,
-    private termService: UtilsTermService
+    private termService: UtilsTermService,
+    private notificationToastrService: NotificationToastrService
   ) {
     this.terms = this.termService.terms;
   }
@@ -84,6 +86,10 @@ export class SubjectInYearTermFormComponent implements OnInit {
 
     this.subjectInYearTermService.create(subjectInYearTerm).subscribe(() => {
       this.back();
+    }, (error) => {
+      if (error && error.error) {
+        this.notificationToastrService.showError(error.error, '', 3000);
+      }
     });
   }
 

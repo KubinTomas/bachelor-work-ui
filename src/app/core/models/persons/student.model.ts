@@ -5,4 +5,6 @@ export class StudentModel {
     isStagStudent: boolean;
     rocnik: string;
     fakultaSp: string;
+    blockOrActionId: number;
+    formaSp: string;
 }

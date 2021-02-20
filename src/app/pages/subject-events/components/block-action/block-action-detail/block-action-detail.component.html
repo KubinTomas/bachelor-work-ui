@@ -159,7 +159,7 @@
                     </div>
 
                 </div>
-                <app-action-signed-people [people]="action.signedUsers"></app-action-signed-people>
+                <app-action-signed-people [people]="action.signedUsers" [action]="action"></app-action-signed-people>
             </div>
         </section>
 
@@ -181,4 +181,4 @@
     <app-page-loader></app-page-loader>
 </div>
 
-<app-add-action-participant-modal></app-add-action-participant-modal>
+<app-add-action-participant-modal (addParticipantEvent)="addParticipant($event)"></app-add-action-participant-modal>

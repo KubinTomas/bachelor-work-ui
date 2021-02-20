@@ -1,11 +1,16 @@
-.roakce-filter{
-    nz-select{
+.roakce-filter {
+    nz-select {
         width: 100%;
     }
 }
-.rocnik-filter{
+.rocnik-filter {
     display: inline-block;
-    nz-select{
+    nz-select {
         width: 240px;
     }
+}
+
+.loader {
+    text-align: center;
+    margin-top: 50px;
 }
