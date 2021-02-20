@@ -22,6 +22,7 @@ export class StudentBlockActionModel {
     canSignInQueue: boolean;
     canSignOfTheAction: boolean;
     dateRestrictionCanSignIn: boolean;
+    orderInQueue: number;
     
     constructor(){
     }

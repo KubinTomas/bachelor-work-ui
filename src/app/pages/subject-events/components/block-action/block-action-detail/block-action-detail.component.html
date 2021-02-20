@@ -34,14 +34,7 @@
                 </nz-breadcrumb>
             </nz-page-header-content>
         </nz-page-header>
-        <section class="subjects-wrapper text-wrapper">
-            <div class="header">
-                Popis
-            </div>
-            <div [innerHTML]="action.description">
 
-            </div>
-        </section>
 
         <div class="content-wrapper action-data">
             <table style="margin-left: 5px;">
@@ -104,38 +97,16 @@
                     </td>
                 </tr>
             </table>
-            <!-- <ul>
-                <li>Datum konání: <strong>{{ action.startDate | date: 'd.M.yyyy HH:mm' }} - {{ action.endDate | date:
-                        'd.M.yyyy HH:mm'}}</strong>
-                </li>
-                <li>Datum odzápisu: <strong>{{ action.attendanceSignOffEndDate | date: 'd.M.yyyy HH:mm' }}</strong>
-                </li>
-                <li>Zápis od do: <strong>
-                        <span *ngIf="action.attendanceAllowStartDate">
-                            {{ action.attendanceAllowStartDate | date: 'd.M.yyyy HH:mm'}}
-                        </span>
-                        <span *ngIf="!action.attendanceAllowStartDate">neomezeno</span>
-                        <span> - </span>
-                        <span *ngIf="action.attendanceAllowEndDate">
-                            {{ action.attendanceAllowEndDate | date: 'd.M.yyyy HH:mm'}}</span>
-                        <span *ngIf="!action.attendanceAllowEndDate">neomezeno</span>
-                    </strong>
-                </li>
-                <li>Místo: <strong>{{ action.location }}</strong>
-                </li>
-                <li>Přihlášeno: <strong>
-                        <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'"
-                            [text]="action.signedUsersCount + '/' + action.blockActionRestriction.maxCapacity">
-                        </app-icon-text>
-                    </strong>
-                </li>
-                <li>Fronta: <strong>
-                        <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'" [text]="action.usersInQueueCount">
-                        </app-icon-text>
-                    </strong>
-                </li>
-            </ul> -->
         </div>
+
+        <section class="subjects-wrapper text-wrapper">
+            <div class="header">
+                Popis
+            </div>
+            <div [innerHTML]="action.description">
+
+            </div>
+        </section>
 
         <section class="subjects-wrapper text-wrapper table-w">
             <div class="header">

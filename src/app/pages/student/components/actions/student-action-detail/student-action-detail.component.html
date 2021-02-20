@@ -60,6 +60,70 @@
             </nz-page-header-content>
         </nz-page-header>
 
+        <div class="content-wrapper action-data">
+
+            <table style="margin-left: 5px;">
+                <tr>
+                    <td class="td-icon"> <i class="fas fa-calendar"></i></td>
+                    <td style="width: 150px;">Datum konání:</td>
+                    <td>
+
+                        <span>
+                            {{ action.startDate | date: 'd.M.yyyy HH:mm' }} - {{ action.endDate | date:
+                            'd.M.yyyy HH:mm'}}
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-icon"> <i class="fas fa-calendar-check"></i></td>
+                    <td>Zápis od do:</td>
+                    <td>
+                        <span>
+                            <span *ngIf="action.attendanceAllowStartDate">
+                                {{ action.attendanceAllowStartDate | date: 'd.M.yyyy HH:mm'}}
+                            </span>
+                            <span *ngIf="!action.attendanceAllowStartDate">neomezeno</span>
+                            <span> - </span>
+                            <span *ngIf="action.attendanceAllowEndDate">
+                                {{ action.attendanceAllowEndDate | date: 'd.M.yyyy HH:mm'}}</span>
+                            <span *ngIf="!action.attendanceAllowEndDate">neomezeno</span>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-icon"> <i class="fas fa-calendar-times"></i></td>
+                    <td>Datum odzápisu:</td>
+                    <td>
+                        <span>
+                            {{ action.attendanceSignOffEndDate | date: 'd.M.yyyy HH:mm'
+                            }}
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-icon"> <i class="fas fa-map-marker-alt"></i></td>
+                    <td>Místo:</td>
+                    <td>
+                        {{action.location ? action.location : 'neurčeno'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-icon"> <i class="fas fa-users"></i></td>
+                    <td>Přihlášeno:</td>
+                    <td>
+                        {{action.signedUsersCount + '/' + action.maxCapacity}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-icon"> <i class="fas fa-users"></i></td>
+                    <td>Fronta:</td>
+                    <td>
+                        {{action.usersInQueueCount}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+
         <section class="subjects-wrapper text-wrapper">
             <div class="header">
                 Popis
@@ -68,40 +132,6 @@
 
             </div>
         </section>
-
-        <div class="content-wrapper action-data">
-            <ul>
-                <li>Datum konání: <strong>{{ action.startDate | date: 'd.M.yyyy HH:mm' }} - {{ action.endDate | date:
-                        'd.M.yyyy HH:mm'}}</strong>
-                </li>
-                <li>Datum odzápisu: <strong>{{ action.attendanceSignOffEndDate | date: 'd.M.yyyy HH:mm' }}</strong>
-                </li>
-                <li>Zápis od do: <strong>
-                        <span *ngIf="action.attendanceAllowStartDate">
-                            {{ action.attendanceAllowStartDate | date: 'd.M.yyyy HH:mm'}}
-                        </span>
-                        <span *ngIf="!action.attendanceAllowStartDate">neomezeno</span>
-                        <span> - </span>
-                        <span *ngIf="action.attendanceAllowEndDate">
-                            {{ action.attendanceAllowEndDate | date: 'd.M.yyyy HH:mm'}}</span>
-                        <span *ngIf="!action.attendanceAllowEndDate">neomezeno</span>
-                    </strong>
-                </li>
-                <li>Místo: <strong>{{ action.location }}</strong>
-                </li>
-                <li>Přihlášeno: <strong>
-                        <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'"
-                            [text]="action.signedUsersCount + '/' + action.maxCapacity">
-                        </app-icon-text>
-                    </strong>
-                </li>
-                <li>Fronta: <strong>
-                        <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'" [text]="action.usersInQueueCount">
-                        </app-icon-text>
-                    </strong>
-                </li>
-            </ul>
-        </div>
 
     </section>
     <section *ngIf="!action" class="abs-center-page">

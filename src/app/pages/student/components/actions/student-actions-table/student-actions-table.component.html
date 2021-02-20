@@ -102,8 +102,12 @@
                     </app-icon-text>
                 </td>
                 <td>
-                    <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'" [text]="data.usersInQueueCount">
-                    </app-icon-text>
+                    <span nz-tooltip
+                        [nzTooltipTitle]="data.isUserSignedInQueue? 'Pořadí ve frontě: ' + data.orderInQueue: ''">
+
+                        <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'" [text]="data.usersInQueueCount">
+                        </app-icon-text>
+                    </span>
                 </td>
                 <td>
                     <ng-container *ngIf="data.canSignIn">
