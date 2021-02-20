@@ -9,7 +9,7 @@
             </a>
         </div>
         <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-            <li nz-submenu nzOpen nzTitle="Události" nzIcon="dashboard" *ngxPermissionsOnly="roleStudent" >
+            <li nz-submenu nzOpen nzTitle="Události" nzIcon="dashboard" *ngxPermissionsOnly="roleStudent">
                 <ul>
                     <li nz-menu-item nzMatchRouter>
                         <a routerLink='student/actions'>Moje události</a>
@@ -54,8 +54,10 @@
                         <li nz-submenu nzTitle="Změnit roli" *ngIf="user.stagUserInfo.length > 1">
                             <ul>
                                 <li nz-menu-item *ngFor="let userInfo of user.stagUserInfo"
+                                    [class.bold]="user.activeStagUserInfo.userName == userInfo.userName"
                                     (click)="changeRole(userInfo.userName)">
-                                    {{userInfo.fakulta}}/{{userInfo.katedra}} - {{userInfo.roleNazev}}</li>
+                                    {{userInfo.fakulta}}/{{userInfo.katedra}} - {{userInfo.roleNazev}}
+                                </li>
                             </ul>
                         </li>
                         <!-- <li nz-menu-item *ngIf="user.stagUserInfo.length > 1"><i nz-icon nzType="eye"
