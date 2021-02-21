@@ -1,0 +1,35 @@
+<nz-table #basicTable [nzData]="students" [nzLoading]="dataLoading">
+    <thead>
+        <tr>
+            <th style="width: 25px;"> </th>
+            <th style="width: 150px;">Číslo </th>
+            <th style="width: 250px;">Jméno </th>
+            <th style="width: 50px;">Ročník </th>
+            <th style="width: 50px;">Fakulta</th>
+            <th style="width: 50px;">Forma</th>
+            <th style="width: 50px;">Docházka</th>
+            <th style="width: 50px;">Splněno</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td> <i class="fas fa-user-graduate"></i></td>
+            <td> {{data.studentOsCislo}}</td>
+            <td> {{data.name}}</td>
+            <td> {{data.rocnik}}</td>
+            <td> {{data.fakultaSp}}</td>
+            <td> {{data.formaSp}}</td>
+            <td [class.success]="data.attendanceFulfillCount >= data.blockAttendanceCount">
+                {{data.attendanceFulfillCount}} / {{data.blockAttendanceCount}}</td>
+            <td>
+                <i class="fa" [class.fa-check]="data.attendanceFulfillCount >= data.blockAttendanceCount"
+                    [class.fa-times]="!(data.attendanceFulfillCount >= data.blockAttendanceCount)"
+                    [class.active-icon]="data.attendanceFulfillCount >= data.blockAttendanceCount"
+                    [class.fade-out-icon]="!(data.attendanceFulfillCount >= data.blockAttendanceCount)">
+
+                </i>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>

@@ -5,14 +5,14 @@
         <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
 
             <nz-form-item>
-                <nz-form-control nzErrorTip="Please input your username!">
+                <nz-form-control nzErrorTip="Prosím zadejte jméno">
                     <nz-input-group nzPrefixIcon="user">
                         <input type="text" nz-input formControlName="userName" placeholder="Username" />
                     </nz-input-group>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-control nzErrorTip="Please input your Password!">
+                <nz-form-control nzErrorTip="Prosím zadejte heslo">
                     <nz-input-group nzPrefixIcon="lock">
                         <input type="password" nz-input formControlName="password" placeholder="Password" />
                     </nz-input-group>
@@ -20,22 +20,15 @@
             </nz-form-item>
             <div nz-row class="login-form-margin">
                 <div nz-col [nzSpan]="12">
-                    <a class="login-form-register">Register now</a>
+                    <a class="login-form-register" routerLink="/registration">Registrovat se</a>
                 </div>
                 <div nz-col [nzSpan]="12">
-                    <a class="login-form-forgot">Forgot password </a>
+                    <a class="login-form-forgot">Zapomenuté heslo </a>
                 </div>
             </div>
             <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Přihlásit se</button>
             <a nz-button class="login-form-button login-form-margin btn-stag" [nzType]="'primary'"
                 (click)="onStagLoginClick()">STAG přihlášení</a>
-            <a nz-button class="login-form-button login-form-margin login-stag-btn" [nzType]="'primary'"
-                (click)="getUser()">GET CURRENT USER</a>
-
-
-            <div class="text-center">
-                <a [routerLink]="['']">MAIN</a>
-            </div>
         </form>
 
 

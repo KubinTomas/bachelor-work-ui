@@ -31,6 +31,7 @@ import { BlockActionDetailComponent } from './components/block-action/block-acti
 import { ActionSignedPeopleComponent } from './components/block-action/action-signed-people/action-signed-people.component';
 import { ActionQueueSignedPeopleComponent } from './components/block-action/action-queue-signed-people/action-queue-signed-people.component';
 import { AddActionParticipantModalComponent } from './components/block-action/add-action-participant-modal/add-action-participant-modal.component';
+import { BlockAssignedStudentsTableComponent } from './components/subject-in-year-term-block/block-assigned-students-table/block-assigned-students-table.component';
 
 
 
@@ -61,6 +62,7 @@ import { AddActionParticipantModalComponent } from './components/block-action/ad
     ActionSignedPeopleComponent,
     ActionQueueSignedPeopleComponent,
     AddActionParticipantModalComponent,
+    BlockAssignedStudentsTableComponent,
   ],
   imports: [
     CommonModule,

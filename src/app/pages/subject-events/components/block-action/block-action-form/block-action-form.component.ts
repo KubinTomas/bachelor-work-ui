@@ -72,8 +72,6 @@ export class BlockActionFormComponent implements OnInit {
 
       action.attendanceSignOffEndDate = this.dateService.covertDateToAPIFriendlyFormat(new Date(action.attendanceSignOffEndDate));
 
-      return;
-
       if (this.action.id) {
         this.update(action);
       } else {

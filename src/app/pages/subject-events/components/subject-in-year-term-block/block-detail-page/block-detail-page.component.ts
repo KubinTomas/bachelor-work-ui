@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { StudentBlockModel } from 'src/app/core/models/student/student-block.model';
 import { BlockActionModel } from 'src/app/core/models/subject/block-action.model';
 import { BlockModel } from 'src/app/core/models/subject/block.model';
 import { ActionService } from 'src/app/core/services/subject/action.service';
@@ -17,6 +18,9 @@ export class BlockDetailPageComponent implements OnInit {
 
   actions: BlockActionModel[];
   actionsDataLoading = true;
+
+  students: StudentBlockModel[];
+  studentsDataLoading = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -48,6 +52,14 @@ export class BlockDetailPageComponent implements OnInit {
     this.blockService.getSingle(blockId).subscribe(res => {
       this.block = res;
       this.getActions(blockId);
+      this.getStudents(blockId);
+    });
+  }
+
+  getStudents(blockId: number): void {
+    this.blockService.getStudents(blockId).subscribe(res => {
+      this.students = res;
+      this.studentsDataLoading = false;
     });
   }
 
