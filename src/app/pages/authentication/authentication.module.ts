@@ -10,6 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import * as fromAuth from './store/auth.reducer';
 import { AuthEffects } from './store/auth.effects';
+import { PasswordValidator } from 'src/app/core/validators/password-match.validator';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { AuthEffects } from './store/auth.effects';
     RouterModule,
     StoreModule.forFeature(fromAuth.featureKey, fromAuth.reducer),
     EffectsModule.forFeature([AuthEffects]),
-  ]
+  ],
+  providers: []
 })
 export class AuthenticationModule { }

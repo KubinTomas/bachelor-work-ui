@@ -1,29 +1,88 @@
 <div class="form-wrapper">
     <div class="registration-form">
-        <h3>Přihlášení</h3>
+        <h3>Registrace</h3>
 
-        <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+        <form nz-form [formGroup]="form" (ngSubmit)="submitForm()">
 
             <nz-form-item>
-                <nz-form-control nzErrorTip="Please input your username!">
-                    <nz-input-group nzPrefixIcon="user">
-                        <input type="text" nz-input formControlName="userName" placeholder="Username" />
+                <nz-form-control nzErrorTip="Prosím zadejte jméno">
+                    <nz-input-group>
+                        <input type="text" nz-input formControlName="name" placeholder="jméno" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+
+
+            <nz-form-item>
+                <nz-form-control nzErrorTip="Prosím zadejte příjmení">
+                    <nz-input-group>
+                        <input type="text" nz-input formControlName="surname" placeholder="přijmení" />
                     </nz-input-group>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-control nzErrorTip="Please input your Password!">
-                    <nz-input-group nzPrefixIcon="lock">
-                        <input type="password" nz-input formControlName="password" placeholder="Password" />
+                <nz-form-control nzErrorTip="Prosím zadejte email">
+                    <nz-input-group>
+                        <input nz-input formControlName="email" placeholder="email" />
                     </nz-input-group>
                 </nz-form-control>
             </nz-form-item>
+
+            <section [formGroup]="form.get('passwords')">
+
+
+
+                <nz-form-item>
+                    <nz-form-control [nzErrorTip]="errorTpl">
+                        <nz-input-group>
+                            <input type="password" nz-input formControlName="password" placeholder="Password" />
+                        </nz-input-group>
+                    </nz-form-control>
+
+                    <ng-template #errorTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                            Prosím zadejte heslo
+                        </ng-container>
+                        <ng-container *ngIf="control.hasError('minlength')">
+                            Heslo musí mít alespoň 6 znaků
+                        </ng-container>
+                    </ng-template>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-control [nzErrorTip]="errorPasswordMatch">
+                        <nz-input-group>
+                            <input type="password" nz-input formControlName="passwordConfirm" placeholder="Password" />
+                        </nz-input-group>
+                    </nz-form-control>
+
+                    <ng-template #errorPasswordMatch let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                            Prosím opakujte heslo
+                        </ng-container>
+                        <ng-container *ngIf="control.hasError('passwordMatch')">
+                            Hesla se neshodují
+                        </ng-container>
+                    </ng-template>
+                </nz-form-item>
+                <!-- <div class="password-match-error" *ngIf="
+                form.get('passwords').get('password').valid &&
+                form.get('passwords').get('passwordConfirm').valid &&
+                form.get('passwords').hasError('passwordMatch')">
+                    Hesla se neshodují
+                </div> -->
+
+            </section>
+
             <div nz-row class="registration-form-margin">
                 <div nz-col [nzSpan]="12">
                     <a class="registration-form-register" routerLink="/login">Přihlásit se</a>
                 </div>
             </div>
-            <button nz-button class="registration-form-button registration-form-margin" [nzType]="'primary'">Registrovat se</button>
+            <button nz-button class="registration-form-button registration-form-margin" [nzType]="'primary'"
+                type="submit">Registrovat
+                se</button>
+
         </form>
 
 

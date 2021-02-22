@@ -9,12 +9,16 @@ import { AuthenticationService } from 'src/app/core/services/authentication/auth
 })
 export class LoginComponent implements OnInit {
 
-  validateForm!: FormGroup;
+  form!: FormGroup;
 
   submitForm(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
+    this.validateForm();
+  }
+
+  validateForm(): void {
+    for (const i in this.form.controls) {
+      this.form.controls[i].markAsDirty();
+      this.form.controls[i].updateValueAndValidity();
     }
   }
 
@@ -29,7 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   buildForm(): void {
-    this.validateForm = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       userName: [null, [Validators.required]],
       password: [null, [Validators.required]],
       remember: [true]
