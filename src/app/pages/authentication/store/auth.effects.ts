@@ -92,8 +92,9 @@ export class AuthEffects {
             .pipe(
                 ofType(AuthActions.deleteUser),
                 tap(() => {
-                    console.log("HERererer");
                     this.authenticationService.stagAuthentication.logout();
+
+                    // this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }})
 
                     this.router.navigateByUrl('login');
                 })

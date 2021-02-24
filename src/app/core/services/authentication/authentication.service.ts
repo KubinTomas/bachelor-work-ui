@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { LoginResponseModel } from '../../models/authentication/login-response.model';
 import { LoginModel } from '../../models/authentication/login.model';
 import { UserModel } from '../../models/authentication/user.model';
+import { UserRegistrationModel } from '../../models/persons/user-registration.model';
 import { apiUrl } from '../../models/url.model';
 import { StagAuthenticationService } from './stag-authentication.service';
 
@@ -93,15 +94,15 @@ export class AuthenticationService {
     let headers = new HttpHeaders();
     headers = headers.append('role', role);
 
-    console.log(role);
-    console.log(headers);
-
     return this.httpClient.get<UserModel>(apiUrl + '/authentication/user/change-role', { headers });
   }
 
-
   isAuthorize(): Observable<boolean> {
     return this.httpClient.get<boolean>(apiUrl + '/authentication/authorize');
+  }
+
+  registerUser(user: UserRegistrationModel): Observable<any>{
+    return this.httpClient.post<any>(apiUrl + '/authentication/registration', user);
   }
 
 }
