@@ -21,11 +21,23 @@
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-control nzErrorTip="Prosím zadejte email">
+                <nz-form-control [nzErrorTip]="errorEmail">
                     <nz-input-group>
                         <input nz-input formControlName="email" placeholder="email" />
                     </nz-input-group>
                 </nz-form-control>
+
+                <ng-template #errorEmail let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                        Prosím zadejte email
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('email')">
+                        Email není ve správném tvaru
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('isEmailAvailable')">
+                        Email je již obsazený
+                    </ng-container>
+                </ng-template>
             </nz-form-item>
 
             <section [formGroup]="form.get('passwords')">
@@ -80,7 +92,7 @@
                 </div>
             </div>
             <button nz-button class="registration-form-button registration-form-margin" [nzType]="'primary'"
-                type="submit">Registrovat
+                [nzLoading]="creatingUser" type="submit">Registrovat
                 se</button>
 
         </form>

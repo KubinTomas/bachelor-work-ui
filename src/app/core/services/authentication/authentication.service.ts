@@ -67,7 +67,11 @@ export class AuthenticationService {
   }
 
   login(loginModel: LoginModel): Observable<LoginResponseModel> {
-    return this.httpClient.post<LoginResponseModel>(apiUrl + '/authentication/login', loginModel);
+    let headers = new HttpHeaders();
+    headers = headers.append('email', loginModel.email);
+    headers = headers.append('password', loginModel.password);
+
+    return this.httpClient.get<LoginResponseModel>(apiUrl + '/authentication/login', { headers });
   }
 
   logout(): Observable<any> {
@@ -101,8 +105,15 @@ export class AuthenticationService {
     return this.httpClient.get<boolean>(apiUrl + '/authentication/authorize');
   }
 
-  registerUser(user: UserRegistrationModel): Observable<any>{
+  registerUser(user: UserRegistrationModel): Observable<any> {
     return this.httpClient.post<any>(apiUrl + '/authentication/registration', user);
+  }
+
+  isEmailAvailable(email: string): Observable<boolean> {
+    let headers = new HttpHeaders();
+    headers = headers.append('email', email);
+
+    return this.httpClient.get<boolean>(apiUrl + '/authentication/email/available', { headers });
   }
 
 }

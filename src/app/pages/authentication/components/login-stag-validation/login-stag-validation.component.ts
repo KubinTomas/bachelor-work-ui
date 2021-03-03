@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { LoginModel } from 'src/app/core/models/authentication/login.model';
 import { StagLoginQueryParamsModel } from 'src/app/core/models/stag/stag-login-query-params.model';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { NotificationToastrService } from 'src/app/core/services/notification/notification-toastr.service';
@@ -48,9 +49,9 @@ export class LoginStagValidationComponent implements OnInit {
 
       this.authenticationService.saveCredentials(loginParams.stagUserTicket);
       
-      this.authenticationService.login({}).subscribe(loginResponse => {
+      this.authenticationService.login(new LoginModel()).subscribe(loginResponse => {
         // , loginParams.stagUserTicket
-       
+
 
         this.getUser();
       });

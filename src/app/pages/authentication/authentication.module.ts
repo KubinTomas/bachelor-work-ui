@@ -11,6 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 import * as fromAuth from './store/auth.reducer';
 import { AuthEffects } from './store/auth.effects';
 import { PasswordValidator } from 'src/app/core/validators/password-match.validator';
+import { EmailValidators } from 'src/app/core/validators/email.validator';
 
 
 @NgModule({
@@ -24,6 +25,6 @@ import { PasswordValidator } from 'src/app/core/validators/password-match.valida
     StoreModule.forFeature(fromAuth.featureKey, fromAuth.reducer),
     EffectsModule.forFeature([AuthEffects]),
   ],
-  providers: []
+  providers: [EmailValidators]
 })
 export class AuthenticationModule { }

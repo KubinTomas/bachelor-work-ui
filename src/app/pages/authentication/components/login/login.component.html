@@ -7,14 +7,14 @@
             <nz-form-item>
                 <nz-form-control nzErrorTip="Prosím zadejte jméno">
                     <nz-input-group nzPrefixIcon="user">
-                        <input type="text" nz-input formControlName="userName" placeholder="Username" />
+                        <input type="text" nz-input formControlName="email" placeholder="email" />
                     </nz-input-group>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
                 <nz-form-control nzErrorTip="Prosím zadejte heslo">
                     <nz-input-group nzPrefixIcon="lock">
-                        <input type="password" nz-input formControlName="password" placeholder="Password" />
+                        <input type="password" nz-input formControlName="password" placeholder="heslo" />
                     </nz-input-group>
                 </nz-form-control>
             </nz-form-item>
@@ -26,7 +26,8 @@
                     <a class="login-form-forgot">Zapomenuté heslo </a>
                 </div>
             </div>
-            <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Přihlásit se</button>
+            <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'"
+                [nzLoading]="processingForm">Přihlásit se</button>
             <a nz-button class="login-form-button login-form-margin btn-stag" [nzType]="'primary'"
                 (click)="onStagLoginClick()">STAG přihlášení</a>
         </form>
