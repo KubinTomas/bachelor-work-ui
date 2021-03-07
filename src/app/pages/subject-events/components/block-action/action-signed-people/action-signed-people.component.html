@@ -1,79 +1,100 @@
-<nz-table #basicTable [nzData]="action.signedUsers">
-    <thead>
-        <tr>
-            <th style="width: 25px;"> </th>
-            <th style="width: 150px;">Číslo </th>
-            <th style="width: 250px;">Jméno </th>
-            <th style="width: 50px;">Ročník </th>
-            <th>Fakulta</th>
-            <th>Docházka </th>
-            <th>Změna stavu docházky </th>
-            <th>Datum vyhodnocení</th>
-            <th style="width: 150px;">Akce </th>
+<section class="subjects-wrapper text-wrapper table-w">
+    <div class="header">
+        Účastníci
+    </div>
+    <div class="mt-20">
+        <div class="action-bar">
+            <div>
+                <div class="search">
+                    <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
+                        <input type="text" nz-input placeholder="Vyhledat..." #searchInput
+                            (input)="onSearchChange(searchInput.value)" />
+                    </nz-input-group>
+                    <ng-template #prefixIconSearch>
+                        <i nz-icon nzType="search"></i>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="ac-btn-1">
+                <button nz-button nzType="primary" (click)="onAddParticipantClick()"><i nz-icon nzType="plus"
+                        nzTheme="outline"></i>Přidat studenta</button>
+            </div>
 
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let data of basicTable.data">
-            <td>
-                <ng-container *ngIf="data.isStagStudent">
-                    <i class="fas fa-user-graduate"></i>
-                </ng-container>
-                <ng-container *ngIf="!data.isStagStudent">
-                    <i class="fas fa-user"></i>
-                </ng-container>
-            </td>
-            <td>{{ data.studentOsCislo }} </td>
-            <td>{{ data.fullname }}</td>
-            <td>{{ data.rocnik }}</td>
-            <td>{{ data.fakultaSp }}</td>
-            <td>
-                <ng-container *ngIf="data.evaluationDate">
-                    <span nz-tooltip
-                        [nzTooltipTitle]="data.fulfilled? 'Splnil (zúčastnil se)': 'Nesplnil (nezúčastnil se)'"> <i
-                            class="fa" [class.fa-check]="data.fulfilled" [class.fa-times]="!data.fulfilled"
-                            [class.active-icon]="data.fulfilled" [class.fade-out-icon]="!data.fulfilled">
-                        </i></span>
-                </ng-container>
-                <ng-container *ngIf="!data.evaluationDate">
-                    čeká se na vyhodnocení..
-                </ng-container>
-            </td>
-            <td>
-                <!-- *ngIf=" data.evaluationDate" -->
+        </div>
+        <nz-table #basicTable [nzData]="action.signedUsers">
+            <thead>
+                <tr>
+                    <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare"
+                        [nzSortPriority]="column.priority" [style.width.px]="column.width">
+                        {{
+                        column.title }}</th>
 
-                <ng-container>
-                    <div class="control-btns">
-                        <button nz-button nzType="default" nz-popconfirm *ngIf="!data.evaluationDate || !data.fulfilled"
-                            nzPopconfirmTitle="Opravdu chcete změnit stav na SPLNIL?"
-                            (nzOnConfirm)="setAttendanceFulfilled(data, true)"
-                            [nzCondition]="!data.evaluationDate">Splnil</button>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of basicTable.data">
+                    <td>
+                        <ng-container *ngIf="data.isStagStudent">
+                            <i class="fas fa-user-graduate"></i>
+                        </ng-container>
+                        <ng-container *ngIf="!data.isStagStudent">
+                            <i class="fas fa-user"></i>
+                        </ng-container>
+                    </td>
+                    <td>{{ data.studentOsCislo }} </td>
+                    <td>{{ data.fullname }}</td>
+                    <td>{{ data.rocnik }}</td>
+                    <td>{{ data.fakultaSp }}</td>
+                    <td>
+                        <ng-container *ngIf="data.evaluationDate">
+                            <span nz-tooltip
+                                [nzTooltipTitle]="data.fulfilled? 'Splnil (zúčastnil se)': 'Nesplnil (nezúčastnil se)'">
+                                <i class="fa" [class.fa-check]="data.fulfilled" [class.fa-times]="!data.fulfilled"
+                                    [class.active-icon]="data.fulfilled" [class.fade-out-icon]="!data.fulfilled">
+                                </i></span>
+                        </ng-container>
+                        <ng-container *ngIf="!data.evaluationDate">
+                            čeká se na vyhodnocení..
+                        </ng-container>
+                    </td>
+                    <td>
+                        <!-- *ngIf=" data.evaluationDate" -->
 
+                        <ng-container>
+                            <div class="control-btns">
+                                <button nz-button nzType="default" nz-popconfirm
+                                    *ngIf="!data.evaluationDate || !data.fulfilled"
+                                    nzPopconfirmTitle="Opravdu chcete změnit stav na SPLNIL?"
+                                    (nzOnConfirm)="setAttendanceFulfilled(data, true)"
+                                    [nzCondition]="!data.evaluationDate">Splnil</button>
+
+                                <button nz-button nzType="default" nzDanger nz-popconfirm
+                                    *ngIf="!data.evaluationDate || data.fulfilled"
+                                    nzPopconfirmTitle="Opravdu chcete změnit stav na NESPLNIL?"
+                                    (nzOnConfirm)="setAttendanceFulfilled(data, false)"
+                                    [nzCondition]="!data.evaluationDate">Nesplnil
+                                </button>
+                            </div>
+
+                        </ng-container>
+                    </td>
+                    <td>
+                        <ng-container *ngIf=" data.evaluationDate">
+                            {{ data.evaluationDate | date: 'd.M.yyyy HH:mm'}}
+
+                        </ng-container>
+                        <ng-container *ngIf=" !data.evaluationDate">
+                            čeká se na vyhodnocení..
+                        </ng-container>
+                    </td>
+                    <td>
                         <button nz-button nzType="default" nzDanger nz-popconfirm
-                            *ngIf="!data.evaluationDate || data.fulfilled"
-                            nzPopconfirmTitle="Opravdu chcete změnit stav na NESPLNIL?"
-                            (nzOnConfirm)="setAttendanceFulfilled(data, false)"
-                            [nzCondition]="!data.evaluationDate">Nesplnil
+                            nzPopconfirmTitle="Opravdu chcete uživatele vyhodit? Proces je nevratný."
+                            (nzOnConfirm)="kickUser(data.id)">Vyhodit
                         </button>
-                    </div>
-
-                </ng-container>
-            </td>
-            <td>
-                <ng-container *ngIf=" data.evaluationDate">
-                    {{ data.evaluationDate | date: 'd.M.yyyy HH:mm'}}
-
-                </ng-container>
-                <ng-container *ngIf=" !data.evaluationDate">
-                    čeká se na vyhodnocení..
-                </ng-container>
-            </td>
-            <td>
-                <button nz-button nzType="default" nzDanger nz-popconfirm
-                    nzPopconfirmTitle="Opravdu chcete uživatele vyhodit? Proces je nevratný."
-                    (nzOnConfirm)="kickUser(data.id)">Vyhodit
-                </button>
-            </td>
-        </tr>
-    </tbody>
-</nz-table>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</section>

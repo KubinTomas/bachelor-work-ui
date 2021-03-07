@@ -30,34 +30,9 @@
     </nz-page-header>
 
 
+    <app-block-action-table [actions]="actions" [dataLoading]="actionsDataLoading" [blockId]="block.id">
+    </app-block-action-table>
 
-    <section class="subjects-wrapper text-wrapper table-w">
-        <div class="header">
-            Akce
-        </div>
-        <div class="mt-20">
-            <div class="action-bar">
-                <div>
-                    <div class="search">
-                        <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
-                            <input type="text" nz-input placeholder="Vyhledat..." />
-                        </nz-input-group>
-                        <ng-template #prefixIconSearch>
-                            <i nz-icon nzType="search"></i>
-                        </ng-template>
-                    </div>
-                </div>
-                <div class="ac-btn-1">
-                    <button nz-button nzType="primary" [routerLink]="'/admin/action/create/' + block.id "><i nz-icon
-                            nzType="plus" nzTheme="outline"></i>Nová akce</button>
-                </div>
-
-            </div>
-        </div>
-        <app-block-action-table [actions]="actions" [dataLoading]="actionsDataLoading"></app-block-action-table>
-        <!-- <app-subject-in-year-block-table [blocks]="blocks" [dataLoading]="blocksDataLoading">
-        </app-subject-in-year-block-table> -->
-    </section>
 
     <app-block-assigned-students-table [students]="students" [dataLoading]="studentsDataLoading">
     </app-block-assigned-students-table>

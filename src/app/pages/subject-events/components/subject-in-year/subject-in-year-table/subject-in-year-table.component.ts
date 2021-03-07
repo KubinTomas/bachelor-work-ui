@@ -17,7 +17,7 @@ export class SubjectInYearTableComponent implements OnInit {
 
   listOfSubjectInYears: SubjectInYearModel[];
 
-  
+
   listOfColumn = [
     {
       title: 'Rok',
@@ -36,7 +36,7 @@ export class SubjectInYearTableComponent implements OnInit {
     },
     {
       title: 'Vytvořeno',
-      compare: (a: SubjectInYearModel, b: SubjectInYearModel) => a.dateIn > b.dateIn,
+      compare: (a: SubjectInYearModel, b: SubjectInYearModel) => new Date(a.dateIn).getTime() - new Date(b.dateIn).getTime(),
       priority: 3
     },
     {
@@ -111,6 +111,6 @@ export class SubjectInYearTableComponent implements OnInit {
     this.subjectInYears = this.listOfSubjectInYears.filter(c => c.year.toLowerCase().indexOf(value.toLowerCase()) > -1
       || c.name.toLowerCase().indexOf(value.toLowerCase()) > -1
       || c.ucitelName.toLowerCase().indexOf(value.toLowerCase()) > -1
-      );
+    );
   }
 }

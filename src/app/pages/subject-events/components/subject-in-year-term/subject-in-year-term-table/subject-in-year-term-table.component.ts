@@ -32,7 +32,7 @@ export class SubjectInYearTermTableComponent implements OnInit {
     },
     {
       title: 'Vytvořeno',
-      compare: (a: SubjectInYearTermModel, b: SubjectInYearTermModel) => a.dateIn > b.dateIn,
+      compare: (a: SubjectInYearTermModel, b: SubjectInYearTermModel) => new Date(a.dateIn).getTime() - new Date(b.dateIn).getTime(),
       priority: 3
     },
     {

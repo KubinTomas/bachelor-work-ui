@@ -45,7 +45,7 @@ export class TermStagConnectionTableComponent implements OnInit {
     },
     {
       title: 'Vytvořeno',
-      compare: (a: TermStagConnectionModel, b: TermStagConnectionModel) => a.dateIn > b.dateIn,
+      compare: (a: TermStagConnectionModel, b: TermStagConnectionModel) => new Date(a.dateIn).getTime() - new Date(b.dateIn).getTime(),
       priority: 7
     },
     {

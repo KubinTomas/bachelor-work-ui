@@ -24,14 +24,6 @@
     <nz-table #basicTable [nzData]="students" [nzLoading]="dataLoading">
         <thead>
             <tr>
-                <!-- <th style="width: 25px;"> </th>
-                <th style="width: 150px;">Číslo </th>
-                <th style="width: 250px;">Jméno </th>
-                <th style="width: 50px;">Ročník </th>
-                <th style="width: 50px;">Fakulta</th>
-                <th style="width: 50px;">Forma</th>
-                <th style="width: 50px;">Docházka</th>
-                <th style="width: 50px;">Splněno</th> -->
                 <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority" [style.width.px] = "column.width">
                     {{
                     column.title }}</th>

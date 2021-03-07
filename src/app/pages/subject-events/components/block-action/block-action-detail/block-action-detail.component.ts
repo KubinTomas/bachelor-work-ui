@@ -71,7 +71,10 @@ export class BlockActionDetailComponent {
 
       this.notificationToastrService.showSuccess('Student byl přidán do akce', '', 3000);
 
+      this.actionSignedPeopleComponent.pushToListOfData(res);
+
       this.addParticipantModal.closeModal();
+
 
     }, (error) => {
       if (error && error.error) {

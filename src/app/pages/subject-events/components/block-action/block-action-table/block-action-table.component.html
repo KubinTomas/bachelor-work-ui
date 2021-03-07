@@ -1,70 +1,89 @@
-<nz-table #basicTable [nzData]="actions" [nzLoading]="dataLoading">
-    <thead>
-        <tr>
-            <th>Jméno </th>
-            <th>Datum konání </th>
-            <th>Zápis od do </th>
-            <th>Datum odzápisu </th>
-            <th>Místo</th>
-            <th>Viditelná</th>
-            <th>Externí uživatelé</th>
-            <th>Stag studenti </th>
-            <th>Přihlášeno</th>
-            <th>Fronta</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)">
-            <td>{{ data.name }}</td>
-            <td>{{ data.startDate | date: 'd.M.yyyy HH:mm' }} - {{ data.endDate | date: 'd.M.yyyy HH:mm'}}</td>
-            <td>
-                <span *ngIf="data.attendanceAllowStartDate">{{ data.attendanceAllowStartDate | date: 'd.M.yyyy HH:mm'
-                    }}</span>
-                <span *ngIf="!data.attendanceAllowStartDate">neomezeno</span>
-                <span> - </span>
-                <span *ngIf="data.attendanceAllowEndDate">{{ data.attendanceAllowEndDate | date: 'd.M.yyyy HH:mm'
-                    }}</span>
-                <span *ngIf="!data.attendanceAllowEndDate">neomezeno</span>
-            </td>
-            <td>{{ data.attendanceSignOffEndDate | date: 'd.M.yyyy HH:mm' }}</td>
-            <td>{{ data.location }}</td>
-            <td> <i class="fa" [class.fa-check]="data.visible" [class.fa-times]="!data.visible"
-                    [class.active-icon]="data.visible" [class.fade-out-icon]="!data.visible">
-                </i>
-            </td>
-            <td>
-                <!-- <td><i class="fa @((item.vkCourse.hasEvaluation ? "fa-check" : "fa-times"))" style="@(item.vkCourse.hasEvaluation? "color:#28a745;" : "color:#bcbcbc;")"></i></td> -->
-                <i class="fa" [class.fa-check]="data.blockActionRestriction.allowExternalUsers"
-                    [class.fa-times]="!data.blockActionRestriction.allowExternalUsers"
-                    [class.active-icon]="data.blockActionRestriction.allowExternalUsers"
-                    [class.fade-out-icon]="!data.blockActionRestriction.allowExternalUsers">
+<section class="subjects-wrapper text-wrapper table-w">
+    <div class="header">
+        Akce
+    </div>
+    <div class="mt-20">
+        <div class="action-bar">
+            <div>
+                <div class="search">
+                    <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
+                        <input type="text" nz-input placeholder="Vyhledat..." #searchInput
+                            (input)="onSearchChange(searchInput.value)" />
+                    </nz-input-group>
+                    <ng-template #prefixIconSearch>
+                        <i nz-icon nzType="search"></i>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="ac-btn-1">
+                <button nz-button nzType="primary" [routerLink]="'/admin/action/create/' + blockId "><i nz-icon
+                        nzType="plus" nzTheme="outline"></i>Nová akce</button>
+            </div>
 
-                </i>
-            </td>
-            <td>
-                <i class="fa" [class.fa-check]="data.blockActionRestriction.allowOnlyStudentsOnWhiteList"
-                    [class.fa-times]="!data.blockActionRestriction.allowOnlyStudentsOnWhiteList"
-                    [class.active-icon]="data.blockActionRestriction.allowOnlyStudentsOnWhiteList"
-                    [class.fade-out-icon]="!data.blockActionRestriction.allowOnlyStudentsOnWhiteList">
-                </i>
+        </div>
+    </div>
+    <nz-table #basicTable [nzData]="actions" [nzLoading]="dataLoading">
+        <thead>
+            <tr>
+                <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority">
+                    {{
+                    column.title }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)">
+                <td>{{ data.name }}</td>
+                <td>{{ data.startDate | date: 'd.M.yyyy HH:mm' }} - {{ data.endDate | date: 'd.M.yyyy HH:mm'}}</td>
+                <td>
+                    <span *ngIf="data.attendanceAllowStartDate">
+                        {{ data.attendanceAllowStartDate | date: 'd.M.yyyy HH:mm'}}</span>
+                    <span *ngIf="!data.attendanceAllowStartDate">neomezeno</span>
+                    <span> - </span>
+                    <span *ngIf="data.attendanceAllowEndDate">{{ data.attendanceAllowEndDate | date: 'd.M.yyyy HH:mm'
+                        }}</span>
+                    <span *ngIf="!data.attendanceAllowEndDate">neomezeno</span>
+                </td>
+                <td>{{ data.attendanceSignOffEndDate | date: 'd.M.yyyy HH:mm' }}</td>
+                <td>{{ data.location }}</td>
+                <td> <i class="fa" [class.fa-check]="data.visible" [class.fa-times]="!data.visible"
+                        [class.active-icon]="data.visible" [class.fade-out-icon]="!data.visible">
+                    </i>
+                </td>
+                <td>
+                    <!-- <td><i class="fa @((item.vkCourse.hasEvaluation ? "fa-check" : "fa-times"))" style="@(item.vkCourse.hasEvaluation? "color:#28a745;" : "color:#bcbcbc;")"></i></td> -->
+                    <i class="fa" [class.fa-check]="data.blockActionRestriction.allowExternalUsers"
+                        [class.fa-times]="!data.blockActionRestriction.allowExternalUsers"
+                        [class.active-icon]="data.blockActionRestriction.allowExternalUsers"
+                        [class.fade-out-icon]="!data.blockActionRestriction.allowExternalUsers">
 
-            </td>
-            <td>
-                <!-- nz-tooltip
-                nzTooltipTitle="Akce v bloku vidí pouze tito studenti, pokud tedy akce není veřejná. Kliknutím zobrazíte seznam studentů." -->
-                <span>
-                    <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'"
-                        [text]="data.signedUsersCount + '/' + data.blockActionRestriction.maxCapacity">
-                    </app-icon-text>
-                </span>
-            </td>
-            <td>
-                <span>
-                    <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'" [text]="data.usersInQueueCount">
-                    </app-icon-text>
-                </span>
-            </td>
+                    </i>
+                </td>
+                <td>
+                    <i class="fa" [class.fa-check]="data.blockActionRestriction.allowOnlyStudentsOnWhiteList"
+                        [class.fa-times]="!data.blockActionRestriction.allowOnlyStudentsOnWhiteList"
+                        [class.active-icon]="data.blockActionRestriction.allowOnlyStudentsOnWhiteList"
+                        [class.fade-out-icon]="!data.blockActionRestriction.allowOnlyStudentsOnWhiteList">
+                    </i>
 
-        </tr>
-    </tbody>
-</nz-table>
+                </td>
+                <td>
+                    <!-- nz-tooltip
+                    nzTooltipTitle="Akce v bloku vidí pouze tito studenti, pokud tedy akce není veřejná. Kliknutím zobrazíte seznam studentů." -->
+                    <span>
+                        <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'"
+                            [text]="data.signedUsersCount + '/' + data.blockActionRestriction.maxCapacity">
+                        </app-icon-text>
+                    </span>
+                </td>
+                <td>
+                    <span>
+                        <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'" [text]="data.usersInQueueCount">
+                        </app-icon-text>
+                    </span>
+                </td>
+
+            </tr>
+        </tbody>
+    </nz-table>
+
+</section>
