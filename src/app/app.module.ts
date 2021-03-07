@@ -76,7 +76,7 @@ export function tokenGetter(): string {
       provide: HTTP_INTERCEPTORS,
       useClass: DefaultInterceptor,
       multi: true,
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })
