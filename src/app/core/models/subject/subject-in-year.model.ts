@@ -5,4 +5,5 @@ export class SubjectInYearModel {
     year: string;
     description: string;
     dateIn: string;
+    ucitelName: string;
 }

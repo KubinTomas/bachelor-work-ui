@@ -13,6 +13,33 @@ export class SubjectInYearTermTableComponent implements OnInit {
 
   @Input() terms: SubjectInYearTermModel[];
   @Input() dataLoading: boolean;
+  @Input() subjectInYearId: number;
+
+  listOfTerms: SubjectInYearTermModel[];
+
+
+
+  listOfColumn = [
+    {
+      title: 'Semestr',
+      compare: (a: SubjectInYearTermModel, b: SubjectInYearTermModel) => a.term.localeCompare(b.term),
+      priority: 1
+    },
+    {
+      title: 'Tvůrce',
+      compare: (a: SubjectInYearTermModel, b: SubjectInYearTermModel) => a.ucitelName.localeCompare(b.ucitelName),
+      priority: 2
+    },
+    {
+      title: 'Vytvořeno',
+      compare: (a: SubjectInYearTermModel, b: SubjectInYearTermModel) => a.dateIn > b.dateIn,
+      priority: 3
+    },
+    {
+      title: 'Akce',
+
+    }
+  ];
 
   constructor(
     private router: Router,
@@ -24,7 +51,7 @@ export class SubjectInYearTermTableComponent implements OnInit {
   }
 
   onRowClick(data: SubjectInYearTermModel): void {
-     this.goToTermDetail(data.id);
+    this.goToTermDetail(data.id);
   }
 
   goToTermDetail(termId: number): void {
@@ -55,5 +82,21 @@ export class SubjectInYearTermTableComponent implements OnInit {
     this.termService.delete(term.id).subscribe(() => {
       this.terms = this.terms.filter(c => c.id !== term.id);
     });
+  }
+
+
+  onSearchChange(value: string): void {
+
+    if (!this.listOfTerms) {
+      this.listOfTerms = [...this.terms];
+    }
+
+    if (!value) {
+      this.terms = [...this.listOfTerms];
+      return;
+    }
+
+    this.terms = this.listOfTerms.filter(c => c.term.toLowerCase().indexOf(value.toLowerCase()) > -1 ||
+      c.ucitelName.toLowerCase().indexOf(value.toLowerCase()) > -1);
   }
 }

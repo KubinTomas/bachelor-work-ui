@@ -28,28 +28,9 @@
         </div>
     </section>
 
-    <!--  Mozna dat sem title + tlacitko pridat hned vedle -->
-    <section class="subjects-wrapper table-wrapper">
-        <div class="action-bar">
-            <div>
-                <div class="search">
-                    <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
-                        <input type="text" nz-input placeholder="Vyhledat..." />
-                    </nz-input-group>
-                    <ng-template #prefixIconSearch>
-                        <i nz-icon nzType="search"></i>
-                    </ng-template>
-                </div>
-            </div>
-            <div class="ac-btn-1">
-                <button nz-button nzType="primary" (click)="onNewYearClick()"><i nz-icon nzType="plus"
-                        nzTheme="outline"></i>Nový rok</button>
-            </div>
+    <app-subject-in-year-table [subjectInYears]="subjectInYears" [dataLoading]="subjectInYearsDataLoading" [subjectId] = "subject.id">
+    </app-subject-in-year-table>
 
-        </div>
-        <app-subject-in-year-table [subjectInYears]="subjectInYears" [dataLoading]="subjectInYearsDataLoading">
-        </app-subject-in-year-table>
-    </section>
 </section>
 
 <div class="page-loader-wrapper" *ngIf="!subject">

@@ -5,4 +5,6 @@ export class SubjectInYearTermModel {
     term: string;
     subjectInYearName: string;
     subjectInYearYear: string;
+    ucitelName: string;
+    dateIn: Date;
 }

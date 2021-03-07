@@ -9,6 +9,7 @@ export class BlockModel {
     name: string;
     ucitelName: string;
     whitelistUserCount: number;
+    dateIn: Date;
 
     blockRestriction: BlockRestrictionModel;
     term: SubjectInYearTermModel;

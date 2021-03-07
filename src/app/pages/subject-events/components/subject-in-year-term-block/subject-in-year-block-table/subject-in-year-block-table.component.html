@@ -1,69 +1,85 @@
-<nz-table #basicTable [nzData]="blocks" [nzLoading]="dataLoading">
-    <thead>
-        <tr>
-            <th>Jméno </th>
-            <th>Tvůrce</th>
-            <th>Vytvořeno</th>
-            <th>Externí uživatelé</th>
-            <th>Stag studenti </th>
-            <th>Studenti s přístupem</th>
-            <th>Přístupy/splnění</th>
-            <th>Akce</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)">
-            <td>{{ data.name }}</td>
-            <td>{{ data.ucitelName }}</td>
-            <td>{{ data.dateIn | date: 'd.M.yyyy' }}</td>
-            <td>
-                <!-- <td><i class="fa @((item.vkCourse.hasEvaluation ? "fa-check" : "fa-times"))" style="@(item.vkCourse.hasEvaluation? "color:#28a745;" : "color:#bcbcbc;")"></i></td> -->
-                <i class="fa" [class.fa-check]="data.blockRestriction.allowExternalUsers"
-                    [class.fa-times]="!data.blockRestriction.allowExternalUsers"
-                    [class.active-icon]="data.blockRestriction.allowExternalUsers"
-                    [class.fade-out-icon]="!data.blockRestriction.allowExternalUsers">
+<section class="subjects-wrapper table-wrapper">
+    <div class="action-bar">
+        <div>
+            <div class="search">
+                <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
+                    <input type="text" nz-input placeholder="Vyhledat..." #searchInput
+                        (input)="onSearchChange(searchInput.value)" />
+                </nz-input-group>
+                <ng-template #prefixIconSearch>
+                    <i nz-icon nzType="search"></i>
+                </ng-template>
+            </div>
+        </div>
+        <div class="ac-btn-1">
+            <button nz-button nzType="primary" [routerLink]="'/admin/term/' + termId +'/block/create'"><i nz-icon
+                    nzType="plus" nzTheme="outline"></i>Nový blok</button>
+        </div>
 
-                </i>
-            </td>
-            <td>
-                <i class="fa" [class.fa-check]="data.blockRestriction.allowOnlyStudentsOnWhiteList"
-                    [class.fa-times]="!data.blockRestriction.allowOnlyStudentsOnWhiteList"
-                    [class.active-icon]="data.blockRestriction.allowOnlyStudentsOnWhiteList"
-                    [class.fade-out-icon]="!data.blockRestriction.allowOnlyStudentsOnWhiteList">
-                </i>
+    </div>
 
-            </td>
-            <td>
-                <span nz-tooltip
-                    nzTooltipTitle="Akce v bloku vidí pouze tito studenti, pokud tedy akce není veřejná. Kliknutím zobrazíte seznam studentů.">
-                    <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'" [text]="data.whitelistUserCount">
+    <nz-table #basicTable [nzData]="blocks" [nzLoading]="dataLoading">
+        <thead>
+            <tr>
+                <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority">
+                    {{column.title }}</th>
+            <tr>
+
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)">
+                <td>{{ data.name }}</td>
+                <td>{{ data.ucitelName }}</td>
+                <td>{{ data.dateIn | date: 'd.M.yyyy' }}</td>
+                <td>
+                    <!-- <td><i class="fa @((item.vkCourse.hasEvaluation ? "fa-check" : "fa-times"))" style="@(item.vkCourse.hasEvaluation? "color:#28a745;" : "color:#bcbcbc;")"></i></td> -->
+                    <i class="fa" [class.fa-check]="data.blockRestriction.allowExternalUsers"
+                        [class.fa-times]="!data.blockRestriction.allowExternalUsers"
+                        [class.active-icon]="data.blockRestriction.allowExternalUsers"
+                        [class.fade-out-icon]="!data.blockRestriction.allowExternalUsers">
+
+                    </i>
+                </td>
+                <td>
+                    <i class="fa" [class.fa-check]="data.blockRestriction.allowOnlyStudentsOnWhiteList"
+                        [class.fa-times]="!data.blockRestriction.allowOnlyStudentsOnWhiteList"
+                        [class.active-icon]="data.blockRestriction.allowOnlyStudentsOnWhiteList"
+                        [class.fade-out-icon]="!data.blockRestriction.allowOnlyStudentsOnWhiteList">
+                    </i>
+
+                </td>
+                <td>
+                    <span nz-tooltip
+                        nzTooltipTitle="Akce v bloku vidí pouze tito studenti, pokud tedy akce není veřejná. Kliknutím zobrazíte seznam studentů.">
+                        <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'" [text]="data.whitelistUserCount">
+                        </app-icon-text>
+                    </span>
+                </td>
+                <td>
+                    <app-icon-text [clickAble]="false" [faIcon]="'fas fa-clipboard-list'"
+                        [text]="data.blockRestriction.actionAttendLimit + 'x' + (data.blockRestriction.actionAttendLimit == 0? ' (neomezeně)' : '')">
                     </app-icon-text>
-                </span>
-            </td>
-            <td>
-                <app-icon-text [clickAble]="false" [faIcon]="'fas fa-clipboard-list'"
-                    [text]="data.blockRestriction.actionAttendLimit + 'x' + (data.blockRestriction.actionAttendLimit == 0? ' (neomezeně)' : '')">
-                </app-icon-text>
-            </td>
-            <td>
-                <!-- | date: 'd.mm.yyyy' -->
-                <span (click)="onEditClick(data);$event.stopPropagation();">
-                    <app-edit-icon></app-edit-icon>
-                </span>
-                <span>
-                    <nz-divider nzType="vertical"></nz-divider>
-                </span>
-                <span (click)="onDeleteClick(data);$event.stopPropagation();">
-                    <app-delete-icon></app-delete-icon>
-                </span>
-                <span>
-                    <nz-divider nzType="vertical"></nz-divider>
-                </span>
-                <span (click)="onWhitelistClick(data);$event.stopPropagation();">
-                    <app-icon-text [clickAble]="true" [faIcon]="'fas fa-users'" [text]="'Přiřadit studenty'">
-                    </app-icon-text>
-                </span>
-            </td>
-        </tr>
-    </tbody>
-</nz-table>
+                </td>
+                <td>
+                    <!-- | date: 'd.mm.yyyy' -->
+                    <span (click)="onEditClick(data);$event.stopPropagation();">
+                        <app-edit-icon></app-edit-icon>
+                    </span>
+                    <span>
+                        <nz-divider nzType="vertical"></nz-divider>
+                    </span>
+                    <span (click)="onDeleteClick(data);$event.stopPropagation();">
+                        <app-delete-icon></app-delete-icon>
+                    </span>
+                    <span>
+                        <nz-divider nzType="vertical"></nz-divider>
+                    </span>
+                    <span (click)="onWhitelistClick(data);$event.stopPropagation();">
+                        <app-icon-text [clickAble]="true" [faIcon]="'fas fa-users'" [text]="'Přiřadit studenty'">
+                        </app-icon-text>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</section>

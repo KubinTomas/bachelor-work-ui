@@ -13,6 +13,47 @@ export class TermStagConnectionTableComponent implements OnInit {
 
   @Input() connections: TermStagConnectionModel[];
   @Input() dataLoading: boolean;
+  @Input() termId: number;
+
+  listOfConnections: TermStagConnectionModel[];
+
+  listOfColumn = [
+    {
+      title: 'Předmět',
+      compare: (a: TermStagConnectionModel, b: TermStagConnectionModel) => a.zkrPredm.localeCompare(b.zkrPredm),
+      priority: 1
+    },
+    {
+      title: 'Rok',
+      compare: (a: TermStagConnectionModel, b: TermStagConnectionModel) => a.formattedYear.localeCompare(b.formattedYear),
+      priority: 2
+    },
+    {
+      title: 'Semestr',
+      compare: (a: TermStagConnectionModel, b: TermStagConnectionModel) => a.term.localeCompare(b.term),
+      priority: 4
+    },
+    {
+      title: 'Tvůrce',
+      compare: (a: TermStagConnectionModel, b: TermStagConnectionModel) => a.ucitelName.localeCompare(b.ucitelName),
+      priority: 5
+    },
+    {
+      title: 'Počet studentů',
+      compare: (a: TermStagConnectionModel, b: TermStagConnectionModel) => a.pocetStudentu - b.pocetStudentu,
+      priority: 6
+    },
+    {
+      title: 'Vytvořeno',
+      compare: (a: TermStagConnectionModel, b: TermStagConnectionModel) => a.dateIn > b.dateIn,
+      priority: 7
+    },
+    {
+      title: 'Akce',
+
+    }
+  ];
+
 
   constructor(
     private router: Router,
@@ -48,5 +89,23 @@ export class TermStagConnectionTableComponent implements OnInit {
     this.stagConnectionService.delete(connection.id).subscribe(() => {
       this.connections = this.connections.filter(c => c.id !== connection.id);
     });
+  }
+
+  onSearchChange(value: string): void {
+
+    if (!this.listOfConnections) {
+      this.listOfConnections = [...this.connections];
+    }
+
+    if (!value) {
+      this.connections = [...this.listOfConnections];
+      return;
+    }
+
+    this.connections = this.listOfConnections.filter(c => c.zkrPredm.toLowerCase().indexOf(value.toLowerCase()) > -1 ||
+      c.predmetNazev.toLowerCase().indexOf(value.toLowerCase()) > -1 ||
+      c.formattedYear.toLowerCase().indexOf(value.toLowerCase()) > -1 ||
+      c.term.toLowerCase().indexOf(value.toLowerCase()) > -1 ||
+      c.ucitelName.toLowerCase().indexOf(value.toLowerCase()) > -1);
   }
 }

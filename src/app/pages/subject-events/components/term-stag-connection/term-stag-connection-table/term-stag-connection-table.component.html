@@ -1,34 +1,50 @@
-<nz-table #basicTable [nzData]="connections" [nzLoading]="dataLoading">
-    <thead>
-        <tr>
-            <th>Předmět </th>
-            <th>Rok</th>
-            <th>Semestr</th>
-            <th>Počet studentů</th>
-            <th>Tvůrce</th>
-            <th>Vytvořeno</th>
-            <th>Akce</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let data of basicTable.data">
-            <td>{{ data.zkrPredm }} - {{data.predmetNazev}}</td>
-            <td>{{ data.formattedYear }}</td>
-            <td>{{ data.term }}</td>
-            <td>
-                <span nz-tooltip
-                    nzTooltipTitle="Celkový počet studentů v předmětu. Ne každý student, ale musí být zapsán na rozvrhové akci.">
-                    <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'" [text]="data.pocetStudentu">
-                    </app-icon-text>
-                </span>
-            </td>
-            <td>{{ data.ucitelName }}</td>
-            <td>{{ data.dateIn | date: 'd.M.yyyy' }}</td>
-            <td>
-                <span (click)="onDeleteClick(data);$event.stopPropagation();" class="c-p">
-                    <app-delete-icon></app-delete-icon>
-                </span>
-            </td>
-        </tr>
-    </tbody>
-</nz-table>
+<section class="subjects-wrapper table-wrapper">
+    <div class="action-bar">
+        <div>
+            <div class="search">
+                <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
+                    <input type="text" nz-input placeholder="Vyhledat..." #searchInput
+                        (input)="onSearchChange(searchInput.value)" />
+                </nz-input-group>
+                <ng-template #prefixIconSearch>
+                    <i nz-icon nzType="search"></i>
+                </ng-template>
+            </div>
+        </div>
+        <div class="ac-btn-1">
+            <button nz-button nzType="primary" [routerLink]="'/admin/term/' + termId +'/stag-connection/create'"
+                class="btn-stag"><i nz-icon nzType="link" nzTheme="outline"></i>Nové stag propojení</button>
+        </div>
+
+    </div>
+    <nz-table #basicTable [nzData]="connections" [nzLoading]="dataLoading">
+        <thead>
+            <tr>
+                <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority">
+                    {{column.title }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTable.data">
+                <td>{{ data.zkrPredm }} - {{data.predmetNazev}}</td>
+                <td>{{ data.formattedYear }}</td>
+                <td>{{ data.term }}</td>
+                <td>{{ data.ucitelName }}</td>
+
+                <td>
+                    <span nz-tooltip
+                        nzTooltipTitle="Celkový počet studentů v předmětu. Ne každý student, ale musí být zapsán na rozvrhové akci.">
+                        <app-icon-text [clickAble]="false" [faIcon]="'fas fa-users'" [text]="data.pocetStudentu">
+                        </app-icon-text>
+                    </span>
+                </td>
+                <td>{{ data.dateIn | date: 'd.M.yyyy' }}</td>
+                <td>
+                    <span (click)="onDeleteClick(data);$event.stopPropagation();" class="c-p">
+                        <app-delete-icon></app-delete-icon>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</section>

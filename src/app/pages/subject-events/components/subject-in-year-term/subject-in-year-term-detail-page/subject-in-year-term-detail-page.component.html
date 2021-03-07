@@ -29,67 +29,13 @@
     </section>
 
 
-    <section class="subjects-wrapper table-wrapper">
-        <div class="action-bar">
-            <div>
-                <div class="search">
-                    <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
-                        <input type="text" nz-input placeholder="Vyhledat..." />
-                    </nz-input-group>
-                    <ng-template #prefixIconSearch>
-                        <i nz-icon nzType="search"></i>
-                    </ng-template>
-                </div>
-            </div>
-            <div class="ac-btn-1">
-                <button nz-button nzType="primary" [routerLink]="'/admin/term/' + term.id +'/block/create'"><i nz-icon
-                        nzType="plus" nzTheme="outline"></i>Nový blok</button>
-            </div>
+    <app-subject-in-year-block-table [blocks]="blocks" [dataLoading]="blocksDataLoading" [termId]="term.id">
+    </app-subject-in-year-block-table>
 
-        </div>
-        <app-subject-in-year-block-table [blocks]="blocks" [dataLoading]="blocksDataLoading">
-        </app-subject-in-year-block-table>
-    </section>
 
-    <section class="subjects-wrapper table-wrapper">
-        <div class="action-bar">
-            <div>
-                <div class="search">
-                    <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
-                        <input type="text" nz-input placeholder="Vyhledat..." />
-                    </nz-input-group>
-                    <ng-template #prefixIconSearch>
-                        <i nz-icon nzType="search"></i>
-                    </ng-template>
-                </div>
-            </div>
-            <div class="ac-btn-1">
-                <button nz-button nzType="primary" [routerLink]="'/admin/term/' + term.id +'/stag-connection/create'"
-                    class="btn-stag"><i nz-icon nzType="link" nzTheme="outline"></i>Nové stag propojení</button>
-            </div>
-
-        </div>
-        <app-term-stag-connection-table [connections]="connections" [dataLoading]="connectionsDataLoading">
-        </app-term-stag-connection-table>
-    </section>
-
-    <!-- <section>
-        <div class="title">
-            Stag propojení
-
-            <div style="float: right;" class="icon-hover">
-                <span nz-tooltip
-                    nzTooltipTitle="Stag propojení na předmět slouží k načtení rozvhorvých akcí a posléze k získání studentů, kteří jsou přiřazování do bloků.">
-                    <i class="fas fa-info-circle"></i>
-                </span>
-
-            </div>
-        </div>
-        <div class="subjects-wrapper">
-            <app-term-stag-connection-table [connections]="connections" [dataLoading]="connectionsDataLoading">
-            </app-term-stag-connection-table>
-        </div>
-    </section> -->
+    <app-term-stag-connection-table [connections]="connections" [dataLoading]="connectionsDataLoading"
+        [termId]="term.id">
+    </app-term-stag-connection-table>
 
 </section>
 

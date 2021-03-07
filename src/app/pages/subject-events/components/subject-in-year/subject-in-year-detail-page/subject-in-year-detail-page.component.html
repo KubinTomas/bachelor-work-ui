@@ -23,27 +23,10 @@
 
         </nz-page-header>
     </section>
-    <section class="subjects-wrapper table-wrapper">
-        <div class="action-bar">
-            <div>
-                <div class="search">
-                    <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
-                        <input type="text" nz-input placeholder="Vyhledat..." />
-                    </nz-input-group>
-                    <ng-template #prefixIconSearch>
-                        <i nz-icon nzType="search"></i>
-                    </ng-template>
-                </div>
-            </div>
-            <div class="ac-btn-1">
-                <button nz-button nzType="primary" [routerLink]="['/admin/term/create', subjectInYear.id]"><i nz-icon
-                        nzType="plus" nzTheme="outline"></i>Nový semestr</button>
-            </div>
+    <app-subject-in-year-term-table [terms]="terms" [dataLoading]="termDataLoading"
+        [subjectInYearId]="subjectInYear.id">
+    </app-subject-in-year-term-table>
 
-        </div>
-        <app-subject-in-year-term-table [terms]="terms" [dataLoading]="termDataLoading">
-        </app-subject-in-year-term-table>
-    </section>
 
 </section>
 

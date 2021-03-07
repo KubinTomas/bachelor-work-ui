@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { SubjectModel } from 'src/app/core/models/subject/subject.model';
@@ -14,13 +14,42 @@ import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/c
 export class SubjectTableComponent implements OnInit {
 
   @Input() subjects: SubjectModel[];
+  listOfSubjects: SubjectModel[];
+
   @Input() dataLoading: boolean;
+
+  listOfColumn = [
+    {
+      title: 'Jméno',
+      compare: (a: SubjectModel, b: SubjectModel) => a.name.localeCompare(b.name),
+      priority: 1
+    },
+    {
+      title: 'Fakulta/katedra',
+    },
+    {
+      title: 'Tvůrce',
+      compare: (a: SubjectModel, b: SubjectModel) => a.ucitelName.localeCompare(b.ucitelName),
+      priority: 3
+    },
+    {
+      title: 'Vytvořeno',
+      compare: (a: SubjectModel, b: SubjectModel) => a.dateIn > b.dateIn,
+      priority: 2
+    },
+    {
+      title: 'Akce',
+
+    }
+  ];
 
   constructor(
     private router: Router,
     private modal: NzModalService,
     private subjectService: SubjectService,
-  ) { }
+  ) {
+
+  }
 
   ngOnInit(): void {
   }
@@ -57,5 +86,20 @@ export class SubjectTableComponent implements OnInit {
     this.subjectService.delete(subject.id).subscribe(() => {
       this.subjects = this.subjects.filter(c => c.id !== subject.id);
     });
+  }
+
+  onSearchChange(value: string): void {
+
+    if (!this.listOfSubjects) {
+      this.listOfSubjects = [...this.subjects];
+    }
+
+    if (!value) {
+      this.subjects = [...this.listOfSubjects];
+      return;
+    }
+
+    this.subjects = this.listOfSubjects.filter(c => c.name.toLowerCase().indexOf(value.toLowerCase()) > -1
+      || c.ucitelName.toLowerCase().indexOf(value.toLowerCase()) > -1);
   }
 }

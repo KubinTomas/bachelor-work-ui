@@ -1,31 +1,50 @@
-<nz-table #basicTable [nzData]="subjectInYears" [nzLoading]="dataLoading">
-    <thead>
-        <tr>
-            <th>Rok</th>
-            <th>Jméno </th>
-            <th>Tvůrce</th>
-            <th>Vytvořeno</th>
-            <th>Akce</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)">
-            <td>{{ data.year }}</td>
-            <td>{{ data.name }}</td>
-            <td>{{ data.ucitelName }}</td>
-            <td>{{ data.dateIn | date: 'd.M.yyyy' }}</td>
-            <td>
-                <!-- | date: 'd.mm.yyyy' -->
-                <span (click)="onEditClick(data);$event.stopPropagation();">
-                    <app-edit-icon></app-edit-icon>
-                </span>
-                <span>
-                    <nz-divider nzType="vertical"></nz-divider>
-                </span>
-                <span (click)="onDeleteClick(data);$event.stopPropagation();">
-                    <app-delete-icon></app-delete-icon>
-                </span>
-            </td>
-        </tr>
-    </tbody>
-</nz-table>
+<section class="subjects-wrapper table-wrapper">
+    <div class="action-bar">
+        <div>
+            <div class="search">
+                <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
+                    <input type="text" nz-input placeholder="Vyhledat..." #searchInput
+                    (input)="onSearchChange(searchInput.value)" />
+                </nz-input-group>
+                <ng-template #prefixIconSearch>
+                    <i nz-icon nzType="search"></i>
+                </ng-template>
+            </div>
+        </div>
+        <div class="ac-btn-1">
+            <button nz-button nzType="primary" (click)="onNewYearClick()"><i nz-icon nzType="plus"
+                    nzTheme="outline"></i>Nový rok</button>
+        </div>
+
+    </div>
+    <nz-table #basicTable [nzData]="subjectInYears" [nzLoading]="dataLoading">
+        <thead>
+            <tr>
+                <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority">
+                    {{
+                    column.title }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)">
+                <td>{{ data.year }}</td>
+                <td>{{ data.name }}</td>
+                <td>{{ data.ucitelName }}</td>
+                <td>{{ data.dateIn | date: 'd.M.yyyy' }}</td>
+                <td>
+                    <!-- | date: 'd.mm.yyyy' -->
+                    <span (click)="onEditClick(data);$event.stopPropagation();">
+                        <app-edit-icon></app-edit-icon>
+                    </span>
+                    <span>
+                        <nz-divider nzType="vertical"></nz-divider>
+                    </span>
+                    <span (click)="onDeleteClick(data);$event.stopPropagation();">
+                        <app-delete-icon></app-delete-icon>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+
+</section>

@@ -1,28 +1,47 @@
-<nz-table #basicTable [nzData]="terms" [nzLoading]="dataLoading">
-    <thead>
-        <tr>
-            <th>Semestr</th>
-            <th>Tvůrce</th>
-            <th>Vytvořeno</th>
-            <th>Akce</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)">
-            <td>{{ data.term }}</td>
-            <td>{{ data.ucitelName }}</td>
-            <td>{{ data.dateIn | date: 'd.M.yyyy' }}</td>
-            <td>
-                <!-- <span (click)="onEditClick(data);$event.stopPropagation();">
-                    <app-edit-icon></app-edit-icon>
-                </span>
-                <span>
-                    <nz-divider nzType="vertical"></nz-divider>
-                </span> -->
-                <span (click)="onDeleteClick(data);$event.stopPropagation();">
-                    <app-delete-icon></app-delete-icon>
-                </span>
-            </td>
-        </tr>
-    </tbody>
-</nz-table>
+<section class="subjects-wrapper table-wrapper">
+    <div class="action-bar">
+        <div>
+            <div class="search">
+                <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
+                    <input type="text" nz-input placeholder="Vyhledat..." #searchInput
+                        (input)="onSearchChange(searchInput.value)" />
+                </nz-input-group>
+                <ng-template #prefixIconSearch>
+                    <i nz-icon nzType="search"></i>
+                </ng-template>
+            </div>
+        </div>
+        <div class="ac-btn-1">
+            <button nz-button nzType="primary" [routerLink]="['/admin/term/create', subjectInYearId]"><i nz-icon
+                    nzType="plus" nzTheme="outline"></i>Nový semestr</button>
+        </div>
+
+    </div>
+    <nz-table #basicTable [nzData]="terms" [nzLoading]="dataLoading">
+        <thead>
+            <tr>
+                <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority">
+                    {{
+                    column.title }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)">
+                <td>{{ data.term }}</td>
+                <td>{{ data.ucitelName }}</td>
+                <td>{{ data.dateIn | date: 'd.M.yyyy' }}</td>
+                <td>
+                    <!-- <span (click)="onEditClick(data);$event.stopPropagation();">
+                        <app-edit-icon></app-edit-icon>
+                    </span>
+                    <span>
+                        <nz-divider nzType="vertical"></nz-divider>
+                    </span> -->
+                    <span (click)="onDeleteClick(data);$event.stopPropagation();">
+                        <app-delete-icon></app-delete-icon>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</section>

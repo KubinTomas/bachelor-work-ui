@@ -13,6 +13,53 @@ export class SubjectInYearBlockTableComponent implements OnInit {
 
   @Input() blocks: BlockModel[];
   @Input() dataLoading: boolean;
+  @Input() termId: number;
+
+  listOfBlocks: BlockModel[];
+
+
+
+  listOfColumn = [
+    {
+      title: 'Jméno',
+      compare: (a: BlockModel, b: BlockModel) => a.name.localeCompare(b.name),
+      priority: 1
+    },
+    {
+      title: 'Tvůrce',
+      compare: (a: BlockModel, b: BlockModel) => a.ucitelName.localeCompare(b.ucitelName),
+      priority: 2
+    },
+    {
+      title: 'Vytvořeno',
+      compare: (a: BlockModel, b: BlockModel) => a.dateIn > b.dateIn,
+      priority: 4
+    },
+    {
+      title: 'Externí uživatelé',
+      compare: (a: BlockModel, b: BlockModel) => a.blockRestriction.allowExternalUsers  == false,
+      priority: 5
+    },
+    {
+      title: 'Stag studenti',
+      compare: (a: BlockModel, b: BlockModel) => a.blockRestriction.allowOnlyStudentsOnWhiteList == false,
+      priority: 6
+    },
+    {
+      title: 'Studenti s přístupem',
+      compare: (a: BlockModel, b: BlockModel) => a.whitelistUserCount - b.whitelistUserCount,
+      priority: 7
+    },
+    {
+      title: 'Přístupy/splnění',
+      compare: (a: BlockModel, b: BlockModel) => a.blockRestriction.actionAttendLimit - b.blockRestriction.actionAttendLimit,
+      priority: 8
+    },
+    {
+      title: 'Akce',
+
+    }
+  ];
 
   constructor(
     private router: Router,
@@ -62,5 +109,21 @@ export class SubjectInYearBlockTableComponent implements OnInit {
     this.blockService.delete(block.id).subscribe(() => {
       this.blocks = this.blocks.filter(c => c.id !== block.id);
     });
+  }
+
+
+  onSearchChange(value: string): void {
+
+    if (!this.listOfBlocks) {
+      this.listOfBlocks = [...this.blocks];
+    }
+
+    if (!value) {
+      this.blocks = [...this.listOfBlocks];
+      return;
+    }
+
+    this.blocks = this.listOfBlocks.filter(c => c.name.toLowerCase().indexOf(value.toLowerCase()) > -1 ||
+      c.ucitelName.toLowerCase().indexOf(value.toLowerCase()) > -1);
   }
 }
