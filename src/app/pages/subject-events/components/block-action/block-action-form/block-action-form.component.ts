@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzDatePickerComponent } from 'ng-zorro-antd/date-picker';
 import { BlockActionModel } from 'src/app/core/models/subject/block-action.model';
@@ -21,6 +21,8 @@ export class BlockActionFormComponent implements OnInit {
   form: FormGroup;
   action: BlockActionModel = new BlockActionModel();
   block: BlockModel;
+
+  previousStartDate: Date;
 
   constructor(
     private route: ActivatedRoute,
@@ -226,5 +228,33 @@ export class BlockActionFormComponent implements OnInit {
       this.form.controls[i].markAsTouched();
       this.form.controls[i].updateValueAndValidity();
     }
+  }
+
+  onStartDateChange(date: Date): void {
+  
+    if (this.previousStartDate) {
+      this.changeDateSignInSignOffDate(this.dateService.getDifferenceInMilliseconds(date, this.previousStartDate));
+    }
+
+    this.previousStartDate = new Date(date.getTime());
+  }
+
+  changeDateSignInSignOffDate(millisecondsDifference: number): void {
+
+    const attendanceAllowStartDate = this.form.get('attendanceAllowStartDate');
+    const attendanceAllowEndDate = this.form.get('attendanceAllowEndDate');
+    const attendanceSignOffEndDate = this.form.get('attendanceSignOffEndDate');
+
+    this.addTimeToControl(attendanceAllowStartDate, millisecondsDifference);
+    this.addTimeToControl(attendanceAllowEndDate, millisecondsDifference);
+    this.addTimeToControl(attendanceSignOffEndDate, millisecondsDifference);
+
+  }
+
+  addTimeToControl(control: AbstractControl, millisecondsDifference: number): void {
+    if (!control.value) {
+      return;
+    }
+    control.setValue(this.dateService.appendTimeToDate(control.value, millisecondsDifference));
   }
 }

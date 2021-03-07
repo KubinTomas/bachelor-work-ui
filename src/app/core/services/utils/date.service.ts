@@ -14,5 +14,16 @@ export class DateService {
     covertDateToAPIFriendlyFormat(date: Date): string {
         return this.covertDateToISO(date);
     }
+
+
+    getDifferenceInMilliseconds(date1: Date, date2: Date): number {
+        console.log(date1);
+        console.log(date2);
+        return date1.getTime() - date2.getTime();
+    }
+
+    appendTimeToDate(date: Date, milliseconds: number): Date {
+        return new Date(date.getTime() + milliseconds);
+    }
 }
 

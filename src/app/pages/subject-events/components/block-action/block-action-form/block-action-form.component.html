@@ -95,7 +95,7 @@
                     <nz-form-control [nzErrorTip]="errorTpl">
                         <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm" formControlName="startDate"
                             [nzShowTime]="{ nzFormat: 'HH:mm' }" nzPlaceHolder="začátek akce"
-                            (nzOnOpenChange)="handleStartOpenChange($event)">
+                            (nzOnOpenChange)="handleStartOpenChange($event)" (ngModelChange) = "onStartDateChange($event)">
                         </nz-date-picker>
                         -
                         <nz-date-picker #endDatePicker nzShowTime formControlName="endDate" nzFormat="yyyy-MM-dd HH:mm"

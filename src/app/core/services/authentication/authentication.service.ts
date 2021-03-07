@@ -68,8 +68,11 @@ export class AuthenticationService {
 
   login(loginModel: LoginModel): Observable<LoginResponseModel> {
     let headers = new HttpHeaders();
-    headers = headers.append('email', loginModel.email);
-    headers = headers.append('password', loginModel.password);
+
+    if (loginModel.email) {
+      headers = headers.append('email', loginModel.email);
+      headers = headers.append('password', loginModel.password);
+    }
 
     return this.httpClient.get<LoginResponseModel>(apiUrl + '/authentication/login', { headers });
   }
