@@ -1,6 +1,6 @@
 <ng-container *ngIf="block">
     <nz-page-header [nzGhost]="false" class="site-page-header">
-        <nz-page-header-title>Nový blok</nz-page-header-title>
+        <nz-page-header-title>Nová akce</nz-page-header-title>
         <nz-page-header-subtitle></nz-page-header-subtitle>
         <nz-page-header-extra>
             <!-- <button nz-button nzType="secondary" class="form-back" (click)="back()">Zpět</button> -->
@@ -19,7 +19,10 @@
                     <a [routerLink]="['/admin/term/detail', block.termId]">Detail semestru</a>
                 </nz-breadcrumb-item>
                 <nz-breadcrumb-item>
-                    <a>Formulář bloku</a>
+                    <a [routerLink]="['/admin/block', block.id]">Detail bloku</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a>Formulář akce</a>
                 </nz-breadcrumb-item>
             </nz-breadcrumb>
         </nz-page-header-content>

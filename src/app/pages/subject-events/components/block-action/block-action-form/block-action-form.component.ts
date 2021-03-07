@@ -8,6 +8,7 @@ import { BlockModel } from 'src/app/core/models/subject/block.model';
 import { ActionService } from 'src/app/core/services/subject/action.service';
 import { BlockService } from 'src/app/core/services/subject/block.service';
 import { DateService } from 'src/app/core/services/utils/date.service';
+import { NotificationToastrService } from 'src/app/core/services/notification/notification-toastr.service';
 
 @Component({
   selector: 'app-block-action-form',
@@ -24,6 +25,8 @@ export class BlockActionFormComponent implements OnInit {
 
   previousStartDate: Date;
 
+  actionId: number;
+
   constructor(
     private route: ActivatedRoute,
     private blockService: BlockService,
@@ -31,13 +34,18 @@ export class BlockActionFormComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private actionService: ActionService,
-    private dateService: DateService
+    private dateService: DateService,
+    private toastrNotificationService: NotificationToastrService
   ) {
 
     this.route.params.subscribe(params => {
       this.form = null;
 
       const blockId = Number(params.blockId);
+
+      if (params.actionId) {
+        this.actionId = Number(params.actionId);
+      }
 
       if (blockId) {
         this.getBlock(blockId);
@@ -56,7 +64,7 @@ export class BlockActionFormComponent implements OnInit {
 
     if (this.form.valid) {
       const action = this.form.value as BlockActionModel;
-      action.id = this.action.id;
+      // action.id = this.action.id;
       action.blockId = this.block.id;
 
       action.startDate = this.dateService.covertDateToAPIFriendlyFormat(new Date(action.startDate));
@@ -164,6 +172,19 @@ export class BlockActionFormComponent implements OnInit {
     });
   }
 
+  getAction(actionId: number): void {
+    this.actionService.getSingle(actionId).subscribe(res => {
+      this.action = res;
+
+      this.action.id = null;
+
+      this.buildForm();
+    },(error) => {
+      this.toastrNotificationService.showError('Nepodařilo se načíst akci');
+    });
+  }
+
+
   getBlock(blockId: number): void {
     this.blockService.getSingle(blockId).subscribe(res => {
       this.block = res;
@@ -173,7 +194,13 @@ export class BlockActionFormComponent implements OnInit {
         this.action.blockActionRestriction.allowOnlyStudentsOnWhiteList = this.block.blockRestriction.allowOnlyStudentsOnWhiteList;
       }
 
-      this.buildForm();
+      if (this.actionId) {
+        this.getAction(this.actionId);
+      } else {
+        this.buildForm();
+      }
+
+
     });
   }
 
@@ -231,7 +258,7 @@ export class BlockActionFormComponent implements OnInit {
   }
 
   onStartDateChange(date: Date): void {
-  
+
     if (this.previousStartDate) {
       this.changeDateSignInSignOffDate(this.dateService.getDifferenceInMilliseconds(date, this.previousStartDate));
     }

@@ -57,10 +57,12 @@ export class DefaultComponent implements OnInit, OnDestroy {
 
   logout(): void {
     this.store.dispatch(AuthActions.logout());
+    // this.authService.logout().subscribe(() => {
+    //   this.store.dispatch(AuthActions.logout());
+    // });
   }
 
   consoleLogAboutMe(): void {
-    console.log(this.user);
   }
 
   changeRole(userName: string): void {

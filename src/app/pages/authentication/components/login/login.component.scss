@@ -16,7 +16,7 @@ $stag-login-color: #6f5499;
     left: 50%;
     transform: translate(-50%, -50%);
   }
-  .login-stag-btn{
+  .login-stag-btn {
     background-color: $stag-login-color;
     border-color: $stag-login-color;
   }
@@ -26,10 +26,17 @@ $stag-login-color: #6f5499;
   .login-form-forgot {
     float: right;
   }
-  .login-form-register{
+  .login-form-register {
     float: left;
   }
   .login-form-button {
     width: 100%;
   }
+}
+
+.error {
+  color: red;
+}
+.error-b {
+  border-color: red;
 }

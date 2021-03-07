@@ -81,7 +81,13 @@
                         </app-icon-text>
                     </span>
                 </td>
-
+                <td>
+                    <span (click)="$event.stopPropagation();"
+                        [routerLink]="'/admin/action/create/' + blockId + '/' + data.id">
+                        <app-icon-text [clickAble]="true" [faIcon]="'fas fa-clone'" [text]="'Duplikovat akci'">
+                        </app-icon-text>
+                    </span>
+                </td>
             </tr>
         </tbody>
     </nz-table>

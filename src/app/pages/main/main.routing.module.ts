@@ -100,6 +100,10 @@ const routes: Routes = [
                 canActivate: [AdminGuard]
             },
             {
+                path: 'admin/action/create/:blockId/:actionId', component: BlockActionFormComponent,
+                canActivate: [AdminGuard]
+            },
+            {
                 path: 'admin/block/:blockId', component: BlockDetailPageComponent,
                 canActivate: [AdminGuard]
             },

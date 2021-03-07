@@ -17,6 +17,8 @@ export class LoginComponent implements OnInit {
   form!: FormGroup;
   processingForm = false;
 
+  loginFailed = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
@@ -38,6 +40,7 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(loginModel).subscribe(() => {
       this.getUser();
     }, (error) => {
+      this.loginFailed = true;
       this.processingForm = false;
     });
   }

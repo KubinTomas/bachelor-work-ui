@@ -70,7 +70,11 @@ export class BlockActionTableComponent implements OnInit {
       title: 'Fronta',
       compare: (a: BlockActionModel, b: BlockActionModel) => a.usersInQueueCount - b.usersInQueueCount,
       priority: 11
+    },
+    {
+      title: 'Akce',
     }
+
   ];
 
 
@@ -132,4 +136,5 @@ export class BlockActionTableComponent implements OnInit {
       || (c.location && c.location.toLowerCase().indexOf(value.toLowerCase()) > -1)
     );
   }
+
 }

@@ -18,6 +18,9 @@
                     </nz-input-group>
                 </nz-form-control>
             </nz-form-item>
+            <div *ngIf="loginFailed" class="error">
+                Přihlášení selhalo, email a nebo heslo není správné.
+            </div>
             <div nz-row class="login-form-margin">
                 <div nz-col [nzSpan]="12">
                     <a class="login-form-register" routerLink="/registration">Registrovat se</a>
