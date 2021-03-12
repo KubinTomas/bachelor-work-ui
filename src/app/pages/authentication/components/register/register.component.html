@@ -90,6 +90,10 @@
                 <div nz-col [nzSpan]="12">
                     <a class="registration-form-register" routerLink="/login">Přihlásit se</a>
                 </div>
+                <div nz-col [nzSpan]="12">
+                    <a class="registration-form-confirm" (click)="onOpenConfirmAccountModal()">Odeslat ověřovací
+                        email</a>
+                </div>
             </div>
             <button nz-button class="registration-form-button registration-form-margin" [nzType]="'primary'"
                 [nzLoading]="creatingUser" type="submit">Registrovat
@@ -101,3 +105,11 @@
     </div>
 
 </div>
+
+<nz-modal [(nzVisible)]="confirmEmailModalVisible" nzTitle="Odeslat ověřovací email" nzOkText="Odeslat"
+    [nzOkLoading]="confirmEmailModalOkLoading" nzCancelText="Zavřít" (nzOnCancel)="confirmModalHandleCancel()"
+    (nzOnOk)="confirmModalHandleOk()">
+    <ng-container *nzModalContent>
+        <input nz-input placeholder="emailová adresa" [(ngModel)]="confirmEmail" />
+    </ng-container>
+</nz-modal>

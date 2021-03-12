@@ -12,10 +12,11 @@ import * as fromAuth from './store/auth.reducer';
 import { AuthEffects } from './store/auth.effects';
 import { PasswordValidator } from 'src/app/core/validators/password-match.validator';
 import { EmailValidators } from 'src/app/core/validators/email.validator';
+import { ConfirmAccountComponent } from './components/confirm-account/confirm-account.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, LoginStagValidationComponent],
+  declarations: [LoginComponent, RegisterComponent, LoginStagValidationComponent, ConfirmAccountComponent],
   imports: [
     CommonModule,
     NgZorroModule,

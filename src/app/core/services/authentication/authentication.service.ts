@@ -119,4 +119,18 @@ export class AuthenticationService {
     return this.httpClient.get<boolean>(apiUrl + '/authentication/email/available', { headers });
   }
 
+  sendConfirmEmail(email: string): Observable<boolean> {
+    let headers = new HttpHeaders();
+    headers = headers.append('email', email);
+
+    return this.httpClient.get<boolean>(apiUrl + '/authentication/email/send-confirm', { headers });
+  }
+
+  confirmEmail(guid: string): Observable<boolean> {
+    let headers = new HttpHeaders();
+    headers = headers.append('guid', guid);
+
+    return this.httpClient.get<boolean>(apiUrl + '/authentication/account/confirm', { headers });
+  }
+
 }

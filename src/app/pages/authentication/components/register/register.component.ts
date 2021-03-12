@@ -6,6 +6,7 @@ import { AuthenticationService } from 'src/app/core/services/authentication/auth
 import { NotificationToastrService } from 'src/app/core/services/notification/notification-toastr.service';
 import { Router } from '@angular/router';
 import { EmailValidators } from 'src/app/core/validators/email.validator';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-register',
@@ -16,6 +17,10 @@ export class RegisterComponent implements OnInit {
 
   form!: FormGroup;
   creatingUser = false;
+
+  confirmEmailModalVisible = false;
+  confirmEmailModalOkLoading = false;
+  confirmEmail = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -83,6 +88,24 @@ export class RegisterComponent implements OnInit {
 
   }
 
+  onOpenConfirmAccountModal(): void {
+    this.confirmEmail = '';
+    this.confirmEmailModalVisible = true;
+  }
 
+  confirmModalHandleCancel(): void {
+    this.confirmEmailModalVisible = false;
+  }
 
+  confirmModalHandleOk(): void {
+    this.confirmEmailModalOkLoading = true;
+
+    this.authService.sendConfirmEmail(this.confirmEmail).subscribe(() => {
+      this.toastrNotificationService.showSuccess('Ověřovací email byl odeslán');
+      this.confirmEmailModalVisible = false;
+      this.confirmEmailModalOkLoading = false;
+    }, (error) => {
+      this.confirmEmailModalOkLoading = false;
+    });
+  }
 }
