@@ -71,7 +71,7 @@ export class TermStagConnectionTableComponent implements OnInit {
 
   showDeleteConfirm(connection: TermStagConnectionModel): void {
     const title = 'Smazat propojení <b>' + connection.zkrPredm + ' - ' + connection.predmetNazev + '</b>?';
-    const content = 'Smazání je nevratný proces, jste si jist?';
+    const content = 'Smazání je nevratný proces, jste si jist? Obsahující data nebudou smazána a můžete přijít o přístup k vytvořeným akcím.';
 
     this.modal.confirm({
       nzTitle: title,

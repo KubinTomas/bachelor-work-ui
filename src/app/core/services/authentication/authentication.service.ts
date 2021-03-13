@@ -126,6 +126,13 @@ export class AuthenticationService {
     return this.httpClient.get<boolean>(apiUrl + '/authentication/email/send-confirm', { headers });
   }
 
+  sendRecoverPassword(email: string): Observable<boolean> {
+    let headers = new HttpHeaders();
+    headers = headers.append('email', email);
+
+    return this.httpClient.get<boolean>(apiUrl + '/authentication/password/send-recover', { headers });
+  }
+
   confirmEmail(guid: string): Observable<boolean> {
     let headers = new HttpHeaders();
     headers = headers.append('guid', guid);

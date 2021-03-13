@@ -26,7 +26,7 @@
                     <a class="login-form-register" routerLink="/registration">Registrovat se</a>
                 </div>
                 <div nz-col [nzSpan]="12">
-                    <a class="login-form-forgot">Zapomenuté heslo </a>
+                    <a class="login-form-forgot" (click)="onForgetPasswordClick()">Zapomenuté heslo </a>
                 </div>
             </div>
             <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'"
@@ -39,6 +39,16 @@
     </div>
 
 </div>
+
+<nz-modal [(nzVisible)]="forgetPasswordModalVisible" nzTitle="Obnovení hesla" nzOkText="Odeslat"
+    [nzOkLoading]="forgetPasswordModalOkLoading" nzCancelText="Zavřít" (nzOnCancel)="forgetPasswordHandleCancel()"
+    (nzOnOk)="forgetPasswordHandleOk()">
+    <ng-container *nzModalContent>
+        <input nz-input placeholder="emailová adresa" [(ngModel)]="forgetPasswordEmail" />
+    </ng-container>
+</nz-modal>
+
+
 <div>
     <div><span>Heslo:</span> <span> demo</span></div>
 

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { LoginModel } from 'src/app/core/models/authentication/login.model';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
+import { NotificationToastrService } from 'src/app/core/services/notification/notification-toastr.service';
 import { AppState } from 'src/app/store/app.reducer';
 import { AuthActions } from '../../store/auth-action-types';
 
@@ -19,11 +20,17 @@ export class LoginComponent implements OnInit {
 
   loginFailed = false;
 
+  forgetPasswordModalOkLoading = false;
+  forgetPasswordModalVisible = false;
+  forgetPasswordEmail = '';
+
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private store: Store<AppState>,
-    private router: Router
+    private router: Router,
+    private toastrNotificationService: NotificationToastrService,
+
   ) {
   }
 
@@ -73,5 +80,25 @@ export class LoginComponent implements OnInit {
 
   onStagLoginClick(): void {
     this.authenticationService.stagAuthentication.redirectToStagAuthorization();
+  }
+
+  onForgetPasswordClick(): void {
+    this.forgetPasswordModalVisible = true;
+    this.forgetPasswordModalOkLoading = false;
+  }
+
+  forgetPasswordHandleOk(): void {
+    this.forgetPasswordModalOkLoading = true;
+    this.authenticationService.sendRecoverPassword(this.forgetPasswordEmail).subscribe(() => {
+      this.toastrNotificationService.showSuccess('Email s pokyny pro obnovení hesla byl odeslán');
+      this.forgetPasswordModalVisible = false;
+      this.forgetPasswordModalOkLoading = false;
+    }, (error) => {
+      this.forgetPasswordModalOkLoading = false;
+    });
+  }
+
+  forgetPasswordHandleCancel(): void {
+    this.forgetPasswordModalVisible = false;
   }
 }

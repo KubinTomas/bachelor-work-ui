@@ -64,7 +64,7 @@ export class SubjectInYearTermTableComponent implements OnInit {
 
   showDeleteConfirm(term: SubjectInYearTermModel): void {
     const title = 'Smazat <b>' + term.term + '</b> semestr?';
-    const content = 'Smazání je nevratný proces, jste si jist?';
+    const content = 'Smazání je nevratný proces, jste si jist? Obsahující data nebudou smazána a můžete přijít o přístup k vytvořeným akcím.';
 
     this.modal.confirm({
       nzTitle: title,
