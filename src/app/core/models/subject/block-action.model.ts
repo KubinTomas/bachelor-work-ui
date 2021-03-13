@@ -32,6 +32,7 @@ export class BlockActionModel {
     signedUsersInQueue: ActionPersonModel[];
 
     block: BlockModel;
+    isDeleted: boolean;
 
     constructor() {
         this.visible = true;

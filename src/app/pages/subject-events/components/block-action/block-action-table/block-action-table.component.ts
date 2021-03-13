@@ -100,8 +100,8 @@ export class BlockActionTableComponent implements OnInit {
   }
 
   showDeleteConfirm(action: BlockActionModel): void {
-    const title = 'Smazat blok<b>' + action.name + '</b>?';
-    const content = 'Smazání je nevratný proces, jste si jist?';
+    const title = 'Smazat akci <b>' + action.name + '</b>?';
+    const content = 'Smazání je nevratný proces, jste si jist? U všech účastníků bude nastaveno, že se nezúčastnili a lidé ve frontě budou vyhozeni a do akce již nebude možné se přihlásit. Pokud máte oprávnění vidět osobní informace, bude odeslán i informační email o zrušení akce každému účastníkovi.';
 
     this.modal.confirm({
       nzTitle: title,
@@ -109,15 +109,22 @@ export class BlockActionTableComponent implements OnInit {
       nzOkText: 'Ano',
       nzOkType: 'danger',
       nzOkDanger: true,
-      nzOnOk: () => this.deleteSubject(action),
+      nzOnOk: () => this.deleteAction(action),
       nzCancelText: 'Ne',
       nzOnCancel: () => { }
     });
   }
 
-  deleteSubject(action: BlockActionModel): void {
+  deleteAction(action: BlockActionModel): void {
     this.actionService.delete(action.id).subscribe(() => {
-      this.actions = this.actions.filter(c => c.id !== action.id);
+
+      action.isDeleted = true;
+      // const index = this.actions.indexOf(action);
+
+      // if (index > -1) {
+
+      // }
+      // this.actions = this.actions.filter(c => c.id !== action.id);
     });
   }
 

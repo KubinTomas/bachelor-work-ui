@@ -52,8 +52,8 @@ export class StagAuthenticationService {
   }
 
   logout(): void {
-    console.log("CALLING LOGOUT");
     this.cookieService.delete(this.apiCookieName);
+    this.cookieService.delete(this.apiCookieName, '/');
   }
 
   saveCredentials(stagUserTicket: string): void {

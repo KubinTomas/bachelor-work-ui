@@ -4,50 +4,53 @@
             <nz-page-header-title>{{action.name}}</nz-page-header-title>
             <nz-page-header-subtitle></nz-page-header-subtitle>
             <nz-page-header-extra>
-                <ng-container *ngIf="action.canSignIn">
-                    <span nz-tooltip [nzTooltipTitle]="!action.dateRestrictionCanSignIn? 'Zápis není povolen': ''">
-                        <button nz-button nzType="default" [disabled]="!action.dateRestrictionCanSignIn"
-                            (click)="joinAction(action);$event.stopPropagation()">Přihlásit se</button>
-                    </span>
-                </ng-container>
-                <ng-container *ngIf="action.canSignInQueue">
-                    <span nz-tooltip [nzTooltipTitle]="!action.dateRestrictionCanSignIn? 'Zápis není povolen': ''">
-                        <button nz-button nzType="default" [disabled]="!action.dateRestrictionCanSignIn"
-                            (click)="onJoinActionQueue(action);$event.stopPropagation()">Přihlasit se do
-                            fronty</button>
-                    </span>
-                </ng-container>
-                <ng-container *ngIf="action.isUserSignedIn">
-                    <span nz-tooltip [nzTooltipTitle]="!action.canSignOfTheAction? 'Odzápis již není povolen': ''">
-                        <button nz-button nzType="default" nzDanger [disabled]="!action.canSignOfTheAction"
-                            (click)="leaveAction(action.id);$event.stopPropagation()">Odhlásit
-                            se</button>
-                    </span>
-                </ng-container>
-                <ng-container *ngIf="action.isUserSignedInQueue">
-                    <span nz-tooltip [nzTooltipTitle]="!action.canSignOfTheAction? 'Odzápis již není povolen': ''">
-                        <button nz-button nzType="default" nzDanger [disabled]="!action.canSignOfTheAction"
-                            (click)="leaveActionQueue(action.id);$event.stopPropagation()">Odhlásit se z
-                            fronty</button>
-                    </span>
-                </ng-container>
+                <ng-container *ngIf="!action.isDeleted">
+                    <ng-container *ngIf="action.canSignIn">
+                        <span nz-tooltip [nzTooltipTitle]="!action.dateRestrictionCanSignIn? 'Zápis není povolen': ''">
+                            <button nz-button nzType="default" [disabled]="!action.dateRestrictionCanSignIn"
+                                (click)="joinAction(action);$event.stopPropagation()">Přihlásit se</button>
+                        </span>
+                    </ng-container>
+                    <ng-container *ngIf="action.canSignInQueue">
+                        <span nz-tooltip [nzTooltipTitle]="!action.dateRestrictionCanSignIn? 'Zápis není povolen': ''">
+                            <button nz-button nzType="default" [disabled]="!action.dateRestrictionCanSignIn"
+                                (click)="onJoinActionQueue(action);$event.stopPropagation()">Přihlasit se do
+                                fronty</button>
+                        </span>
+                    </ng-container>
+                    <ng-container *ngIf="action.isUserSignedIn">
+                        <span nz-tooltip [nzTooltipTitle]="!action.canSignOfTheAction? 'Odzápis již není povolen': ''">
+                            <button nz-button nzType="default" nzDanger [disabled]="!action.canSignOfTheAction"
+                                (click)="leaveAction(action.id);$event.stopPropagation()">Odhlásit
+                                se</button>
+                        </span>
+                    </ng-container>
+                    <ng-container *ngIf="action.isUserSignedInQueue">
+                        <span nz-tooltip [nzTooltipTitle]="!action.canSignOfTheAction? 'Odzápis již není povolen': ''">
+                            <button nz-button nzType="default" nzDanger [disabled]="!action.canSignOfTheAction"
+                                (click)="leaveActionQueue(action.id);$event.stopPropagation()">Odhlásit se z
+                                fronty</button>
+                        </span>
+                    </ng-container>
 
-                <ng-container
-                    *ngIf="!action.blockAttendanceRestrictionAllowSignIn && !action.isUserSignedInQueue && !action.isUserSignedIn">
-                    <span
-                        *ngIf="action.blockAttendanceRestrictionAllowSignInMessageCode == actionBlockRequirementsCompleted"
-                        nz-tooltip
-                        nzTooltipTitle="Požadavku bloku byly splněny. Na další akce v rámci bloku se již není možné zapsat.">
-                        <app-icon-text [clickAble]="false" [faIcon]="'fa fa-check'" [text]="'Blok splněn'">
-                        </app-icon-text>
-                    </span>
-                    <span
-                        *ngIf="action.blockAttendanceRestrictionAllowSignInMessageCode == actionWaitingForAttendanceEvaluation"
-                        nz-tooltip
-                        nzTooltipTitle="Maximální počet přihlášení v rámci bloku. Čeká se až pořadatel vyhodnotí účast na předchozích akcí bloku. Blokovat Vás může i počet přihlášení ve frontě, který se uvolňuje v momentě, když již nemůžete být přesunut jako účastník (datum odzápisu akce).">
-                        <app-icon-text [clickAble]="false" [faIcon]="'fa fa-ban'" [text]="'Vyhodnocuje se docházka'">
-                        </app-icon-text>
-                    </span>
+                    <ng-container
+                        *ngIf="!action.blockAttendanceRestrictionAllowSignIn && !action.isUserSignedInQueue && !action.isUserSignedIn">
+                        <span
+                            *ngIf="action.blockAttendanceRestrictionAllowSignInMessageCode == actionBlockRequirementsCompleted"
+                            nz-tooltip
+                            nzTooltipTitle="Požadavku bloku byly splněny. Na další akce v rámci bloku se již není možné zapsat.">
+                            <app-icon-text [clickAble]="false" [faIcon]="'fa fa-check'" [text]="'Blok splněn'">
+                            </app-icon-text>
+                        </span>
+                        <span
+                            *ngIf="action.blockAttendanceRestrictionAllowSignInMessageCode == actionWaitingForAttendanceEvaluation"
+                            nz-tooltip
+                            nzTooltipTitle="Maximální počet přihlášení v rámci bloku. Čeká se až pořadatel vyhodnotí účast na předchozích akcí bloku. Blokovat Vás může i počet přihlášení ve frontě, který se uvolňuje v momentě, když již nemůžete být přesunut jako účastník (datum odzápisu akce).">
+                            <app-icon-text [clickAble]="false" [faIcon]="'fa fa-ban'"
+                                [text]="'Vyhodnocuje se docházka'">
+                            </app-icon-text>
+                        </span>
+                    </ng-container>
                 </ng-container>
             </nz-page-header-extra>
             <nz-page-header-content>

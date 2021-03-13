@@ -94,8 +94,6 @@ export class AuthEffects {
                 tap(() => {
                     this.authenticationService.stagAuthentication.logout();
 
-                    // this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }})
-
                     this.router.navigateByUrl('login');
                 })
             ),

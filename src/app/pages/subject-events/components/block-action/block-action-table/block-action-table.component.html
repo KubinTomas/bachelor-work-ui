@@ -31,7 +31,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)">
+            <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)" 
+            [class.action-deleted]="data.isDeleted"
+            nz-tooltip [nzTooltipTitle]="data.isDeleted? 'Akce je smazaná': ''"
+            >
                 <td>{{ data.name }}</td>
                 <td>{{ data.startDate | date: 'd.M.yyyy HH:mm' }} - {{ data.endDate | date: 'd.M.yyyy HH:mm'}}</td>
                 <td>
@@ -87,6 +90,14 @@
                         <app-icon-text [clickAble]="true" [faIcon]="'fas fa-clone'" [text]="'Duplikovat akci'">
                         </app-icon-text>
                     </span>
+                    <ng-container *ngIf="!data.isDeleted">
+                        <span>
+                            <nz-divider nzType="vertical"></nz-divider>
+                        </span>
+                        <span (click)="onDeleteClick(data);$event.stopPropagation();">
+                            <app-delete-icon></app-delete-icon>
+                        </span>
+                    </ng-container>
                 </td>
             </tr>
         </tbody>

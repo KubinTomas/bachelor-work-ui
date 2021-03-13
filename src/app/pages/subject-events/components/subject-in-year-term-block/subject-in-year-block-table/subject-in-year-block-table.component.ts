@@ -90,7 +90,7 @@ export class SubjectInYearBlockTableComponent implements OnInit {
   }
 
   showDeleteConfirm(block: BlockModel): void {
-    const title = 'Smazat blok<b>' + block.name + '</b>?';
+    const title = 'Smazat blok <b>' + block.name + '</b>?';
     const content = 'Smazání je nevratný proces, jste si jist?';
 
     this.modal.confirm({
