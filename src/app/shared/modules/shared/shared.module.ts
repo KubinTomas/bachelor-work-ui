@@ -10,6 +10,7 @@ import { IconTextComponent } from '../../components/icon-text/icon-text.componen
 import { MailModalComponent } from '../../components/mail-modal/mail-modal.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { FormsModule } from '@angular/forms';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     NzSpinModule,
     NzModalModule,
     NzSelectModule,
-    FormsModule
+    FormsModule,
+    EditorModule
   ],
   exports: [PageLoaderComponent, EditIconComponent, DeleteIconComponent, ConfirmModalComponent, IconTextComponent,
     MailModalComponent]

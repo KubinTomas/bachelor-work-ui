@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { tinyMceApiKey } from 'src/app/core/models/constants';
 import { PersonMailTo } from 'src/app/core/models/others/person-mail-to.model';
 
 @Component({
@@ -8,12 +9,15 @@ import { PersonMailTo } from 'src/app/core/models/others/person-mail-to.model';
 })
 export class MailModalComponent implements OnInit {
 
+  tinyMceApiKey = tinyMceApiKey;
   // attendance id or  queue id
   listOfSelectedEntryId: PersonMailTo[] = [];
   mailOptions: PersonMailTo[] = [];
 
   visible = false;
   isLoading = false;
+
+  tinyMceContent = '';
 
   constructor() { }
 
