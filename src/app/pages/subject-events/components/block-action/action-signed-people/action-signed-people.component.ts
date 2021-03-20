@@ -148,7 +148,13 @@ export class ActionSignedPeopleComponent implements OnInit {
     this.openSendMailModal(options);
   }
 
+  onSendSingleEmail(c: ActionPersonModel): void {
+    const option = new PersonMailTo(c.id, c.isStagStudent, c.studentOsCislo, c.fullname, c.rocnik, c.fakultaSp);
+
+    this.openSendMailModal([option]);
+  }
+
   openSendMailModal(options: PersonMailTo[]): void {
-    this.mailModalComponent.open(options);
+    this.mailModalComponent.open(options, this.action);
   }
 }

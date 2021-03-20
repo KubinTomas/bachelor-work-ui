@@ -179,3 +179,12 @@ $stag-btn-color-hover: rgba(255, 165, 0, 0.85);
         border-color: #ffb837 !important;
     }
 }
+
+.btn-send-mail-def {
+    border-color: orange !important;
+    color: orange !important;
+
+    &:hover {
+        border-color: #ffb837 !important;
+    }
+}

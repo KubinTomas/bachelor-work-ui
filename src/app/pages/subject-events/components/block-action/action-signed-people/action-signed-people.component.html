@@ -91,10 +91,20 @@
                         </ng-container>
                     </td>
                     <td>
-                        <button nz-button nzType="default" nzDanger nz-popconfirm
-                            nzPopconfirmTitle="Opravdu chcete uživatele vyhodit? Proces je nevratný."
-                            (nzOnConfirm)="kickUser(data.id)">Vyhodit
-                        </button>
+                        <span>
+                            <button nz-button nzType="default" nzDanger nz-popconfirm
+                                nzPopconfirmTitle="Opravdu chcete uživatele vyhodit? Proces je nevratný."
+                                (nzOnConfirm)="kickUser(data.id)">Vyhodit
+                            </button>
+                        </span>
+                        <span>
+                            <nz-divider nzType="vertical"></nz-divider>
+                        </span>
+                        <span>
+                            <button nz-button nzType="default" (click)="onSendEmail()" class="btn-send-mail-def"
+                                style="margin-top: 5px;"><i nz-icon nzType="mail" nzTheme="outline"></i>Poslat
+                                email</button>
+                        </span>
                     </td>
                 </tr>
             </tbody>

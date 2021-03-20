@@ -11,6 +11,7 @@ import { MailModalComponent } from '../../components/mail-modal/mail-modal.compo
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { FormsModule } from '@angular/forms';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 
 
@@ -22,7 +23,8 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     NzModalModule,
     NzSelectModule,
     FormsModule,
-    EditorModule
+    EditorModule,
+    NzInputModule
   ],
   exports: [PageLoaderComponent, EditIconComponent, DeleteIconComponent, ConfirmModalComponent, IconTextComponent,
     MailModalComponent]

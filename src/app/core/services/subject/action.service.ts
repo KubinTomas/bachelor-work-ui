@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Mail } from '../../models/others/mail.model';
 import { ActionPersonModel } from '../../models/persons/action-person.model';
 import { StudentModel } from '../../models/persons/student.model';
 import { BlockActionModel } from '../../models/subject/block-action.model';
@@ -58,5 +59,9 @@ export class ActionService {
 
   addStudent(student: StudentModel): Observable<any> {
     return this.httpClient.post<any>(apiUrl + '/teacher/action/add/student', student);
+  }
+
+  sendMail(mail: Mail): Observable<any> {
+    return this.httpClient.post<any>(apiUrl + '/teacher/action/mail/send', mail);
   }
 }

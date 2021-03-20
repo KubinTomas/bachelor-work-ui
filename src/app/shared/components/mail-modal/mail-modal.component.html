@@ -31,7 +31,19 @@
 
 
         <div class="text-area-wrapper">
-            <editor [apiKey]="tinyMceApiKey" [(ngModel)]="tinyMceContent" [init]="{height: 300,
+
+            <div>
+                <span>
+                    Předmět
+                </span>
+                <input nz-input placeholder="předmět" [(ngModel)]="subject" />
+            </div>
+
+            <div style="margin-top: 10px;">
+                <span>
+                    Obsah
+                </span>
+                <editor [apiKey]="tinyMceApiKey" [(ngModel)]="tinyMceContent" [init]="{height: 300,
                 menubar: false,
                 plugins: [
                   'advlist autolink lists link image charmap print preview anchor',
@@ -43,6 +55,7 @@
                   alignleft aligncenter alignright alignjustify | \
                   bullist numlist outdent indent | removeformat | help'
               }"></editor>
+            </div>
         </div>
     </ng-container>
 </nz-modal>
