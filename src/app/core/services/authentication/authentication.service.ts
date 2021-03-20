@@ -140,4 +140,13 @@ export class AuthenticationService {
     return this.httpClient.get<boolean>(apiUrl + '/authentication/account/confirm', { headers });
   }
 
+  recoverPassword(guid: string, password: string): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('guid', guid);
+    headers = headers.append('password', password);
+
+    return this.httpClient.get<any>(apiUrl + '/authentication/account/password-recover', { headers });
+  }
+
+
 }
