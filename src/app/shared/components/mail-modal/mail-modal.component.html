@@ -1,0 +1,36 @@
+<nz-modal [(nzVisible)]="visible" nzTitle="Poslání emailu" nzOkText="Odeslat" [nzWidth]="800" [nzOkLoading]="isLoading"
+    nzCancelText="Zavřít" (nzOnCancel)="close()" (nzOnOk)="onOk()">
+    <ng-container *nzModalContent>
+        <div>
+            <span>
+                <span>
+                    Poslat lidem
+                </span>
+                <nz-select [nzMaxTagCount]="10" [nzCustomTemplate]="selectTemplate"
+                    [nzMaxTagPlaceholder]="tagPlaceHolder" nzMode="multiple" style="width: 100%;"
+                    nzPlaceHolder="vyberete osoby, které dostanou email" [(ngModel)]="listOfSelectedEntryId">
+                    <nz-option *ngFor="let item of mailOptions" [nzLabel]="item.label" [nzValue]="item">
+                    </nz-option>
+                </nz-select>
+                <ng-template #selectTemplate let-selected>
+                    <div class="ant-select-selection-item-content">
+                        <ng-container *ngIf="selected.isStudent">
+                            <i class="fas fa-user-graduate"></i>
+                        </ng-container>
+                        <ng-container *ngIf="!selected.isStudent">
+                            <i class="fas fa-user"></i>
+                        </ng-container>
+                        <span> {{selected.nzLabel }}</span>
+                    </div>
+                </ng-template>
+                <ng-template #tagPlaceHolder let-selectedList> a {{ selectedList.length }} dalších označených
+                </ng-template>
+            </span>
+            <span></span>
+        </div>
+
+        <div class="text-area-wrapper">
+            AREA
+        </div>
+    </ng-container>
+</nz-modal>

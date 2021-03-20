@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NzTableComponent } from 'ng-zorro-antd/table';
+import { PersonMailTo } from 'src/app/core/models/others/person-mail-to.model';
 import { ActionPersonModel } from 'src/app/core/models/persons/action-person.model';
 import { BlockActionModel } from 'src/app/core/models/subject/block-action.model';
 import { NotificationToastrService } from 'src/app/core/services/notification/notification-toastr.service';
 import { ActionService } from 'src/app/core/services/subject/action.service';
+import { MailModalComponent } from 'src/app/shared/components/mail-modal/mail-modal.component';
 
 @Component({
   selector: 'app-action-signed-people',
@@ -12,6 +14,7 @@ import { ActionService } from 'src/app/core/services/subject/action.service';
 })
 export class ActionSignedPeopleComponent implements OnInit {
 
+  @ViewChild(MailModalComponent) mailModalComponent: MailModalComponent;
   @ViewChild(NzTableComponent) table: NzTableComponent;
   @ViewChild('searchInput') searchInput;
 
@@ -136,5 +139,15 @@ export class ActionSignedPeopleComponent implements OnInit {
     }
 
     this.onSearchChange(this.searchInput.nativeElement.value);
+  }
+
+  onSendEmail(): void {
+
+    const options = this.action.signedUsers
+      .map(c => new PersonMailTo(c.id, c.isStagStudent, c.studentOsCislo, c.fullname, c.rocnik, c.fakultaSp));
+
+    console.log(options);
+    console.log(this.action.signedUsers);
+    this.mailModalComponent.open(options);
   }
 }

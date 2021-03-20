@@ -169,3 +169,13 @@ $stag-btn-color-hover: rgba(255, 165, 0, 0.85);
 .action-deleted {
     background-color: #ffcece;
 }
+
+.btn-send-mail {
+    background-color: orange !important;
+    border-color: orange !important;
+
+    &:hover {
+        background-color: #ffb837 !important;
+        border-color: #ffb837 !important;
+    }
+}

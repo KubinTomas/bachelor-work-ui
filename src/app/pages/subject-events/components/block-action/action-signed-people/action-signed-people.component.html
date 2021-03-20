@@ -16,6 +16,9 @@
                 </div>
             </div>
             <div class="ac-btn-1">
+                <button nz-button nzType="primary" (click)="onSendEmail()" class="btn-send-mail"
+                    style="margin-right: 10px;"><i nz-icon nzType="mail" nzTheme="outline"></i>Poslat email</button>
+
                 <button nz-button nzType="primary" (click)="onAddParticipantClick()"><i nz-icon nzType="plus"
                         nzTheme="outline"></i>Přidat studenta</button>
             </div>
@@ -98,3 +101,5 @@
         </nz-table>
     </div>
 </section>
+
+<app-mail-modal></app-mail-modal>

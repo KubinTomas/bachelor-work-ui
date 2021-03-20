@@ -7,16 +7,22 @@ import { EditIconComponent } from '../../components/edit-icon/edit-icon.componen
 import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-modal.component';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { IconTextComponent } from '../../components/icon-text/icon-text.component';
+import { MailModalComponent } from '../../components/mail-modal/mail-modal.component';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { FormsModule } from '@angular/forms';
 
 
 
 @NgModule({
-  declarations: [PageLoaderComponent, EditIconComponent, DeleteIconComponent, ConfirmModalComponent, IconTextComponent],
+  declarations: [PageLoaderComponent, EditIconComponent, DeleteIconComponent, ConfirmModalComponent, IconTextComponent, MailModalComponent],
   imports: [
     CommonModule,
     NzSpinModule,
-    NzModalModule
+    NzModalModule,
+    NzSelectModule,
+    FormsModule
   ],
-  exports: [PageLoaderComponent, EditIconComponent, DeleteIconComponent, ConfirmModalComponent, IconTextComponent]
+  exports: [PageLoaderComponent, EditIconComponent, DeleteIconComponent, ConfirmModalComponent, IconTextComponent,
+    MailModalComponent]
 })
 export class SharedModule { }
