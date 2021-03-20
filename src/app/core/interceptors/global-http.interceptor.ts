@@ -15,7 +15,8 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
         return next.handle(req).pipe(
             catchError((error) => {
                 console.log('error is intercept');
-                console.error(error);
+                console.log(error);
+                // console.error(error);
                 return throwError(error.message);
             })
         );

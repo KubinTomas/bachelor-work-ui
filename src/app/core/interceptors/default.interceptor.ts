@@ -16,6 +16,7 @@ export class DefaultInterceptor implements HttpInterceptor {
 
   ) { }
 
+  // HttpEvent<any>
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     request = request.clone({
       withCredentials: true
@@ -29,8 +30,8 @@ export class DefaultInterceptor implements HttpInterceptor {
         }
 
         console.log('error is intercept');
-        console.error(error);
-        return throwError(error.message);
+        console.log(error);
+        return throwError(error);
       })
     );
   }

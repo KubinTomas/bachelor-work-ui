@@ -19,7 +19,7 @@
                 </nz-form-control>
             </nz-form-item>
             <div *ngIf="loginFailed" class="error">
-                Přihlášení selhalo, email a nebo heslo není správné.
+                {{errorMsg}}
             </div>
             <div nz-row class="login-form-margin">
                 <div nz-col [nzSpan]="12">

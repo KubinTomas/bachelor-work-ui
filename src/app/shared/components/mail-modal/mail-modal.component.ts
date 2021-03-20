@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { tinyMceApiKey } from 'src/app/core/models/constants';
 import { Mail } from 'src/app/core/models/others/mail.model';
@@ -5,6 +6,7 @@ import { PersonMailTo } from 'src/app/core/models/others/person-mail-to.model';
 import { BlockActionModel } from 'src/app/core/models/subject/block-action.model';
 import { NotificationToastrService } from 'src/app/core/services/notification/notification-toastr.service';
 import { ActionService } from 'src/app/core/services/subject/action.service';
+import { DateService } from 'src/app/core/services/utils/date.service';
 
 @Component({
   selector: 'app-mail-modal',
@@ -28,14 +30,20 @@ export class MailModalComponent implements OnInit {
   constructor(
     private actionService: ActionService,
     private notificationToastrService: NotificationToastrService,
+    private dateService: DateService
   ) { }
 
   ngOnInit(): void {
   }
 
+
+
   open(options: PersonMailTo[], action: BlockActionModel): void {
     this.actionId = action.id;
-    this.tinyMceContent = '';
+
+    console.log(action);
+    this.tinyMceContent = 'Akce, ' + action.name + ', konající se ' + this.dateService.getDateFormatV1(new Date(action.startDate));
+    // + this.datePipe.transform(action.startDate, 'd.M.yyyy HH:mm')
     this.isLoading = false;
 
     this.mailOptions = [...options];

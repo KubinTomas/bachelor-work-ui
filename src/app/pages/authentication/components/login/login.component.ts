@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   processingForm = false;
 
   loginFailed = false;
+  errorMsg = '';
 
   forgetPasswordModalOkLoading = false;
   forgetPasswordModalVisible = false;
@@ -47,6 +48,15 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(loginModel).subscribe(() => {
       this.getUser();
     }, (error) => {
+
+      if (error.error && error.error === 'error-login-failed') {
+        this.errorMsg = 'Přihlášení selhalo, email a nebo heslo není správné.';
+      }
+
+      if (error.error && error.error === 'error-confirm-account') {
+        this.errorMsg = 'Přihlášení selhalo, uživatelské konto není potrvrzené. (Sekce s registrací - Odeslat ověřovací email)';
+      }
+     
       this.loginFailed = true;
       this.processingForm = false;
     });

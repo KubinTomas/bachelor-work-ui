@@ -25,5 +25,10 @@ export class DateService {
     appendTimeToDate(date: Date, milliseconds: number): Date {
         return new Date(date.getTime() + milliseconds);
     }
+
+    // d.M.yyyy HH:mm
+    getDateFormatV1(date: Date): string {
+        return date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
+    }
 }
 

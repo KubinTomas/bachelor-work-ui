@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { PageLoaderComponent } from '../../components/page-loader/page-loader.component';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { DeleteIconComponent } from '../../components/delete-icon/delete-icon.component';
@@ -24,7 +24,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
     NzSelectModule,
     FormsModule,
     EditorModule,
-    NzInputModule
+    NzInputModule,
   ],
   exports: [PageLoaderComponent, EditIconComponent, DeleteIconComponent, ConfirmModalComponent, IconTextComponent,
     MailModalComponent]
