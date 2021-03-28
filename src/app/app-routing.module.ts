@@ -7,12 +7,16 @@ import { LoginStagValidationComponent } from './pages/authentication/components/
 import { LoginComponent } from './pages/authentication/components/login/login.component';
 import { RegisterComponent } from './pages/authentication/components/register/register.component';
 import { DefaultComponent } from './pages/main/components/default/default.component';
+import { AddActionLinkComponent } from './pages/student/components/actions/add-action-link/add-action-link.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'login/stag/validation', component: LoginStagValidationComponent },
   { path: 'account/confirm/:guid', component: ConfirmAccountComponent },
   { path: 'account/password-recovery/:guid', component: ForgetPasswordComponent },
+  {
+    path: 'action/join/:actionId', component: AddActionLinkComponent,
+  },
   { path: 'registration', component: RegisterComponent },
   { path: '', loadChildren: () => import('./pages/main/main.module').then(m => m.MainModule), canActivate: [AuthGuard] },
   { path: 'default', redirectTo: '' },

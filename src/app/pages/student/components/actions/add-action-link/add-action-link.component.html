@@ -1,0 +1,81 @@
+<div class="page-wrapper">
+    <div class="wrapper text-center">
+        <div class="" *ngIf="processing">
+            <nz-spin nzSimple></nz-spin>
+        </div>
+        <ng-container *ngIf="!processing">
+            <div *ngIf="!isLoggedIn" class="error">
+                <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+                Nejste přihlášen! Prosím přihlašte se a potom znovu vstupne na tuto stránku.
+                <br>
+                <a class="" routerLink="/login">Přihlásit se</a>
+            </div>
+            <div *ngIf="!isStudent" class="error">
+                <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+                Nejste v roli uživatele, který se na akce může přihlásit.
+            </div>
+
+            <div *ngIf="actionError" class="error">
+                <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+                Nepodařilo se získat akci.
+            </div>
+
+            <div *ngIf="action && !actionError && isStudent && isLoggedIn && !success" class="success">
+                <div *ngIf="!action.isUserSignedIn && !action.isUserSignedInQueue">
+                    <i nz-icon nzType="calendar" nzTheme="outline"></i>
+                    <p>Přihlásit se na akci <strong>{{action.name}}</strong>, konající se <strong>{{action.startDate |
+                            date:
+                            'd.M.yyyy HH:mm'}}</strong>?</p>
+                    <a (click) = "onJoinActionClick()">Přihlásit se</a>
+                    <br>
+                    <a [routerLink]="['/student/action/', action.id]">Zobrazit detail akce</a>
+                </div>
+                <div *ngIf="action.isUserSignedIn || action.isUserSignedInQueue">
+                    <i nz-icon nzType="calendar" nzTheme="outline"></i>
+                    <p>Na akci <strong>{{action.name}}</strong>, konající se <strong>{{action.startDate |
+                            date: 'd.M.yyyy HH:mm'}}</strong>, jste již přihlášen.</p>
+                    <p>
+                        <span *ngIf="action.isUserSignedIn">
+                            (Přihlášen jako účastník)
+                        </span>
+                        <span *ngIf="action.isUserSignedInQueue">
+                            (Přihlášen ve frontě)
+                        </span>
+                    </p>
+                    <a [routerLink]="['/student/action/', action.id]">Zobrazit detail akce</a>
+                </div>
+
+            </div>
+
+            <div *ngIf="success" class="success">
+                <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+                Byl jste přihlášen na akci.
+                <br>
+                <a class="" [routerLink]="['/student/action/', action.id]">Detail akce</a>
+            </div>
+        </ng-container>
+    </div>
+
+</div>
+
+
+<nz-modal [(nzVisible)]="actionJoinQueue" nzTitle="Plná kapacita - přihlášení do fronty"
+    (nzOnCancel)="joinActionQueueCancelModel()" *ngIf="actionJoinQueue">
+    <div *nzModalContent>
+        <p>Akce <strong>{{actionJoinQueue.name}}</strong> má již plnou kapacitu.</p>
+        <p>Chcete se přihlásit do fronty?</p>
+        <span style="font-style: italic;">
+            <p>Pokud se uvolní místo na akci a ve frontě budete první na řadě, systém Vás automaticky přesune do akce
+                jako
+                účastníka. (jako kdybyste se přihlásil)</p>
+
+            <p>Přesun z fronty je možný maximálně do: <strong>{{actionJoinQueue.attendanceSignOffEndDate | date:
+                    'd.M.yyyy HH:mm'}}</strong></p>
+        </span>
+
+    </div>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="joinActionQueueCancelModel()">Zrušit</button>
+        <button nz-button nzType="primary" (click)="joinActionQueue(actionJoinQueue.id)">Přihlásit se do fronty</button>
+    </div>
+</nz-modal>

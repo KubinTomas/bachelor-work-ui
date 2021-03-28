@@ -7,6 +7,7 @@ import { StudentGuard } from 'src/app/core/guards/student.guard';
 import { roleAdmin, roleStudent } from 'src/app/core/models/constants';
 import { StudentActionDetailComponent } from '../student/components/actions/student-action-detail/student-action-detail.component';
 import { StudentActionsTableComponent } from '../student/components/actions/student-actions-table/student-actions-table.component';
+import { AddActionLinkComponent } from '../student/components/actions/add-action-link/add-action-link.component';
 import { BlockActionDetailComponent } from '../subject-events/components/block-action/block-action-detail/block-action-detail.component';
 import { BlockActionFormComponent } from '../subject-events/components/block-action/block-action-form/block-action-form.component';
 import { BlockWhitelistComponent } from '../subject-events/components/block-whitelist/block-whitelist/block-whitelist.component';
@@ -37,7 +38,7 @@ const routes: Routes = [
                 canActivate: [StudentGuard]
             },
 
-
+      
             {
                 path: 'admin/subjects', component: SubjectPageComponent,
                 canActivate: [AdminGuard]
