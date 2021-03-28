@@ -68,7 +68,7 @@
     </div>
     <nz-table #basicTable [nzData]="actions" [nzLoading]="dataLoading">
         <thead>
-            <tr>
+            <!-- <tr>
                 <th>Jméno </th>
                 <th>Datum konání </th>
                 <th>Datum odzápisu </th>
@@ -77,11 +77,21 @@
                 <th>Přihlášeno</th>
                 <th>Fronta</th>
                 <th>Akce</th>
+            </tr> -->
+            <tr>
+                <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority">
+                    {{
+                    column.title }}</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)" [class.action-deleted]="data.isDeleted"
                 nz-tooltip [nzTooltipTitle]="data.isDeleted? 'Akce je smazaná': ''">
+                <td>
+                    <span nz-tooltip [nzTooltipTitle]="data.subjectYear + ', ' + data.subjectTerm">
+                        {{ data.subjectName }}
+                    </span>
+                </td>
                 <td>{{ data.name }}</td>
                 <td>{{ data.startDate | date: 'd.M.yyyy HH:mm' }} - {{ data.endDate | date: 'd.M.yyyy HH:mm'}}</td>
                 <td>{{ data.attendanceSignOffEndDate | date: 'd.M.yyyy HH:mm' }}</td>

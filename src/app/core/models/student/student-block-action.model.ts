@@ -3,6 +3,9 @@ export class StudentBlockActionModel {
     id: number;
     blockId: number;
     name: string;
+    subjectName: string;
+    subjectTerm: string;
+    subjectYear: string;
     location: string;
     description: string;
     color: string;

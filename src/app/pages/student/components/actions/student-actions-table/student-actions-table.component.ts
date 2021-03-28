@@ -27,6 +27,57 @@ export class StudentActionsTableComponent implements OnInit {
 
   filterText = '';
 
+  listOfColumn = [
+    {
+      title: 'Předmět',
+      compare: (a: StudentBlockActionModel, b: StudentBlockActionModel) => a.subjectName.localeCompare(b.subjectName),
+      priority: 0,
+    },
+    {
+      title: 'Jméno',
+      compare: (a: StudentBlockActionModel, b: StudentBlockActionModel) => a.name.localeCompare(b.name),
+      priority: 1,
+    },
+    {
+      title: 'Datum konání',
+      compare: (a: StudentBlockActionModel, b: StudentBlockActionModel) =>
+        new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
+      priority: 2,
+    },
+    {
+      title: 'Datum odzápisu',
+      compare: (a: StudentBlockActionModel, b: StudentBlockActionModel) =>
+        new Date(a.attendanceSignOffEndDate).getTime() - new Date(b.attendanceSignOffEndDate).getTime(),
+      priority: 3,
+    },
+    {
+      title: 'Zápis od do',
+      compare: (a: StudentBlockActionModel, b: StudentBlockActionModel) =>
+        a.attendanceAllowStartDate == 'neomezeno' && b.attendanceAllowStartDate == 'neomezeno' ?
+          true : new Date(a.attendanceAllowStartDate).getTime() - new Date(b.attendanceAllowStartDate).getTime(),
+      priority: 4,
+    },
+    {
+      title: 'Místo',
+      compare: (a: StudentBlockActionModel, b: StudentBlockActionModel) =>
+        a.location && b.location ? a.location.localeCompare(b.location) : true,
+      priority: 5,
+    },
+    {
+      title: 'Přihlášeno',
+      compare: (a: StudentBlockActionModel, b: StudentBlockActionModel) => a.signedUsersCount - b.signedUsersCount,
+      priority: 6,
+    },
+    {
+      title: 'Fronta',
+      compare: (a: StudentBlockActionModel, b: StudentBlockActionModel) => a.usersInQueueCount - b.usersInQueueCount,
+      priority: 7,
+    },
+    {
+      title: 'Akce',
+    },
+  ];
+
   constructor(
     private studentActionService: StudentActionService,
     private notificationToastrService: NotificationToastrService,
