@@ -22,6 +22,10 @@ export class ActionSignedPeopleComponent implements OnInit {
 
   @Input() action: BlockActionModel;
 
+  visible = false;
+  isLoading = false;
+  attendance = 1;
+
   listOfPeople: ActionPersonModel[];
 
   listOfColumn = [
@@ -156,5 +160,47 @@ export class ActionSignedPeopleComponent implements OnInit {
 
   openSendMailModal(options: PersonMailTo[]): void {
     this.mailModalComponent.open(options, this.action);
+  }
+
+  onChangeAttendanceClick(): void {
+    this.visible = true;
+  }
+
+  close(): void {
+    this.visible = false;
+  }
+
+
+  onOk(): void {
+
+    this.isLoading = true;
+    this.actionService.changeAttendanceClick(this.action.id, this.attendance).subscribe(res => {
+
+      if (!this.listOfPeople) {
+        this.listOfPeople = [...this.action.signedUsers];
+      }
+
+      this.action.signedUsers.forEach(c => {
+        c.fulfilled = res.fulfilled;
+        c.evaluationDate = res.date;
+      });
+
+      this.listOfPeople.forEach(c => {
+        c.fulfilled = res.fulfilled;
+        c.evaluationDate = res.date;
+      });
+
+      if (res.fulfilled) {
+        this.notificationToastrService.showSuccess('Označeno jako splněno', '', 1500);
+      } else {
+        this.notificationToastrService.showWarning('Označeno jako nesplněno', '', 1500);
+      }
+
+      this.isLoading = false;
+      this.close();
+    }, (error) => {
+      this.notificationToastrService.showWarning('Došlo k neočekávané chybě', '', 1500);
+      this.isLoading = false;
+    });
   }
 }

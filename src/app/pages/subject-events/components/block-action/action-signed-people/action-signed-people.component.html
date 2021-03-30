@@ -16,6 +16,10 @@
                 </div>
             </div>
             <div class="ac-btn-1">
+
+                <button nz-button nzType="primary" style="margin-right: 10px;" (click)="onChangeAttendanceClick()"><i
+                        nz-icon nzType="unordered-list" nzTheme="outline"></i>Vyhodnotit docházku</button>
+
                 <button nz-button nzType="primary" (click)="onSendEmail()" class="btn-send-mail"
                     style="margin-right: 10px;"><i nz-icon nzType="mail" nzTheme="outline"></i>Poslat email</button>
 
@@ -113,3 +117,25 @@
 </section>
 
 <app-mail-modal></app-mail-modal>
+
+<nz-modal [(nzVisible)]="visible" nzTitle="Nastavení docházky u všech účastníků" nzOkText="Uložit" [nzWidth]="800"
+    [nzOkLoading]="isLoading" nzCancelText="Zavřít" (nzOnCancel)="close()" (nzOnOk)="onOk()">
+    <ng-container *nzModalContent>
+        <div>
+            <span>
+                <span>
+                    Nastavit docházku u všech jako
+                </span>
+                <nz-select style="width: 100%;" [nzAllowClear]="false" [(ngModel)]="attendance">
+                    <nz-option [nzLabel]="'Splnil'" [nzValue]="1">
+                    </nz-option>
+                    <nz-option [nzLabel]="'Nesplnil'" [nzValue]="0">
+                    </nz-option>
+                </nz-select>
+
+            </span>
+            <span></span>
+        </div>
+      
+    </ng-container>
+</nz-modal>

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ChangeActionAttendanceResult } from '../../models/others/change-action-attendance-result.model';
 import { Mail } from '../../models/others/mail.model';
 import { ActionPersonModel } from '../../models/persons/action-person.model';
 import { StudentModel } from '../../models/persons/student.model';
@@ -64,4 +65,9 @@ export class ActionService {
   sendMail(mail: Mail): Observable<any> {
     return this.httpClient.post<any>(apiUrl + '/teacher/action/mail/send', mail);
   }
+
+  changeAttendanceClick(actionId: number, attendance: number): Observable<ChangeActionAttendanceResult> {
+    return this.httpClient.get<ChangeActionAttendanceResult>(apiUrl + '/teacher/action/attendance/set-all/' + actionId + '/' + attendance);
+  }
+
 }
