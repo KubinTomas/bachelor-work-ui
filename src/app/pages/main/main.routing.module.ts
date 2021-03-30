@@ -38,7 +38,7 @@ const routes: Routes = [
                 canActivate: [StudentGuard]
             },
 
-      
+
             {
                 path: 'admin/subjects', component: SubjectPageComponent,
                 canActivate: [AdminGuard]
@@ -102,6 +102,10 @@ const routes: Routes = [
             },
             {
                 path: 'admin/action/create/:blockId/:actionId', component: BlockActionFormComponent,
+                canActivate: [AdminGuard]
+            },
+            {
+                path: 'admin/action/edit/:blockId/:actionId', component: BlockActionFormComponent,
                 canActivate: [AdminGuard]
             },
             {

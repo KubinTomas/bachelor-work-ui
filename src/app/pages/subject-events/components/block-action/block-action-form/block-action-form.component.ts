@@ -27,6 +27,8 @@ export class BlockActionFormComponent implements OnInit {
 
   actionId: number;
 
+  edit = false;
+
   constructor(
     private route: ActivatedRoute,
     private blockService: BlockService,
@@ -42,6 +44,8 @@ export class BlockActionFormComponent implements OnInit {
       this.form = null;
 
       const blockId = Number(params.blockId);
+
+      this.edit = this.router.url.indexOf('/edit') > -1;
 
       if (params.actionId) {
         this.actionId = Number(params.actionId);
@@ -63,7 +67,9 @@ export class BlockActionFormComponent implements OnInit {
     this.validateDate();
 
     if (this.form.valid) {
-      const action = this.form.value as BlockActionModel;
+      const action = this.form.getRawValue() as BlockActionModel;
+
+      console.log(action);
       // action.id = this.action.id;
       action.blockId = this.block.id;
 
@@ -163,7 +169,11 @@ export class BlockActionFormComponent implements OnInit {
   }
 
   update(action: BlockActionModel): void {
-
+    action.id = this.actionId;
+    
+    this.actionService.update(action).subscribe(() => {
+      this.back();
+    });
   }
 
   create(action: BlockActionModel): void {
@@ -176,10 +186,12 @@ export class BlockActionFormComponent implements OnInit {
     this.actionService.getSingle(actionId).subscribe(res => {
       this.action = res;
 
-      this.action.id = null;
+      if (!this.edit) {
+        this.action.id = null;
+      }
 
       this.buildForm();
-    },(error) => {
+    }, (error) => {
       this.toastrNotificationService.showError('Nepodařilo se načíst akci');
     });
   }
@@ -206,20 +218,21 @@ export class BlockActionFormComponent implements OnInit {
 
   buildForm(): void {
     this.form = this.formBuilder.group({
-      name: [this.action.name, [Validators.required]],
+      name: [{ value: this.action.name, disabled: this.edit }, [Validators.required]],
       location: [this.action.location, []],
       description: [this.action.description, []],
       // startEndDate: [this.action.id ? [this.action.startDate, this.action.endDate] : [], [Validators.required]],
-      startDate: [this.action.startDate, [Validators.required]],
-      endDate: [this.action.endDate, [Validators.required]],
-      attendanceAllowStartDate: [this.action.attendanceAllowStartDate, []],
-      attendanceAllowEndDate: [this.action.attendanceAllowEndDate, []],
-      attendanceSignOffEndDate: [this.action.attendanceSignOffEndDate, [Validators.required]],
+      startDate: [{ value: this.action.startDate, disabled: this.edit }, [Validators.required]],
+      endDate: [{ value: this.action.endDate, disabled: this.edit }, [Validators.required]],
+      attendanceAllowStartDate: [{ value: this.action.attendanceAllowStartDate, disabled: this.edit }, []],
+      attendanceAllowEndDate: [{ value: this.action.attendanceAllowEndDate, disabled: this.edit }, []],
+      attendanceSignOffEndDate: [{ value: this.action.attendanceSignOffEndDate, disabled: this.edit }, [Validators.required]],
       visible: [this.action.visible, [Validators.required]],
       blockActionRestriction: this.formBuilder.group({
-        allowExternalUsers: [this.action.blockActionRestriction.allowExternalUsers, Validators.required],
-        allowOnlyStudentsOnWhiteList: [this.action.blockActionRestriction.allowOnlyStudentsOnWhiteList, Validators.required],
-        maxCapacity: [this.action.blockActionRestriction.maxCapacity, Validators.required],
+        allowExternalUsers: [{ value: this.action.blockActionRestriction.allowExternalUsers, disabled: this.edit }, Validators.required],
+        allowOnlyStudentsOnWhiteList: [{ value: this.action.blockActionRestriction.allowOnlyStudentsOnWhiteList, disabled: this.edit },
+        Validators.required],
+        maxCapacity: [{ value: this.action.blockActionRestriction.maxCapacity, disabled: this.edit }, Validators.required],
       })
     });
   }

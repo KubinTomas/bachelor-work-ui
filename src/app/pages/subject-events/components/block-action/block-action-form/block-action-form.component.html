@@ -34,7 +34,7 @@
                 <nz-form-item>
                     <nz-form-label>Jméno</nz-form-label>
                     <nz-form-control nzErrorTip="Prosím vyplňte jméno.">
-                        <input nz-input formControlName="name" placeholder="zadejte jméno" />
+                        <input nz-input formControlName="name" placeholder="zadejte jméno"/>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
@@ -98,7 +98,8 @@
                     <nz-form-control [nzErrorTip]="errorTpl">
                         <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm" formControlName="startDate"
                             [nzShowTime]="{ nzFormat: 'HH:mm' }" nzPlaceHolder="začátek akce"
-                            (nzOnOpenChange)="handleStartOpenChange($event)" (ngModelChange) = "onStartDateChange($event)">
+                            (nzOnOpenChange)="handleStartOpenChange($event)"
+                            (ngModelChange)="onStartDateChange($event)">
                         </nz-date-picker>
                         -
                         <nz-date-picker #endDatePicker nzShowTime formControlName="endDate" nzFormat="yyyy-MM-dd HH:mm"

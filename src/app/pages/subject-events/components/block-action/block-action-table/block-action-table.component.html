@@ -31,10 +31,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)" 
-            [class.action-deleted]="data.isDeleted"
-            nz-tooltip [nzTooltipTitle]="data.isDeleted? 'Akce je smazaná': ''"
-            >
+            <tr *ngFor="let data of basicTable.data" (click)="onRowClick(data)" [class.action-deleted]="data.isDeleted"
+                nz-tooltip [nzTooltipTitle]="data.isDeleted? 'Akce je smazaná': ''">
                 <td>{{ data.name }}</td>
                 <td>{{ data.startDate | date: 'd.M.yyyy HH:mm' }} - {{ data.endDate | date: 'd.M.yyyy HH:mm'}}</td>
                 <td>
@@ -98,6 +96,12 @@
                             <app-delete-icon></app-delete-icon>
                         </span>
                     </ng-container>
+                    <span>
+                        <nz-divider nzType="vertical"></nz-divider>
+                    </span>
+                    <span (click)="$event.stopPropagation();" [routerLink]="'/admin/action/edit/' + blockId + '/' + data.id">
+                        <app-edit-icon></app-edit-icon>
+                    </span>
                 </td>
             </tr>
         </tbody>
