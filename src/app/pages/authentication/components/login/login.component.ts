@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
       if (error.error && error.error === 'error-confirm-account') {
         this.errorMsg = 'Přihlášení selhalo, uživatelské konto není potrvrzené. (Sekce s registrací - Odeslat ověřovací email)';
       }
-     
+
       this.loginFailed = true;
       this.processingForm = false;
     });
@@ -77,7 +77,14 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.buildForm();
+
+    this.authenticationService.isAuthorize().subscribe(res => {
+      this.router.navigateByUrl('/');
+      this.toastrNotificationService.showWarning("Již jste přihlášen", "Pokud se chcete znovu přihlásit, nejprve se prosím odhlaste.");
+    }, (error) => {
+      this.buildForm();
+    });
+
   }
 
   buildForm(): void {

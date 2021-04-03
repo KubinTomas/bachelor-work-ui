@@ -20,6 +20,10 @@ export class StagAuthenticationService {
     return stagLoginUrl + this.stagSuccessRedirectToUrl;
   }
 
+  public get stagFullUrlEncoded(): string {
+    return stagLoginUrl + encodeURIComponent(this.stagSuccessRedirectToUrl);
+  }
+
   public get stagSuccessRedirectToUrl(): string {
     return stagSuccessRedirectToUrl;
   }
@@ -27,7 +31,7 @@ export class StagAuthenticationService {
   constructor(private cookieService: CookieService) { }
 
   redirectToStagAuthorization(): void {
-    window.location.href = this.stagFullUrl;
+    window.location.href = this.stagFullUrlEncoded;
   }
 
   isAnonymous(loginParams: StagLoginQueryParamsModel): boolean {

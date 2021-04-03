@@ -42,13 +42,15 @@ export class LoginStagValidationComponent implements OnInit {
   handleLoginParams(loginParams: StagLoginQueryParamsModel): void {
     const isAnonymous = this.authenticationService.stagAuthentication.isAnonymous(loginParams);
 
+    console.log(loginParams);
+
     if (isAnonymous) {
       this.notificationToastrService.loginStagNoAnonymousUsers();
       this.router.navigateByUrl('/login');
     } else {
 
       this.authenticationService.saveCredentials(loginParams.stagUserTicket);
-      
+
       this.authenticationService.login(new LoginModel()).subscribe(loginResponse => {
         // , loginParams.stagUserTicket
 
