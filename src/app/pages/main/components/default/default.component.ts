@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { NgxPermissionsService } from 'ngx-permissions';
@@ -11,6 +11,7 @@ import { NotificationToastrService } from 'src/app/core/services/notification/no
 import { AuthActions } from 'src/app/pages/authentication/store/auth-action-types';
 import { user } from 'src/app/pages/authentication/store/auth.selectors';
 import { AppState } from 'src/app/store/app.reducer';
+import { DeleteAccountComponent } from '../delete-account/delete-account.component';
 
 @Component({
   selector: 'app-default',
@@ -18,6 +19,8 @@ import { AppState } from 'src/app/store/app.reducer';
   styleUrls: ['./default.component.scss']
 })
 export class DefaultComponent implements OnInit, OnDestroy {
+
+  @ViewChild(DeleteAccountComponent) deleteAccountComponent: DeleteAccountComponent;
 
   user: UserModel;
 
@@ -41,7 +44,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
     this.subs.add(this.store.select(user).subscribe(userInStore => {
       this.user = userInStore;
 
-
+      console.log(this.user);
       if (this.user) {
         const roles = [this.user.activeStagUserInfo.role];
 
@@ -71,5 +74,9 @@ export class DefaultComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl('');
       this.store.dispatch(AuthActions.saveUser({ user }));
     });
+  }
+
+  onDeleteAccount(): void {
+    this.deleteAccountComponent.open();
   }
 }

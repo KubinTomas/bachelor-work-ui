@@ -124,6 +124,14 @@
                         {{action.usersInQueueCount}}
                     </td>
                 </tr>
+                <tr>
+                    <td class="td-icon"> <i class="fas fa-users"></i></td>
+                    <td>Odkaz na přihlášení:</td>
+                    <td>
+                        <a [href]="joinActionUrl" target="_blank">{{joinActionUrl}}</a>
+                    </td>
+                </tr>
+
             </table>
         </div>
 
@@ -144,3 +152,24 @@
 <div class="abs-center-page" *ngIf="!loaded">
     <app-page-loader></app-page-loader>
 </div>
+
+<nz-modal [(nzVisible)]="actionJoinQueue" nzTitle="Plná kapacita - přihlášení do fronty"
+    (nzOnCancel)="joinActionQueueCancelModel()" *ngIf="actionJoinQueue">
+    <div *nzModalContent>
+        <p>Akce <strong>{{actionJoinQueue.name}}</strong> má již plnou kapacitu.</p>
+        <p>Chcete se přihlásit do fronty?</p>
+        <span style="font-style: italic;">
+            <p>Pokud se uvolní místo na akci a ve frontě budete první na řadě, systém Vás automaticky přesune do akce
+                jako
+                účastníka. (jako kdybyste se přihlásil)</p>
+
+            <p>Přesun z fronty je možný maximálně do: <strong>{{actionJoinQueue.attendanceSignOffEndDate | date:
+                    'd.M.yyyy HH:mm'}}</strong></p>
+        </span>
+
+    </div>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="joinActionQueueCancelModel()">Zrušit</button>
+        <button nz-button nzType="primary" (click)="joinActionQueue(actionJoinQueue.id)">Přihlásit se do fronty</button>
+    </div>
+</nz-modal>

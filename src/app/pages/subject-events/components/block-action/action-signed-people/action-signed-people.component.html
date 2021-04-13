@@ -95,6 +95,9 @@
                         </ng-container>
                     </td>
                     <td>
+                            {{ data.dateIn | date: 'd.M.yyyy HH:mm'}}
+                    </td>
+                    <td>
                         <span>
                             <button nz-button nzType="default" nzDanger nz-popconfirm
                                 nzPopconfirmTitle="Opravdu chcete uživatele vyhodit? Proces je nevratný."

@@ -1,0 +1,13 @@
+<nz-modal [(nzVisible)]="visible" nzTitle="Smazání účtu" (nzOnCancel)="close()">
+    <div *nzModalContent>
+        <strong>Smazání účtu je nevratný proces, dojde ke smazání všech dat a proces nelze zvrátit. Opravdu chete smazat
+            účet?</strong>
+
+        <input nz-input [(ngModel)]="password" placeholder="potvrďte akci heslem" style="margin-top: 15px;"
+            type="password" autocomplete="new-password"/>
+    </div>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="close()">Zrušit</button>
+        <button nz-button nzType="primary" (click)="deleteAccount()" [nzLoading]="processing">Smazat účet</button>
+    </div>
+</nz-modal>

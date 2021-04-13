@@ -45,7 +45,7 @@ export class ActionQueueSignedPeopleComponent implements OnInit {
       title: 'Pořadí',
       compare: (a: ActionPersonModel, b: ActionPersonModel) => a.queueOrder - b.queueOrder,
       priority: 5,
-      width: "80"
+      width: "200"
     },
     {
       title: 'Akce',

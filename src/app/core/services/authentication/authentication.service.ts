@@ -148,5 +148,11 @@ export class AuthenticationService {
     return this.httpClient.get<any>(apiUrl + '/authentication/account/password-recover', { headers });
   }
 
+  deleteAccount(password: string): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('password', password);
+
+    return this.httpClient.get<any>(apiUrl + '/authentication/account/delete', { headers });
+  }
 
 }

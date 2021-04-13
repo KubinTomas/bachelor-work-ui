@@ -10,11 +10,13 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { StudentGuard } from 'src/app/core/guards/student.guard';
 import { WelcomePageComponent } from './components/welcome-page/welcome-page.component';
 import { AdminGuard } from 'src/app/core/guards/admin.guard';
+import { DeleteAccountComponent } from './components/delete-account/delete-account.component';
+import { FormsModule } from '@angular/forms';
 
 
 
 @NgModule({
-  declarations: [DefaultComponent, WelcomePageComponent],
+  declarations: [DefaultComponent, WelcomePageComponent, DeleteAccountComponent],
   imports: [
     CommonModule,
     NgZorroModule,
@@ -22,7 +24,8 @@ import { AdminGuard } from 'src/app/core/guards/admin.guard';
     MainRoutingModule,
     SubjectEventsModule,
     StudentModule,
-    NgxPermissionsModule.forRoot()
+    NgxPermissionsModule.forRoot(),
+    FormsModule
 
   ],
   providers: [StudentGuard, AdminGuard]

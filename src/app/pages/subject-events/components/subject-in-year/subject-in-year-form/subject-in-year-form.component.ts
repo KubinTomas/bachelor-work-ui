@@ -9,6 +9,7 @@ import { StagAktualniObdobiInfoModel } from 'src/app/core/models/stag-api-kalend
 import { SubjectInYearModel } from 'src/app/core/models/subject/subject-in-year.model';
 import { SubjectModel } from 'src/app/core/models/subject/subject.model';
 import { StagKalendarService } from 'src/app/core/services/kalendar/stag-kalendar-service';
+import { NotificationToastrService } from 'src/app/core/services/notification/notification-toastr.service';
 import { SubjectInYearService } from 'src/app/core/services/subject/subject-in-year.service';
 import { SubjectService } from 'src/app/core/services/subject/subject.service';
 import { UtilsYearService } from 'src/app/core/services/utils/year.service';
@@ -53,7 +54,8 @@ export class SubjectInYearFormComponent implements OnInit {
     private subjectInYearService: SubjectInYearService,
     private stagKalendarService: StagKalendarService,
     private route: ActivatedRoute,
-    private yearService: UtilsYearService
+    private yearService: UtilsYearService,
+    private toastrNotificationService: NotificationToastrService
   ) {
   }
 
@@ -125,6 +127,13 @@ export class SubjectInYearFormComponent implements OnInit {
 
     this.subjectInYearService.create(subjectInYear).subscribe(() => {
       this.back();
+    }, (error) => {
+      if (error.error && error.error === 'yearForThisSubjectExists') {
+        console.log(error);
+        console.log(error);
+        this.formSubmitting = false;
+        this.toastrNotificationService.showError('Duplicitní rok', 'Tento rok již existuje');
+      }
     });
   }
 

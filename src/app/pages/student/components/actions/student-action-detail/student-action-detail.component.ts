@@ -4,6 +4,7 @@ import { StudentBlockActionModel } from 'src/app/core/models/student/student-blo
 import { NotificationToastrService } from 'src/app/core/services/notification/notification-toastr.service';
 import { StudentActionService } from 'src/app/core/services/student/student-action.service';
 import { errorActionIsFull, errorActionIsNotFull, ActionBlockRequirementsCompleted, ActionWaitingForAttendanceEvaluation } from 'src/app/core/models/constants';
+import { joinActionUrl } from 'src/app/core/models/url.model';
 
 @Component({
   selector: 'app-student-action-detail',
@@ -20,6 +21,7 @@ export class StudentActionDetailComponent implements OnInit {
 
   loaded = false;
 
+  joinActionUrl = '';
   constructor(
     private route: ActivatedRoute,
     private studentActionService: StudentActionService,
@@ -33,6 +35,8 @@ export class StudentActionDetailComponent implements OnInit {
       const actionId = params.actionId;
 
       if (actionId != null) {
+        this.joinActionUrl = joinActionUrl + '/' + actionId;
+
         this.getAction(actionId);
       }
 

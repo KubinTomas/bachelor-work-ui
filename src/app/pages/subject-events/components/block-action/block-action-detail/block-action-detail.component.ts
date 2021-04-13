@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StudentModel } from 'src/app/core/models/persons/student.model';
 import { BlockActionModel } from 'src/app/core/models/subject/block-action.model';
+import { joinActionUrl } from 'src/app/core/models/url.model';
 import { NotificationToastrService } from 'src/app/core/services/notification/notification-toastr.service';
 import { ActionService } from 'src/app/core/services/subject/action.service';
 import { ActionSignedPeopleComponent } from '../action-signed-people/action-signed-people.component';
@@ -21,6 +22,7 @@ export class BlockActionDetailComponent {
   actionJoinQueue: BlockActionModel;
 
   loaded = false;
+  joinActionUrl = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -36,6 +38,8 @@ export class BlockActionDetailComponent {
       const actionId = params.actionId;
 
       if (actionId != null) {
+        this.joinActionUrl = joinActionUrl + '/' + actionId;
+
         this.getAction(actionId);
       }
 

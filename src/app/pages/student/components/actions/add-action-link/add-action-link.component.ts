@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { errorActionIsFull, errorActionIsNotFull } from 'src/app/core/models/constants';
 import { StudentBlockActionModel } from 'src/app/core/models/student/student-block-action.model';
+import { joinActionUrl } from 'src/app/core/models/url.model';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { NotificationToastrService } from 'src/app/core/services/notification/notification-toastr.service';
 import { StudentActionService } from 'src/app/core/services/student/student-action.service';
@@ -38,10 +39,11 @@ export class AddActionLinkComponent implements OnInit {
 
       const actionId = params.actionId;
 
+
       if (actionId) {
-        console.log("asd");
+    
+
         this.authenticationService.isAuthorize().subscribe(res => {
-          console.log("asd");
           this.isLoggedIn = true;
           this.checkIfIsStudent(actionId);
         }, (error) => {
@@ -104,7 +106,7 @@ export class AddActionLinkComponent implements OnInit {
     }, (error) => {
       if (error.error === errorActionIsFull) {
         this.actionJoinQueue = action;
-      } 
+      }
     });
   }
 

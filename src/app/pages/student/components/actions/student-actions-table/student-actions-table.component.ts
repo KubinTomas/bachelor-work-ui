@@ -187,6 +187,7 @@ export class StudentActionsTableComponent implements OnInit {
     }
     const filter = this.filterText.replace(/ /g, '').toLowerCase();
 
-    this.actions = this.actions.filter(c => c.name.replace(/ /g, '').toLowerCase().indexOf(filter) > -1);
+    this.actions = this.actions.filter(c => c.name.replace(/ /g, '').toLowerCase().indexOf(filter) > -1
+      || c.subjectName.replace(/ /g, '').toLowerCase().indexOf(filter) > -1);
   }
 }

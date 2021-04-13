@@ -70,6 +70,12 @@ export class ActionSignedPeopleComponent implements OnInit {
       priority: 6,
     },
     {
+      title: 'Datum zápisu',
+      compare: (a: ActionPersonModel, b: ActionPersonModel) => new Date(a.dateIn).getTime() - new Date(b.dateIn).getTime(),
+      priority: 7,
+      width: "200"
+    },
+    {
       title: 'Akce',
       width: "150"
     },

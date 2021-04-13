@@ -1,5 +1,6 @@
 export const Unauthorized: number = 401;
 
+
 export const tinyMceApiKey = 'usy8qg1cm5g1d8snndr0xkd77rhbwezuv1pkh6bbcijypbma';
 
 export const roleStudent: string[] = ['ST'];
