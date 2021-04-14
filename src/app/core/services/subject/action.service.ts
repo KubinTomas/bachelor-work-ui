@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ChangeActionAttendanceResult } from '../../models/others/change-action-attendance-result.model';
@@ -68,6 +68,42 @@ export class ActionService {
 
   changeAttendanceClick(actionId: number, attendance: number): Observable<ChangeActionAttendanceResult> {
     return this.httpClient.get<ChangeActionAttendanceResult>(apiUrl + '/teacher/action/attendance/set-all/' + actionId + '/' + attendance);
+  }
+
+
+  downloadActionAttendanceExcel(actionId: number): Observable<any> {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+
+    return this.httpClient.get(apiUrl + '/teacher/action/attendance/excel/' + actionId, { headers, responseType: 'blob' });
+  }
+
+  downloadActionAttendanceExcelViaUrl(actionId: number): void {
+    const link = document.createElement('a');
+    link.href = apiUrl + '/teacher/action/attendance/excel/' + actionId;
+
+    const ev = document.createEvent('MouseEvents');
+    ev.initMouseEvent(
+      'click',
+      true,
+      false,
+      self,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      false,
+      false,
+      false,
+      0,
+      null
+    );
+
+    // Fire event
+    link.dispatchEvent(ev);
+    // link.click();
   }
 
 }

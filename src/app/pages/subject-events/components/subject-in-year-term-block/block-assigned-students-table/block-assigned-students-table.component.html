@@ -8,7 +8,7 @@
                 <div class="search">
                     <nz-input-group nzSearch [nzPrefix]="prefixIconSearch">
                         <input type="text" nz-input placeholder="Vyhledat..." #searchInput
-                        (input)="onSearchChange(searchInput.value)" />
+                            (input)="onSearchChange(searchInput.value)" />
                     </nz-input-group>
                     <ng-template #prefixIconSearch>
                         <i nz-icon nzType="search"></i>
@@ -16,7 +16,8 @@
                 </div>
             </div>
             <div class="ac-btn-1">
-
+                <button nz-button nzType="primary" style="margin-right: 10px;" (click)="onDownloadExcel()"><i nz-icon
+                        nzType="file-excel" nzTheme="outline"></i>Stáhnout excel</button>
             </div>
 
         </div>
@@ -24,7 +25,8 @@
     <nz-table #basicTable [nzData]="students" [nzLoading]="dataLoading">
         <thead>
             <tr>
-                <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority" [style.width.px] = "column.width">
+                <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority"
+                    [style.width.px]="column.width">
                     {{
                     column.title }}</th>
             </tr>

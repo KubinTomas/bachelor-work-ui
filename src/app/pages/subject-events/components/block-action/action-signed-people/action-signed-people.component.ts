@@ -209,4 +209,8 @@ export class ActionSignedPeopleComponent implements OnInit {
       this.isLoading = false;
     });
   }
+
+  onDownloadExcel(): void {
+    this.actionService.downloadActionAttendanceExcelViaUrl(this.action.id);
+  }
 }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { StudentBlockModel } from 'src/app/core/models/student/student-block.model';
+import { BlockService } from 'src/app/core/services/subject/block.service';
 
 @Component({
   selector: 'app-block-assigned-students-table',
@@ -8,6 +9,7 @@ import { StudentBlockModel } from 'src/app/core/models/student/student-block.mod
 })
 export class BlockAssignedStudentsTableComponent implements OnInit {
 
+  @Input() blockId: number;
   @Input() dataLoading: boolean;
   @Input() students: StudentBlockModel[];
 
@@ -67,7 +69,7 @@ export class BlockAssignedStudentsTableComponent implements OnInit {
 
 
 
-  constructor() { }
+  constructor(private blockService: BlockService) { }
 
   ngOnInit(): void {
   }
@@ -91,5 +93,9 @@ export class BlockAssignedStudentsTableComponent implements OnInit {
       || (value == 'splnil' && c.attendanceFulfillCount >= c.blockAttendanceCount)
       || (value == 'nesplnil' && c.attendanceFulfillCount < c.blockAttendanceCount)
     );
+  }
+
+  onDownloadExcel(): void {
+    this.blockService.downloadBlockStudentsExcelViaUrl(this.blockId);
   }
 }

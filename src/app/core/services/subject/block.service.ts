@@ -44,4 +44,32 @@ export class BlockService {
   saveWhitelist(saveModel: BlockWhitelistSaveModel): Observable<any> {
     return this.httpClient.post<any>(apiUrl + '/teacher/block/whitelist/save', saveModel);
   }
+
+  downloadBlockStudentsExcelViaUrl(blockId: number): void {
+    const link = document.createElement('a');
+    link.href = apiUrl + '/teacher/block/students/excel/' + blockId;
+
+    const ev = document.createEvent('MouseEvents');
+    ev.initMouseEvent(
+      'click',
+      true,
+      false,
+      self,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      false,
+      false,
+      false,
+      0,
+      null
+    );
+
+    // Fire event
+    link.dispatchEvent(ev);
+    // link.click();
+  }
 }
